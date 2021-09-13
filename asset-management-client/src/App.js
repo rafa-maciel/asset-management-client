@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { React, useEffect, useState } from 'react';
+import AuthToken from './adapters/AuthToken/index.js';
+import HomePage from './pages/home/HomePage/HomePage.jsx';
+import AuthenticationPage from './pages/security/AuthenticationPage/AuthenticationPage.jsx';
 
 function App() {
+  const [authenticated, setAuthenticated] = useState(false)
+
+  useEffect(() => {
+    const authToken = new AuthToken()
+    if (!authenticated && authToken.hasValidToken())
+      setAuthenticated(true)
+    
+    if (authenticated && !authToken.hasValidToken())
+      setAuthenticated(false)
+  }, [authenticated])
+
+  const CurrentPage = () => {
+    if (authenticated)
+      return <HomePage />
+    else
+      return <AuthenticationPage onSuccessAuthenticated={() => setAuthenticated(true)}/>
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CurrentPage />
   );
 }
 
