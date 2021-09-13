@@ -1,5 +1,5 @@
 import React from 'react'
-import AuthenticationForm from '../../../components/authenticationComponents/AuthenticationForm/AuthenticationForm.jsx'
+import AuthenticationForm from '../../../../components/authentication/AuthenticationForm/AuthenticationForm.jsx'
 
 export default function AuthenticationPage( { onSuccessAuthenticated } ) {
 

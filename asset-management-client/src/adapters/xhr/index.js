@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import AuthToken from '../AuthToken'
+import AuthToken from '../authToken'
 
 function getAxiosInstance() {
     const tokenAuth = new AuthToken()

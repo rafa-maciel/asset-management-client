@@ -16,8 +16,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import AuthToken from '../../../adapters/AuthToken';
 import { Button } from '@material-ui/core';
+import AuthToken from '../../../../adapters/authToken';
 
 const drawerWidth = 240;
 

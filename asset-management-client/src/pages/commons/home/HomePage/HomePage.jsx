@@ -1,7 +1,7 @@
 import React from 'react'
-import ResponsiveDrawer from '../../themes/MainLayout/ResponsiveDrawer'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import UserAccountPage from '../../UserAccountPage/UserAccountPage';
+import { UserAccountList } from '../../../userAccounts';
+import ResponsiveDrawer from '../../themes/MainLayout/ResponsiveDrawer';
 
 export default function HomePage() {
     return (
@@ -34,7 +34,7 @@ export default function HomePage() {
                                 {/* <ModelDashboard /> */}
                             </Route>
                             <Route path="/userAccounts">
-                                <UserAccountPage />
+                                <UserAccountList />
                             </Route>
                         </Switch>
                     </ResponsiveDrawer>

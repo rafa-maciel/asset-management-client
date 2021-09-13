@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogContent, DialogTitle, MenuItem, Select, TextField } from '@material-ui/core'
 import React, { useState } from 'react'
 
-export default function UserAccountSearchModalForm({ onFormSubmit, showModal, onCloseModal }) {
+export default function UserAccountSearchForm({ onFormSubmit, showModal, onCloseModal }) {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [profile, setProfile] = useState("")

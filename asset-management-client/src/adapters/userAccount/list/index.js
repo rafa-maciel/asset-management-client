@@ -1,5 +1,6 @@
-import SearchContent from "../../contexts/components/SearchContent";
-import { search } from "../xhr";
+import SearchContent from "../../../contexts/components/SearchContent";
+import { search } from "../../xhr";
+
 
 export function searchUserAccounts(params) {
     return search("/accounts/search", params)

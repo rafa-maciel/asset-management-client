@@ -1,7 +1,7 @@
 import { Button, Container, TextField, Typography } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import React, { useState } from 'react'
-import { authenticate } from '../../../adapters/authenticationAdapter'
+import { authenticate } from '../../../adapters/authentication'
 
 export default function AuthenticationForm({ onSuccessfullyAuthenticated }) {
     const [email, setEmail] = useState("")

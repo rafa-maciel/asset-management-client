@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
-import AuthToken from './adapters/AuthToken/index.js';
-import HomePage from './pages/home/HomePage/HomePage.jsx';
-import AuthenticationPage from './pages/security/AuthenticationPage/AuthenticationPage.jsx';
+import AuthToken from './adapters/authToken/index.js';
+import HomePage from './pages/commons/home/HomePage/HomePage.jsx';
+import AuthenticationPage from './pages/commons/security/AuthenticationPage/AuthenticationPage.jsx';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false)
