@@ -1,12 +1,14 @@
 import { Button, Typography } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import React, { useEffect, useState } from 'react'
-import { searchUserAccounts } from '../../../adapters/userAccount/list'
+import { Link, useLocation } from 'react-router-dom'
+import { searchUserAccounts } from '../../../adapters/userAccount'
 import { UserAccountSearchForm as SearchForm, UserAccountTable } from '../../../components/userAccounts/list'
 
 export default function UserAccountListPage() {
     // Message
     const [pageMessage, setPageMessage] = useState(null)
+    const location = useLocation()
 
     // Filter Form
     const [showSearchModal, setShowSearchModal] = useState(false)
@@ -18,6 +20,10 @@ export default function UserAccountListPage() {
     const [currentPage, setCurrentPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(20)
 
+    useEffect(() => {
+        if (location && location.state && location.state.message)
+            setPageMessage(location.state.message)
+    }, [ location ])
 
 
     useEffect(() => {
@@ -28,8 +34,6 @@ export default function UserAccountListPage() {
             .then(result => {
                 setUserAccountList(result.content)
                 setPageable(result.page)
-
-                addPageMessage('success', 'Pesquisa Realizada', '')
             }).catch(error => {
                 console.log(error)
                 addPageMessage('error', 'Não foi possivel filtrar tabela', 'Falha ao pesquisar contas')
@@ -37,6 +41,8 @@ export default function UserAccountListPage() {
     }, [ searchParams, rowsPerPage, currentPage ])
 
     const handleSearchParamsChange = params => {
+        addPageMessage('success', 'Filtro de Pesquisa Ativado', 'Você está vendo uma pesquisa filtrada')
+
         setShowSearchModal(false)
         setCurrentPage(0)
         setSearchParams(params)
@@ -54,9 +60,24 @@ export default function UserAccountListPage() {
 
     return (
         <>
-            <Typography variant="h3" component="h1">Contas de Usuários do Sistema</Typography>
-            <Button onClick={() => {setShowSearchModal(true)}}>Filtro de Pesquisa</Button>
-            
+            <Typography 
+                variant="h3" 
+                component="h1">
+                    Contas de Usuários do Sistema
+            </Typography>
+
+            <Button 
+                onClick={() => {setShowSearchModal(true)}}>
+                    Filtro de Pesquisa
+            </Button>
+
+            <Link 
+                to={{
+                    pathname: '/accounts/create',
+                }}>
+                    Criar Nova Conta
+            </Link>
+
             { pageMessage ? 
                 <Alert severity={ pageMessage.type }>
                     <AlertTitle>{ pageMessage.title }</AlertTitle>

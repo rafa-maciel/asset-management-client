@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import { UserAccountList } from '../../../userAccounts';
+import { UserAccountCreate, UserAccountList } from '../../../userAccounts';
 import ResponsiveDrawer from '../../themes/MainLayout/ResponsiveDrawer';
 
 export default function HomePage() {
@@ -33,7 +33,10 @@ export default function HomePage() {
                             <Route path="/app/models">
                                 {/* <ModelDashboard /> */}
                             </Route>
-                            <Route path="/userAccounts">
+                            <Route path="/accounts/create">
+                                <UserAccountCreate />
+                            </Route>
+                            <Route path="/accounts">
                                 <UserAccountList />
                             </Route>
                         </Switch>

@@ -31,7 +31,7 @@ export default function UserAccountTable({ data: accounts, onPageChange, onRowsP
 }
 
 function UserAccountTableHeader() {
-    const headers = ['Nome', 'Email', 'Status', 'Ações']
+    const headers = ['Nome', 'Email', 'Status', 'Perfil', 'Ações']
     return (
         <TableHead>
             <TableRow>
@@ -47,6 +47,7 @@ function UATableRow({ userAccount }) {
             <TableCell>{ userAccount.name }</TableCell>
             <TableCell>{ userAccount.email }</TableCell>
             <TableCell>{ userAccount.enabled ? 'Ativo' : 'Inativo' }</TableCell>
+            <TableCell>{ userAccount.profile }</TableCell>
             <TableCell></TableCell>
         </TableRow>
     )

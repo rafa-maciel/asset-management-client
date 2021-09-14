@@ -111,7 +111,7 @@ function ResponsiveDrawer(props) {
 
       { authUser && authUser.hasAdminAccess() ? 
         <List>
-          <Link to="/userAccounts">
+          <Link to="/accounts">
             <ListItem button>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
                 <ListItemText primary="User Accounts" />
