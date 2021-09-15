@@ -1,3 +1,3 @@
-import UserAccountForm from './UserAccountForm.jsx'
+import UserAccountCreateForm from './UserAccountCreateForm.jsx'
 
-export { UserAccountForm }
+export { UserAccountCreateForm }

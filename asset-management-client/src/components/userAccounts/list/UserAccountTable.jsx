@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow } from '@material-ui/core'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function UserAccountTable({ data: accounts, onPageChange, onRowsPerPageChange, pageableData: pageable }) {
     return (
@@ -48,7 +49,16 @@ function UATableRow({ userAccount }) {
             <TableCell>{ userAccount.email }</TableCell>
             <TableCell>{ userAccount.enabled ? 'Ativo' : 'Inativo' }</TableCell>
             <TableCell>{ userAccount.profile }</TableCell>
-            <TableCell></TableCell>
+            <TableCell>
+            <Link 
+                to={{
+                    pathname: '/accounts/update',
+                    state: { 'accountId': userAccount.id }
+                }}>
+                    Editar
+            </Link>
+
+            </TableCell>
         </TableRow>
     )
 }

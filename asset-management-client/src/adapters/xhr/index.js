@@ -32,6 +32,11 @@ export function post(url, requestData) {
     return axios.post(url, requestData)
 }
 
+export function put(url, requestData) {
+    const axios = getAxiosInstance()
+    return axios.put(url, requestData)
+}
+
 export function storeTokenData(data) {
     new AuthToken().build(data.token, data.timeExpiration, data.type)
 }
