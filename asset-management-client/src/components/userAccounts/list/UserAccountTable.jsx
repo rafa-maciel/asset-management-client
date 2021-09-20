@@ -1,11 +1,13 @@
-import { Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow } from '@material-ui/core'
+import { Button, Grid, Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow } from '@material-ui/core'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 export default function UserAccountTable({ data: accounts, onPageChange, onRowsPerPageChange, pageableData: pageable }) {
     return (
         <>            
-            <Table size="small" aria-label="User Account Table" className="user-account-table">
+            <Table aria-label="User Account Table" className="user-account-table">
                 <UserAccountTableHeader />
 
                 <TableBody>
@@ -50,14 +52,36 @@ function UATableRow({ userAccount }) {
             <TableCell>{ userAccount.enabled ? 'Ativo' : 'Inativo' }</TableCell>
             <TableCell>{ userAccount.profile }</TableCell>
             <TableCell>
-            <Link 
-                to={{
-                    pathname: '/accounts/update',
-                    state: { 'accountId': userAccount.id }
-                }}>
-                    Editar
-            </Link>
-
+                <Grid container justifyContent="flex-end" spacing={3} >
+                    <Grid item>
+                        <Button
+                            component={ Link }
+                            size="small"
+                            to={{
+                                pathname: '/accounts/update',
+                                state: { 'accountId': userAccount.id }
+                            }}
+                            variant="contained"
+                            color="primary"
+                            startIcon={ <EditIcon /> }>
+                            Editar
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                            <Button
+                            component={ Link }
+                            size="small"
+                            to={{
+                                pathname: '/accounts/delete',
+                                state: { 'accountId': userAccount.id }
+                            }}
+                            variant="contained"
+                            color="secondary"
+                            startIcon={ <DeleteIcon /> }>
+                            Deletar
+                        </Button>
+                    </Grid>
+                </Grid>
             </TableCell>
         </TableRow>
     )

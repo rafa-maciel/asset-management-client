@@ -1,13 +1,14 @@
-import { Button, Typography } from '@material-ui/core'
-import { Alert, AlertTitle } from '@material-ui/lab'
+import { Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { searchUserAccounts } from '../../../adapters/userAccount'
-import { UserAccountSearchForm as SearchForm, UserAccountTable } from '../../../components/userAccounts/list'
+import SnackBarMessage from '../../../components/commons/nav/SnackBarMessage'
+import { UserAccountNav, UserAccountSearchForm as SearchForm, UserAccountTable } from '../../../components/userAccounts/list'
 
 export default function UserAccountListPage() {
     // Message
-    const [pageMessage, setPageMessage] = useState(null)
+    const [pageMessage, setPageMessage] = useState({ type: '', title: '', message: ''})
+    const [showMessage, setShowMessage] = useState(false)
     const location = useLocation()
 
     // Filter Form
@@ -21,8 +22,10 @@ export default function UserAccountListPage() {
     const [rowsPerPage, setRowsPerPage] = useState(20)
 
     useEffect(() => {
-        if (location && location.state && location.state.message)
-            setPageMessage(location.state.message)
+        if (location && location.state && location.state.message) {
+            var msg = location.state.message
+            addPageMessage(msg.type, msg.title, msg.message)
+        }
     }, [ location ])
 
 
@@ -54,6 +57,7 @@ export default function UserAccountListPage() {
     }
 
     const addPageMessage = (type, title, message) => {
+        setShowMessage(true)
         setPageMessage({ type, title, message})
     }
 
@@ -66,24 +70,7 @@ export default function UserAccountListPage() {
                     Contas de Usuários do Sistema
             </Typography>
 
-            <Button 
-                onClick={() => {setShowSearchModal(true)}}>
-                    Filtro de Pesquisa
-            </Button>
-
-            <Link 
-                to={{
-                    pathname: '/accounts/create',
-                }}>
-                    Criar Nova Conta
-            </Link>
-
-            { pageMessage ? 
-                <Alert severity={ pageMessage.type }>
-                    <AlertTitle>{ pageMessage.title }</AlertTitle>
-                    <strong>{pageMessage.message}</strong>
-                </Alert>
-            : null}
+            <UserAccountNav onShowFilterClick={ () => setShowSearchModal(true)} />
 
             <SearchForm 
                 showModal={ showSearchModal }
@@ -96,6 +83,13 @@ export default function UserAccountListPage() {
                 onPageChange={pageNumber => { setCurrentPage(pageNumber) }} 
                 onRowsPerPageChange={rowsSize => { handleRowsPerPageChange(rowsSize) }}
                 pageableData={ pageable }/>
+
+            <SnackBarMessage 
+                show={ showMessage }
+                type={ pageMessage ? pageMessage.type : 'info' }
+                title={ pageMessage ? pageMessage.title : 'No Message' }
+                message={ pageMessage ? pageMessage.message : 'No Message' }
+                onClose={() => setShowMessage(false)} />
         </>
     )
 }

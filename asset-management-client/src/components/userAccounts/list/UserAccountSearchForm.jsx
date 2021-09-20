@@ -1,5 +1,7 @@
-import { Button, Dialog, DialogContent, DialogTitle, MenuItem, Select, TextField } from '@material-ui/core'
+import { Button, Dialog, DialogContent, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
 import React, { useState } from 'react'
+import SearchIcon from '@material-ui/icons/Search';
+import LayersClearIcon from '@material-ui/icons/LayersClear';
 
 export default function UserAccountSearchForm({ onFormSubmit, showModal, onCloseModal }) {
     const [name, setName] = useState("")
@@ -34,41 +36,80 @@ export default function UserAccountSearchForm({ onFormSubmit, showModal, onClose
                 <DialogTitle>Filtrar pesquisa de Contas de Clients</DialogTitle>
                 <DialogContent>
                     <form onSubmit={handleFormSubmit}>
-                        <TextField 
-                            label="E-mail" 
-                            fullWidth
-                            value={ email }
-                            onChange={ e => { setEmail(e.target.value) }}/>
+                        <Grid container spacing={3}>
+                            <Grid item md={6}>
+                                <TextField 
+                                    label="E-mail" 
+                                    fullWidth
+                                    value={ email }
+                                    onChange={ e => { setEmail(e.target.value) }}/>
+                            </Grid>
 
-                        <TextField 
-                            label="Nome" 
-                            fullWidth
-                            defaultValue={ name }
-                            onChange={e => { setName(e.target.value) }}/>
+                            <Grid item md={6}>
+                                <TextField 
+                                    label="Nome" 
+                                    fullWidth
+                                    defaultValue={ name }
+                                    onChange={e => { setName(e.target.value) }}/>
+                            </Grid>
 
-                        <Select
-                            fullWidth
-                            label="Perfil"
-                            value={ profile }
-                            onChange={ e => { setProfile( e.target.value )}}>
+                            <Grid item md={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="perfil-label">Perfis</InputLabel>
+                                    <Select
+                                        fullWidth
+                                        labelId="perfil-label"
+                                        value={ profile }
+                                        onChange={ e => { setProfile( e.target.value )}}>
+                                            
+                                            <MenuItem value="">Todos</MenuItem>
+                                            { profileOptions.map((val, index) => <MenuItem key={index} value={val}>{ val }</MenuItem>) }
+                                    </Select>
+                                </FormControl>
                                 
-                                <MenuItem value="">--</MenuItem>
-                                { profileOptions.map((val, index) => <MenuItem key={index} value={val}>{ val }</MenuItem>) }
-                        </Select>
+                            </Grid>
 
-                        <Select
-                            fullWidth
-                            label="Status"
-                            value={ enabled }
-                            onChange={ e => { setEnabled( e.target.value )}}>
+                            <Grid item md={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="status-label">Status</InputLabel>
+                                    <Select
+                                        fullWidth
+                                        value={ enabled }
+                                        labelId="status-label"
+                                        onChange={ e => { setEnabled( e.target.value )}}>
+                                            
+                                            <MenuItem value="">Todos</MenuItem>
+                                            <MenuItem value={false}>Inativos</MenuItem>
+                                            <MenuItem value={true}>Ativos</MenuItem>
+                                    </Select>
+                                </FormControl>
                                 
-                                <MenuItem value="">--</MenuItem>
-                                <MenuItem value={false}>Inativos</MenuItem>
-                                <MenuItem value={true}>Ativos</MenuItem>
-                        </Select>
-
-                        <Button type="submit">Filtrar Pesquisa</Button>
-                        <Button type="button" onClick={() => { clear() }}>Limpar Campos</Button>
+                            </Grid>
+                        </Grid>
+                        
+                        <Grid container spacing={4} alignContent="center">
+                            <Grid item xs={6} md={6} alignItems="center">
+                                <Button 
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={ <SearchIcon /> }>
+                                        Filtrar Pesquisa
+                                </Button>
+                            </Grid>
+                            <Grid item xs={6} md={6} alignContent="center">
+                                <Button
+                                    type="button" 
+                                    fullWidth
+                                    variant="contained"
+                                    color="secondary"
+                                    startIcon={ <LayersClearIcon /> }
+                                    onClick={() => { clear() }}>
+                                        Limpar Campos
+                                </Button>    
+                            </Grid>
+                        </Grid>
                     </form>
                 </DialogContent>
                 

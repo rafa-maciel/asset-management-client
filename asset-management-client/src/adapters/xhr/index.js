@@ -37,8 +37,16 @@ export function put(url, requestData) {
     return axios.put(url, requestData)
 }
 
+export function doDelete(url) {
+    const axios = getAxiosInstance()
+    return axios.delete(url)
+}
+
+
 export function storeTokenData(data) {
     new AuthToken().build(data.token, data.timeExpiration, data.type)
 }
+
+
 
 

@@ -1,5 +1,5 @@
 import SearchContent from "../../contexts/components/SearchContent"
-import { get, post, put, search } from "../xhr"
+import { doDelete, get, post, put, search } from "../xhr"
 
 export function searchUserAccounts(params) {
     return search("/accounts/search", params)
@@ -46,4 +46,17 @@ export function findUserAccount(id) {
             console.log(resp)
             throw new Error('API endpoint error')
         })
+}
+
+export function deleteUserAccount(id) {
+    var url = "/accounts/" + id
+    return doDelete(url)
+        .then(resp => {
+            if (resp.status === 200) {
+                return true
+            }
+            console.log(resp)
+            throw new Error('API endpoint error')
+        })
+
 }

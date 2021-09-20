@@ -1,5 +1,6 @@
-import { Button, FormControlLabel, MenuItem, Select, Switch, TextField } from '@material-ui/core'
+import { Button, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch, TextField } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
+import SaveIcon from '@material-ui/icons/Save';
 
 export default function UserAccountUpdateForm({ initialData:accountData, onFormSubmit }) {
     const [name, setName] = useState('')
@@ -35,39 +36,61 @@ export default function UserAccountUpdateForm({ initialData:accountData, onFormS
     return (
         <>
             <form onSubmit={ handleFormSubmit }>
-                <TextField
-                    label="Nome"
-                    value={ name }
-                    onChange={ e => setName(e.target.value) }
-                    required
-                    fullWidth />
-                
-                <TextField
-                    label="E-mail"
-                    type="email"
-                    value={ email }
-                    onChange={ e => setEmail(e.target.value) }
-                    required
-                    fullWidth />
-                
-                <FormControlLabel
-                    label='Ativo'
-                    control={
-                        <Switch
-                            checked={ enabled }
-                            onChange={ e => setEnabled(e.target.checked)} />} />
-                
-                <Select
-                    label="Perfil"
-                    value={ profile }
-                    required
-                    onChange={ e => setProfile(e.target.value) }
-                    fullWidth>
-                    
-                    { profileChoices.map( choice => <MenuItem value={ choice }>{choice}</MenuItem>)}
-                </Select>
+                <Grid container justifyContent="flex-end" spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            label="Nome"
+                            value={ name }
+                            onChange={ e => setName(e.target.value) }
+                            required
+                            fullWidth />
+                    </Grid>
 
-                <Button type="submit">Atualizar</Button>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            label="E-mail"
+                            type="email"
+                            value={ email }
+                            onChange={ e => setEmail(e.target.value) }
+                            required
+                            fullWidth />
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                        <FormControlLabel
+                            label='Ativo'
+                            control={
+                                <Switch
+                                    checked={ enabled }
+                                    onChange={ e => setEnabled(e.target.checked)} />} />
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                        <FormControl fullWidth>
+                            <InputLabel id="perfil-label">Perfil</InputLabel>
+                            <Select
+                                labelId="perfil-label"
+                                value={ profile }
+                                required
+                                onChange={ e => setProfile(e.target.value) }
+                                fullWidth>
+                                
+                                { profileChoices.map( choice => <MenuItem value={ choice }>{choice}</MenuItem>)}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item>
+                        <Button type="submit"
+                            fullWidth
+                            size="medium"
+                            variant="contained"
+                            color="primary"
+                            startIcon={ <SaveIcon /> }>
+                                Atualizar
+                        </Button>
+                    </Grid>
+                </Grid>
             </form>
         </>
     )
