@@ -48,6 +48,18 @@ export function findUserAccount(id) {
         })
 }
 
+export function resetUserAccount(id, newPassword) {
+    var url = "/accounts/" + id + "/reset"
+    return put(url, {newPassword})
+        .then(resp => {
+            if (resp.status === 200) {
+                return resp.data
+            }
+            console.log(resp)
+            throw new Error('API endpoint error')
+        })
+}
+
 export function deleteUserAccount(id) {
     var url = "/accounts/" + id
     return doDelete(url)

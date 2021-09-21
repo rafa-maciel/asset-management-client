@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 export default function UserAccountTable({ data: accounts, onPageChange, onRowsPerPageChange, pageableData: pageable }) {
     return (
@@ -65,6 +66,20 @@ function UATableRow({ userAccount }) {
                             color="primary"
                             startIcon={ <EditIcon /> }>
                             Editar
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            component={ Link }
+                            size="small"
+                            to={{
+                                pathname: '/accounts/reset',
+                                state: { 'accountId': userAccount.id }
+                            }}
+                            variant="contained"
+                            color="primary"
+                            startIcon={ <LockOpenIcon /> }>
+                            Resetar
                         </Button>
                     </Grid>
                     <Grid item>
