@@ -9,7 +9,7 @@ export default function UserAccountListPage() {
     // Message
     const [pageMessage, setPageMessage] = useState({ type: '', title: '', message: ''})
     const [showMessage, setShowMessage] = useState(false)
-    const location = useLocation()
+    const location = useLocation()    
 
     // Filter Form
     const [showSearchModal, setShowSearchModal] = useState(false)

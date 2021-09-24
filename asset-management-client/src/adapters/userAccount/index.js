@@ -1,4 +1,4 @@
-import SearchContent from "../../contexts/components/SearchContent"
+import SearchContent from "../../contexts/components/utils/SearchContent"
 import { doDelete, get, post, put, search } from "../xhr"
 
 export function searchUserAccounts(params) {

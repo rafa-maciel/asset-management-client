@@ -13,3 +13,20 @@ export default function SnackBarMessage({ show, type, title, message, onClose })
         </Snackbar>
     )
 }
+
+function SnackbarPageMessage({ show, message, onClose }) {
+
+    return (
+        <Snackbar open={show} autoHideDuration={6000} onClose={ onClose }>
+            <Alert severity={ message && message.type ? message.type : 'info' }>
+                <AlertTitle>{ message && message.title ? message.title : 'No Title' }</AlertTitle>
+                <strong>{ message && message.message ? message.message : 'No Message' }</strong>
+            </Alert>
+        </Snackbar>
+    )
+}
+
+
+
+
+export { SnackbarPageMessage }
