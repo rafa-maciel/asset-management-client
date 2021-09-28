@@ -88,10 +88,10 @@ function ResponsiveDrawer(props) {
                 <ListItemText primary="Create Asset" />
             </ListItem>
           </Link>
-          <Link to="/app/users">
+          <Link to="/users">
             <ListItem button>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
-                <ListItemText primary="Users Dashboard" />
+                <ListItemText primary="Users" />
             </ListItem>
           </Link>
           <Link to="/app/locations">
