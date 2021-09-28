@@ -6,7 +6,6 @@ function useFormFieldValid(invalidCheck, onValidChange) {
     useEffect(() => onValidChange(invalidField), [ invalidField, onValidChange ])
 
     const validate = value => {
-        console.log('validating value ' + value)
         if (invalidCheck(value)) {
             setInvalidField(true)
         } else {
@@ -19,6 +18,7 @@ function useFormFieldValid(invalidCheck, onValidChange) {
 
 function useFormInvalidCheck() {
     const [formInvalidFields, setFormInvalidFields] = useState(null)
+    const [invalidForm, setInvalidForm] = useState(false)
 
     const checkInvalidField = (invalidFieldCheck, fieldName) => {
         var fields = formInvalidFields ? formInvalidFields : {}
@@ -27,14 +27,15 @@ function useFormInvalidCheck() {
         } else {
             delete fields[fieldName]
         }
+        checkInvalidFields(fields)
         setFormInvalidFields(fields)
     }
 
-    const hasInvalidFields = () => {
-        return Object.entries(formInvalidFields).length > 0
+    const checkInvalidFields = fields => {
+        setInvalidForm(fields && Object.entries(fields).length > 0)
     }
 
-    return [checkInvalidField, hasInvalidFields]
+    return [checkInvalidField, invalidForm]
 }
 
 export { useFormFieldValid, useFormInvalidCheck }

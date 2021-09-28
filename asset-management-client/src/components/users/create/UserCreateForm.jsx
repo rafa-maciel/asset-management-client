@@ -10,13 +10,13 @@ export default function UserCreateForm({ onSuccessfulyCreate }) {
     const [department, setDepartment] = useState('')
     const [status, setStatus] = useState('ACTIVE')
 
-    const [ checkInvalidField, hasInvalidFields ] = useFormInvalidCheck()
+    const [ checkInvalidField, invalidForm ] = useFormInvalidCheck()
 
     const [createUser] = useUserCreate(name, re, department, status);
 
     const handleFormSubmit = e => {
         e.preventDefault();
-        if (!hasInvalidFields)
+        if (!invalidForm)
             createUser( onSuccessfulyCreate )
     }
 
@@ -54,7 +54,7 @@ export default function UserCreateForm({ onSuccessfulyCreate }) {
                         <Button type="submit"
                             fullWidth
                             size="medium"
-                            disabled={ hasInvalidFields }
+                            disabled={ invalidForm }
                             variant="contained"
                             color="primary"
                             startIcon={ <SaveIcon /> }>
