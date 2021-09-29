@@ -77,13 +77,13 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
           <Link to="/app">
-            <ListItem button>
+            <ListItem button disabled={true}>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
                 <ListItemText primary="Asset List" />
             </ListItem>
           </Link>
-          <Link to="/app/assets/add">
-            <ListItem button>
+          <Link to="/app/assets/add" >
+            <ListItem button disabled={true}>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
                 <ListItemText primary="Create Asset" />
             </ListItem>
@@ -91,17 +91,17 @@ function ResponsiveDrawer(props) {
           <Link to="/users">
             <ListItem button>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
-                <ListItemText primary="Users" />
+                <ListItemText primary="Usuários" />
             </ListItem>
           </Link>
           <Link to="/app/locations">
-            <ListItem button>
+            <ListItem button disabled={true}>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
                 <ListItemText primary="Locations Dashboard" />
             </ListItem>
           </Link>
-          <Link to="/app/models">
-            <ListItem button>
+          <Link to="/app/models" disabled={true}>
+            <ListItem button disabled={true}>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
                 <ListItemText primary="Models Dashboard" />
             </ListItem>
@@ -114,7 +114,7 @@ function ResponsiveDrawer(props) {
           <Link to="/accounts">
             <ListItem button>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
-                <ListItemText primary="User Accounts" />
+                <ListItemText primary="Contas de Acesso" />
             </ListItem>
           </Link>
         </List>
