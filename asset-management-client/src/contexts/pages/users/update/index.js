@@ -20,7 +20,6 @@ function useUserUpdatePage() {
             'title': 'Usuário Atualizado!',
             'message': 'O usuário [ ' + user.name  + ' ] foi atualizado com sucesso'
         }
-
         history.push({
             pathname: '/users',
             state: { message }

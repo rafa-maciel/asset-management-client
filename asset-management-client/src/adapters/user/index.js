@@ -60,3 +60,15 @@ export function deleteUser(userId) {
             throw new Error('API endpoint error')
         })
 }
+
+export function importUsers(users) {
+    var url = "/users/import"
+    return post(url, users)
+        .then(resp => {
+            if (resp.status === 200) {
+                return resp.data
+            } 
+            console.log(resp)
+            throw new Error('API endpoint error')
+        })
+}

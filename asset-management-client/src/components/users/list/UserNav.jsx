@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import SearchIcon from '@material-ui/icons/Search';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
 
 export default function UserNav({ onShowFilterClick }) {
 
@@ -30,7 +31,20 @@ export default function UserNav({ onShowFilterClick }) {
                         variant="contained"
                         color="primary"
                         startIcon={ <AddCircleIcon /> }>
-                        Criar Conta de Acesso
+                        Criar Novo Usuário
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button
+                        component={ Link }
+                        size="medium"
+                        to={{
+                            pathname: '/users/import'
+                        }}
+                        variant="contained"
+                        color="primary"
+                        startIcon={ <ImportExportIcon /> }>
+                        Importar Usuários do Excel
                     </Button>
                 </Grid>
             </Grid>
