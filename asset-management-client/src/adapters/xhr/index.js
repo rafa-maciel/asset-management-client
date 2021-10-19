@@ -25,6 +25,13 @@ export function get(url) {
 export function search(url, params) {
     const axios = getAxiosInstance()
     return axios.get(url, { params } )
+        .then(resp => {
+            if (resp.status === 200) {
+                return resp.data
+            } 
+            console.log(resp)
+            throw new Error('API endpoint error')
+        })
 }
 
 export function post(url, requestData) {

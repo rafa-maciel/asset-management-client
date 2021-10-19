@@ -3,13 +3,6 @@ import { doDelete, get, post, put, search } from "../xhr"
 
 export function searchUserAccounts(params) {
     return search("/accounts/search", params)
-        .then(resp => {
-            if (resp.status === 200) {
-                return resp.data
-            } 
-            console.log(resp)
-            throw new Error('API endpoint error')
-        })
         .then(data => new SearchContent(data))
 }
 
