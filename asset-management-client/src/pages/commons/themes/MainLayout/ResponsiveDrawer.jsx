@@ -100,10 +100,10 @@ function ResponsiveDrawer(props) {
                 <ListItemText primary="Locations Dashboard" />
             </ListItem>
           </Link>
-          <Link to="/app/models" disabled={true}>
-            <ListItem button disabled={true}>
+          <Link to="/models">
+            <ListItem button>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
-                <ListItemText primary="Models Dashboard" />
+                <ListItemText primary="Modelos de Ativos" />
             </ListItem>
           </Link>
       </List>
