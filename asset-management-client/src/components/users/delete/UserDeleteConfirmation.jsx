@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useUserFormDeleteConfirmation } from '../../../contexts/components/users/delete';
 
 export default function UserDeleteConfirmation({ user, onDelete }) {
-    const [userDelete] = useUserFormDeleteConfirmation( user ? user.id : 0, onDelete)
+    const [userDelete] = useUserFormDeleteConfirmation()
 
     const handleFormSubmit = e => {
         e.preventDefault()
