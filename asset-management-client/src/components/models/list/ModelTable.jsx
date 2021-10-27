@@ -17,7 +17,7 @@ export default function ModelTable({ showFilter, onCloseFilter, onError }) {
 
     return (
         <>
-            <Table aria-label="Users Table" className="user-table">
+            <Table aria-label="Models Table" className="models-table">
                 <ModelTableHeader />
 
                 <TableBody>
