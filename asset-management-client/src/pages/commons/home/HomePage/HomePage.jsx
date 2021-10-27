@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import { LocationCreate, LocationList } from '../../../locations';
+import { LocationCreate, LocationList, LocationUpdate } from '../../../locations';
 import { ModelCreate, ModelDelete, ModelList, ModelUpdate } from '../../../models';
 import { UserAccountCreate, UserAccountDelete, UserAccountList, UserAccountReset, UserAccountUpdate } from '../../../userAccounts';
 import { UserCreate, UserDelete, UserImport, UserList, UserUpdate } from '../../../users';
@@ -77,6 +77,9 @@ export default function HomePage() {
                             </Route>
                             <Route path="/models">
                                 <ModelList />
+                            </Route>
+                            <Route path="/locations/update">
+                                <LocationUpdate />
                             </Route>
                             <Route path="/locations/create">
                                 <LocationCreate />

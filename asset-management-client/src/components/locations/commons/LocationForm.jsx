@@ -27,7 +27,7 @@ export default function LocationForm({ onValidFormSubmit, title, onChangeTitle, 
                     <Grid item xs={12} sm={6}>
                         <LocationNotesField 
                             onValidChange={ v => checkInvalidField(v, 'notes') }
-                            brand={ notes }
+                            notes={ notes }
                             onChange={ onChangeNotes } />
 
                     </Grid>
