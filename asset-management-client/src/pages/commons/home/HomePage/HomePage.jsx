@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { AssetList } from '../../../assets';
 import { LocationCreate, LocationDelete, LocationList, LocationUpdate } from '../../../locations';
 import { ModelCreate, ModelDelete, ModelList, ModelUpdate } from '../../../models';
 import { UserAccountCreate, UserAccountDelete, UserAccountList, UserAccountReset, UserAccountUpdate } from '../../../userAccounts';
@@ -89,6 +90,9 @@ export default function HomePage() {
                             </Route>
                             <Route path="/locations">
                                 <LocationList />
+                            </Route>
+                            <Route path="/assets">
+                                <AssetList />
                             </Route>
                         </Switch>
                     </ResponsiveDrawer>

@@ -76,16 +76,10 @@ function ResponsiveDrawer(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-          <Link to="/app">
-            <ListItem button disabled={true}>
+          <Link to="/assets">
+            <ListItem button>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
-                <ListItemText primary="Asset List" />
-            </ListItem>
-          </Link>
-          <Link to="/app/assets/add" >
-            <ListItem button disabled={true}>
-                <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
-                <ListItemText primary="Create Asset" />
+                <ListItemText primary="Ativos" />
             </ListItem>
           </Link>
           <Link to="/users">
