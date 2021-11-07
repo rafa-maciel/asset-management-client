@@ -30,7 +30,7 @@ export default function AssetNav({ onShowFilterClick }) {
                         variant="contained"
                         color="primary"
                         startIcon={ <AddCircleIcon /> }>
-                        Criar Novo Asset
+                        Criar Novo Ativo
                     </Button>
                 </Grid>
             </Grid>
