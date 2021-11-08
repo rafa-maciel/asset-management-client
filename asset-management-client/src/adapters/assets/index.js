@@ -1,5 +1,5 @@
 import SearchContent from "../../contexts/components/utils/SearchContent";
-import { get, post, put, search } from "../xhr";
+import { doDelete, get, post, put, search } from "../xhr";
 
 
 export function searchAssets( params ) {
@@ -36,6 +36,18 @@ export function updateAsset( id, asset ) {
         .then(resp => {
             if (resp.status === 200) {
                 return resp.data
+            }
+            console.log(resp)
+            throw new Error('API endpoint error')
+        })
+}
+
+export function deleteAsset(assetId) {
+    var url = "/assets/" + assetId
+    return doDelete(url)
+        .then(resp => {
+            if (resp.status === 200) {
+                return true
             }
             console.log(resp)
             throw new Error('API endpoint error')
