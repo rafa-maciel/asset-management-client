@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import SearchIcon from '@material-ui/icons/Search';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
 
 export default function AssetNav({ onShowFilterClick }) {
     return (
@@ -31,6 +32,20 @@ export default function AssetNav({ onShowFilterClick }) {
                         color="primary"
                         startIcon={ <AddCircleIcon /> }>
                         Criar Novo Ativo
+                    </Button>
+                </Grid>
+
+                <Grid item>
+                    <Button
+                        component={ Link }
+                        size="medium"
+                        to={{
+                            pathname: '/assets/import'
+                        }}
+                        variant="contained"
+                        color="primary"
+                        startIcon={ <ImportExportIcon /> }>
+                        Importar Assets do Excel
                     </Button>
                 </Grid>
             </Grid>
