@@ -3,13 +3,20 @@ import React, { useEffect, useState } from 'react'
 import SearchIcon from '@material-ui/icons/Search';
 import { LocationFilterDialog, ModelFilterDialog, OwnerFilterDialog } from './FilterDialog';
 import { useValidCompanyIdentification } from '../../../contexts/components/assets/commons';
+import { findUser } from '../../../adapters/user';
+import { findLocation } from '../../../adapters/locations';
+import { findModel } from '../../../adapters/models';
 
 function AssetOwnerField({ ownerId, onChange }) {
     const [owner, setOwner] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
     
     useEffect(() => {
-        if (owner && owner.id !== ownerId) {
+        if( ownerId && (!owner || owner.id !== ownerId)) {
+            findUser(ownerId)
+                .then(user => setOwner(user))
+        }
+       else if (owner && owner.id !== ownerId) {
             onChange(owner.id)
         }
     }, [ owner, ownerId, onChange ])
@@ -45,7 +52,11 @@ function AssetLocationField({ locationId, onChange }) {
     const [openSearch, setOpenSearch] = useState(false)
     
     useEffect(() => {
-        if (location && location.id !== locationId) {
+        if( locationId && (!location || location.id !== locationId)) {
+            findLocation(locationId)
+                .then(loc => setLocation(loc))
+        }
+        else if (location && location.id !== locationId) {
             onChange(location.id)
         }
     }, [ location, locationId, onChange ])
@@ -81,7 +92,11 @@ function AssetModelField({ modelId, onChange }) {
     const [openSearch, setOpenSearch] = useState(false)
     
     useEffect(() => {
-        if (model && model.id !== modelId) {
+        if( modelId && (!model || model.id !== modelId)) {
+            findModel(modelId)
+                .then(mod => setModel(mod))
+        }
+        else if (model && model.id !== modelId) {
             onChange(model.id)
         }
     }, [ model, modelId, onChange ])
