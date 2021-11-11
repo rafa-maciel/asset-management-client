@@ -46,11 +46,6 @@ export default function FileList({ files, onDelete, assetId }) {
                             <TableCell>{file.name}</TableCell>
                             <TableCell>{file.note}</TableCell>
                             <TableCell>
-                                <a href={file.uri} download="w3logo">
-                                    Baixar
-                                </a>
-                            </TableCell>
-                            <TableCell>
                                 <Button
                                     size="small"
                                     variant="contained"
