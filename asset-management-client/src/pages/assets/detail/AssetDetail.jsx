@@ -3,6 +3,7 @@ import { AppBar, Tab, Tabs, Typography } from '@material-ui/core'
 import { AssetInfo } from '../../../components/assets/detail'
 import { useAssetDetailPageContext } from '../../../contexts/pages/assets/detail'
 import { ContractDetail } from '../../contract'
+import { NoteDashboard } from '../../notes'
 
 
 export default function AssetDetail() {
@@ -17,7 +18,7 @@ export default function AssetDetail() {
                 return <Typography variant="h6">Arquivos</Typography>
     
             default:
-                return <Typography variant="h6">Comentários</Typography>;
+                return <NoteDashboard assetId={ asset ? asset.id : null } />
         }
     }
 
