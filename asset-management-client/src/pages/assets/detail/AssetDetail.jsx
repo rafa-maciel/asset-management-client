@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { AppBar, Tab, Tabs, Typography } from '@material-ui/core'
 import { AssetInfo } from '../../../components/assets/detail'
 import { useAssetDetailPageContext } from '../../../contexts/pages/assets/detail'
+import { ContractDetail } from '../../contract'
 
 
 export default function AssetDetail() {
@@ -10,7 +11,7 @@ export default function AssetDetail() {
     const Content = () => {
         switch (tabIndex) {        
             case 1:
-                return <Typography variant="h6">Contrato</Typography>
+                return <ContractDetail assetId={ asset.id } />
                             
             case 2:
                 return <Typography variant="h6">Arquivos</Typography>
