@@ -4,6 +4,7 @@ import { AssetInfo } from '../../../components/assets/detail'
 import { useAssetDetailPageContext } from '../../../contexts/pages/assets/detail'
 import { ContractDetail } from '../../contract'
 import { NoteDashboard } from '../../notes'
+import { FileDashboard } from '../../files'
 
 
 export default function AssetDetail() {
@@ -15,7 +16,7 @@ export default function AssetDetail() {
                 return <ContractDetail assetId={ asset.id } />
                             
             case 2:
-                return <Typography variant="h6">Arquivos</Typography>
+                return <FileDashboard assetId={ asset.id } />
     
             default:
                 return <NoteDashboard assetId={ asset ? asset.id : null } />

@@ -17,8 +17,47 @@ function getAxiosInstance() {
     return Axios.create(apiSettings)
 }
 
+function getAxiosInstanceBloob() {
+    const tokenAuth = new AuthToken()
+     
+    let apiSettings = {
+        baseURL: "http://localhost:8080",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        responseType: 'blob'
+    }
+
+    if (tokenAuth.hasValidToken()) 
+        apiSettings.headers['Authorization'] = tokenAuth.token
+
+    return Axios.create(apiSettings)
+}
+
+
+function getAxiosInstanceData() {
+    const tokenAuth = new AuthToken()
+     
+    let apiSettings = {
+        baseURL: "http://localhost:8080",
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    }
+
+    if (tokenAuth.hasValidToken()) 
+        apiSettings.headers['Authorization'] = tokenAuth.token
+
+    return Axios.create(apiSettings)
+}
+
 export function get(url) {
     const axios = getAxiosInstance()
+    return axios.get(url)
+}
+
+export function getBloob(url) {
+    const axios = getAxiosInstanceBloob()
     return axios.get(url)
 }
 
@@ -37,6 +76,12 @@ export function search(url, params) {
 export function post(url, requestData) {
     const axios = getAxiosInstance()
     return axios.post(url, requestData)
+}
+
+export function postFormData(url, requestData) {
+    const axios = getAxiosInstanceData()
+    return axios.post(url, requestData)
+
 }
 
 export function put(url, requestData) {
