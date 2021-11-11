@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import { AssetFilterForm } from '.';
 
 
@@ -78,6 +79,20 @@ function AssetTableRow({ asset }) {
 
             <TableCell>
                 <Grid container justifyContent="flex-end" spacing={3} >
+                <Grid item>
+                        <Button
+                            component={ Link }
+                            size="small"
+                            to={{
+                                pathname: '/assets/detail',
+                                state: { 'assetId': asset.id }
+                            }}
+                            variant="contained"
+                            color="primary"
+                            startIcon={ <ListAltIcon /> }>
+                            Ver Detalhes
+                        </Button>
+                    </Grid>
                     <Grid item>
                         <Button
                             component={ Link }
