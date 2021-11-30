@@ -1,13 +1,19 @@
 import Axios from 'axios'
-import AuthToken from '../authToken'
+import AuthToken from '../AuthToken'
 
 function getAxiosInstance() {
     const tokenAuth = new AuthToken()
-     
+    var baseURL = "http://localhost:8080"
+
+    if (process.env.NODE_ENV === 'production') {
+        baseURL = process.env.REACT_APP_API_ADDRESS
+    }
+
     let apiSettings = {
-        baseURL: "http://localhost:8080",
+        baseURL,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': true
         }
     }
 
