@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { AssetCreate, AssetDelete, AssetDetail, AssetImport, AssetList, AssetUpdate } from '../../../assets';
+import { ContractCreate, ContractDelete, ContractList, ContractUpdate } from '../../../contracts';
 import { LocationCreate, LocationDelete, LocationList, LocationUpdate } from '../../../locations';
 import { ModelCreate, ModelDelete, ModelList, ModelUpdate } from '../../../models';
 import { UserAccountCreate, UserAccountDelete, UserAccountList, UserAccountReset, UserAccountUpdate } from '../../../userAccounts';
@@ -108,6 +109,18 @@ export default function HomePage() {
                             </Route>
                             <Route path="/assets">
                                 <AssetList />
+                            </Route>
+                            <Route path="/contracts/delete">
+                                <ContractDelete />
+                            </Route>
+                            <Route path="/contracts/update">
+                                <ContractUpdate />
+                            </Route>
+                            <Route path="/contracts/create">
+                                <ContractCreate />
+                            </Route>
+                            <Route path="/contracts">
+                                <ContractList />
                             </Route>
                         </Switch>
                     </ResponsiveDrawer>

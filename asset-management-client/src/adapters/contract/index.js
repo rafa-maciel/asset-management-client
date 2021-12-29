@@ -1,8 +1,14 @@
-import { doDelete, get, post, put } from "../xhr"
+import SearchContent from "../../contexts/components/utils/SearchContent"
+import { doDelete, get, post, put, search } from "../xhr"
 
 
-export function createNewContract( assetId, contract ) {
-    var url = "/assets/" + assetId + "/contract"
+export function searchContracts( params ) {
+    return search("/contracts/search", params)
+        .then(data => new SearchContent(data))
+}
+
+export function createNewContract(contract) {
+    var url = "/contracts"
     return post(url, contract)
         .then(resp => {
             if (resp.status === 201) {
@@ -12,6 +18,19 @@ export function createNewContract( assetId, contract ) {
             throw new Error('API endpoint error')
         })
 }
+
+export function findContract( contractId ) {
+    var url = "/contracts/" + contractId
+    return get(url)
+        .then(resp => {
+            if (resp.status === 200) {
+                return resp.data
+            }
+            console.log(resp)
+            throw new Error('API endpoint error')
+        })
+}
+
 
 export function findContractByAsset( assetId ) {
     var url = "/assets/" + assetId + "/contract"
@@ -25,8 +44,8 @@ export function findContractByAsset( assetId ) {
         })
 }
 
-export function updateContract( assetId, contractId, contract ) {
-    var url = "/assets/" + assetId + "/contract/" + contractId
+export function updateContract(contractId, contract ) {
+    var url = "/contracts/" + contractId
     return put(url, contract)
         .then(resp => {
             if (resp.status === 200) {
@@ -37,8 +56,8 @@ export function updateContract( assetId, contractId, contract ) {
         })
 }
 
-export function deleteContract(assetId, contractId) {
-    var url = "/assets/" + assetId + "/contract/" + contractId
+export function deleteContract(contractId) {
+    var url = "/contracts/" + contractId
     return doDelete(url)
         .then(resp => {
             if (resp.status === 200) {

@@ -82,6 +82,12 @@ function ResponsiveDrawer(props) {
                 <ListItemText primary="Ativos" />
             </ListItem>
           </Link>
+          <Link to="/contracts">
+            <ListItem button>
+                <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
+                <ListItemText primary="Contratos" />
+            </ListItem>
+          </Link>
           <Link to="/users">
             <ListItem button>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
