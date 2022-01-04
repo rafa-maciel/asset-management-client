@@ -23,6 +23,7 @@ export function findAsset( assetId ) {
     return get(url)
         .then(resp => {
             if (resp.status === 200) {
+                console.log(resp.data)
                 return resp.data
             }
             console.log(resp)

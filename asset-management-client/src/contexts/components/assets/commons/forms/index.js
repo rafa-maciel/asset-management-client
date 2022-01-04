@@ -10,6 +10,13 @@ function useAssetFormContext(initialData) {
     const [status, setStatus] = useState('')
     const [chipIdentification, setChipIdentification] = useState('')
     const [lineIdentification, setLineIdentification] = useState('')
+
+    const [ contractId, setContractId ] = useState('')
+    const [ invoiceId, setInvoiceId ] = useState('')
+    const [ hostname, setHostname ] = useState('')
+    const [ serialNumber, setSerialNumber ] = useState('')
+    const [ tag, setTag] = useState('')
+
         
     const [ checkInvalidField, invalidForm ] = useFormInvalidCheck()
 
@@ -22,24 +29,34 @@ function useAssetFormContext(initialData) {
             setStatus(initialData.status)
             setChipIdentification(initialData.chipIdentification)
             setLineIdentification(initialData.lineIdentification)
+            setContractId(initialData.contract.id)
+            setInvoiceId(initialData.invoice.id)
+            setHostname(initialData.hostname)
+            setSerialNumber(initialData.serialNumber)
+            setTag(initialData.tag)
         }
     }, [ initialData ])
 
     const assetFields = () => {
         return [
-            <Fields.AssetOwnerField ownerId={ownerId} onChange={setOwnerId} />,
-            <Fields.AssetLocationField locationId={locationId} onChange={ setLocationId } />,
             <Fields.AssetModelField modelId={modelId} onChange={ setModelId } />,
             <Fields.AssetCompanyIdentificationField
                 companyIdentification={ companyIdentification }
                 onChange={ setCompanyIdentification }
                 onValidChange={ v => checkInvalidField(v, 'companyIdentification') } />,
+            <Fields.AssetLocationField locationId={locationId} onChange={ setLocationId } />,
+            <Fields.AssetHostnameField hostname={hostname} onChange={ setHostname } />,
+            <Fields.AssetContractField contractId={contractId} onChange={ setContractId } />,
+            <Fields.AssetSerialNumberField serialNumber={ serialNumber } onChange={ setSerialNumber } />,
+            <Fields.AssetInvoiceField invoiceId={ invoiceId } onChange={ setInvoiceId } />,
+            <Fields.AssetTagField tag={ tag } onChange={ setTag } />,
             <Fields.AssetStatusField
-                status={ status }
-                onChange={ setStatus } />,
+            status={ status }
+            onChange={ setStatus } />,
             <Fields.AssetChipIdentificationField 
                 chipIdentification={ chipIdentification }
                 onChange={ setChipIdentification } />,
+            <Fields.AssetOwnerField ownerId={ownerId} onChange={setOwnerId} />,
             <Fields.AssetLineIdentificationField 
                 lineIdentification={ lineIdentification }
                 onChange={ setLineIdentification } />
@@ -55,7 +72,12 @@ function useAssetFormContext(initialData) {
                 companyIdentification,
                 status,
                 chipIdentification,
-                lineIdentification
+                lineIdentification,
+                contractId,
+                invoiceId,
+                hostname,
+                serialNumber,
+                tag
             }
         }
         return null
@@ -64,4 +86,4 @@ function useAssetFormContext(initialData) {
     return [ assetFields, validData ] 
 }
 
-export { useAssetFormContext }
+export { useAssetFormContext }  

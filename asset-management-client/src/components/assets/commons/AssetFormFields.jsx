@@ -1,11 +1,13 @@
 import { FormControl, IconButton, InputBase, InputLabel, MenuItem, Paper, Select, TextField } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '@material-ui/icons/Search';
-import { LocationFilterDialog, ModelFilterDialog, OwnerFilterDialog } from './FilterDialog';
+import { ContractFilterDialog, InvoiceFilterDialog, LocationFilterDialog, ModelFilterDialog, OwnerFilterDialog } from './FilterDialog';
 import { useValidCompanyIdentification } from '../../../contexts/components/assets/commons';
 import { findUser } from '../../../adapters/user';
 import { findLocation } from '../../../adapters/locations';
 import { findModel } from '../../../adapters/models';
+import { findContract } from '../../../adapters/contract';
+import { findInvoice } from '../../../adapters/invoices';
 
 function AssetOwnerField({ ownerId, onChange }) {
     const [owner, setOwner] = useState('')
@@ -184,10 +186,120 @@ function AssetLineIdentificationField({ lineIdentification, onChange }) {
     )
 }
 
+function AssetHostnameField({ hostname, onChange }) {
+    return (
+        <TextField
+            label="Hostname"
+            value={ hostname }
+            onChange={ e => onChange(e.target.value) }
+            fullWidth />
+    )
+}
 
+function AssetSerialNumberField({ serialNumber, onChange }) {
+    return (
+        <TextField
+            label="Número de Série"
+            value={ serialNumber }
+            onChange={ e => onChange(e.target.value) }
+            fullWidth />
+    )
+}
+
+function AssetTagField({ tag, onChange }) {
+    return (
+        <TextField
+            label="TAG"
+            value={ tag }
+            onChange={ e => onChange(e.target.value) }
+            fullWidth />
+    )
+}
+
+function AssetContractField({ contractId, onChange }) {
+    const [contract, setContract] = useState('')
+    const [openSearch, setOpenSearch] = useState(false)
+    
+    useEffect(() => {
+        if( contractId && (!contract || contract.id !== contractId)) {
+            findContract(contractId)
+                .then(cont => setContract(cont))
+        }
+        else if (contract && contract.id !== contractId) {
+            onChange(contract.id)
+        }
+    }, [ contract, contractId, onChange ])
+
+    return (
+        <>
+            <Paper component="form">
+                <InputBase
+                    required
+                    value={ contract.number }
+                    readOnly={true}
+                    placeholder="Contrato"
+                    inputProps={{ 'aria-label': 'Contrato' }}
+                />
+                <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
+                    <SearchIcon />
+                </IconButton>
+            </Paper>
+
+            <ContractFilterDialog 
+                showDialog={ openSearch }
+                onCloseDialog={ () => setOpenSearch(false)}
+                onSelect={ selectedModel => {
+                    setContract(selectedModel)
+                    setOpenSearch(false)
+                }} />
+        </>
+    )
+}
+
+function AssetInvoiceField({ invoiceId, onChange }) {
+    const [invoice, setInvoice] = useState('')
+    const [openSearch, setOpenSearch] = useState(false)
+    
+    useEffect(() => {
+        if( invoiceId && (!invoice || invoice.id !== invoiceId)) {
+            findInvoice(invoiceId)
+                .then(cont => setInvoice(cont))
+        }
+        else if (invoice && invoice.id !== invoiceId) {
+            onChange(invoice.id)
+        }
+    }, [ invoice, invoiceId, onChange ])
+
+    return (
+        <>
+            <Paper component="form">
+                <InputBase
+                    required
+                    value={ invoice.number }
+                    readOnly={true}
+                    placeholder="Nota Fiscal"
+                    inputProps={{ 'aria-label': 'Nota Fiscal' }}
+                />
+                <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
+                    <SearchIcon />
+                </IconButton>
+            </Paper>
+
+            <InvoiceFilterDialog 
+                showDialog={ openSearch }
+                onCloseDialog={ () => setOpenSearch(false)}
+                onSelect={ selectedModel => {
+                    setInvoice(selectedModel)
+                    setOpenSearch(false)
+                }} />
+        </>
+    )
+}
 
 
 
 export { AssetOwnerField, AssetLocationField, 
     AssetModelField, AssetCompanyIdentificationField, AssetStatusField,
-    AssetChipIdentificationField, AssetLineIdentificationField }
+    AssetChipIdentificationField, AssetLineIdentificationField, 
+    AssetHostnameField, AssetSerialNumberField, AssetTagField,
+    AssetContractField, AssetInvoiceField }

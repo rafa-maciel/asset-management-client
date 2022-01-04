@@ -3,6 +3,8 @@ import { Dialog, DialogContent, DialogTitle, List, ListItem, ListItemText, TextF
 import { searchUsers } from '../../../adapters/user';
 import { searchLocations } from '../../../adapters/locations';
 import { searchModels } from '../../../adapters/models';
+import { searchContracts } from '../../../adapters/contract';
+import { searchInvoices } from '../../../adapters/invoices';
 
 function OwnerFilterDialog({ showDialog, onCloseDialog, onSelect }) {
     const [name, setName] = useState("")
@@ -121,4 +123,82 @@ function ModelFilterDialog({ showDialog, onCloseDialog, onSelect }) {
       );
 }
 
-export { OwnerFilterDialog, LocationFilterDialog, ModelFilterDialog }
+function ContractFilterDialog({ showDialog, onCloseDialog, onSelect }) {
+    const [number, setNumber] = useState("")
+    const [contracts, setContracts] = useState([])
+
+    const filter = () => {
+        if (number && number.length > 0)
+            searchContracts({number})
+                .then(resp => resp.content)
+                .then(data => {
+                    setContracts(data)
+                })
+    }
+
+    return (
+        <Dialog onClose={ onCloseDialog } open={ showDialog }>
+            <DialogTitle>Filtrar Contratos</DialogTitle>
+            <DialogContent>
+                <TextField
+                    label="Número"
+                    value={ number }
+                    onChange={ e => setNumber(e.target.value) }
+                    onKeyUp={ e => { if(e.key === "Enter") filter() }}
+                    />
+                
+                <Typography component="p">Resultado da Busca</Typography>
+                <List>
+                    {contracts.map((contract) => (
+                    <ListItem button onClick={() => onSelect(contract)} key={contract.id}>
+                        <ListItemText 
+                            primary={contract.number} 
+                            secondary={contract.vendor}/>
+                    </ListItem>
+                    ))}
+                </List>
+            </DialogContent>
+        </Dialog>
+      );
+}
+
+function InvoiceFilterDialog({ showDialog, onCloseDialog, onSelect }) {
+    const [number, setNumber] = useState("")
+    const [invoices, setInvoices] = useState([])
+
+    const filter = () => {
+        if (number && number.length > 0)
+            searchInvoices({number})
+                .then(resp => resp.content)
+                .then(data => {
+                    setInvoices(data)
+                })
+    }
+
+    return (
+        <Dialog onClose={ onCloseDialog } open={ showDialog }>
+            <DialogTitle>Filtrar Notas Fiscais</DialogTitle>
+            <DialogContent>
+                <TextField
+                    label="Número"
+                    value={ number }
+                    onChange={ e => setNumber(e.target.value) }
+                    onKeyUp={ e => { if(e.key === "Enter") filter() }}
+                    />
+                
+                <Typography component="p">Resultado da Busca</Typography>
+                <List>
+                    {invoices.map((invoice) => (
+                    <ListItem button onClick={() => onSelect(invoice)} key={invoice.id}>
+                        <ListItemText 
+                            primary={invoice.number} 
+                            secondary={invoice.vendor}/>
+                    </ListItem>
+                    ))}
+                </List>
+            </DialogContent>
+        </Dialog>
+      );
+}
+
+export { OwnerFilterDialog, LocationFilterDialog, ModelFilterDialog, ContractFilterDialog, InvoiceFilterDialog }
