@@ -14,7 +14,7 @@ function AssetOwnerField({ ownerId, onChange }) {
     const [openSearch, setOpenSearch] = useState(false)
     
     useEffect(() => {
-        if( ownerId && (!owner || owner.id !== ownerId)) {
+        if( ownerId && (!owner && owner.id !== ownerId)) {
             findUser(ownerId)
                 .then(user => setOwner(user))
         }
@@ -54,7 +54,7 @@ function AssetLocationField({ locationId, onChange }) {
     const [openSearch, setOpenSearch] = useState(false)
     
     useEffect(() => {
-        if( locationId && (!location || location.id !== locationId)) {
+        if( locationId && (!location && location.id !== locationId)) {
             findLocation(locationId)
                 .then(loc => setLocation(loc))
         }
@@ -94,7 +94,7 @@ function AssetModelField({ modelId, onChange }) {
     const [openSearch, setOpenSearch] = useState(false)
     
     useEffect(() => {
-        if( modelId && (!model || model.id !== modelId)) {
+        if( modelId && (!model && model.id !== modelId)) {
             findModel(modelId)
                 .then(mod => setModel(mod))
         }
@@ -221,7 +221,7 @@ function AssetContractField({ contractId, onChange }) {
     const [openSearch, setOpenSearch] = useState(false)
     
     useEffect(() => {
-        if( contractId && (!contract || contract.id !== contractId)) {
+        if( contractId && (!contract && contract.id !== contractId)) {
             findContract(contractId)
                 .then(cont => setContract(cont))
         }
@@ -261,7 +261,7 @@ function AssetInvoiceField({ invoiceId, onChange }) {
     const [openSearch, setOpenSearch] = useState(false)
     
     useEffect(() => {
-        if( invoiceId && (!invoice || invoice.id !== invoiceId)) {
+        if( invoiceId && (!invoice && invoice.id !== invoiceId)) {
             findInvoice(invoiceId)
                 .then(cont => setInvoice(cont))
         }
