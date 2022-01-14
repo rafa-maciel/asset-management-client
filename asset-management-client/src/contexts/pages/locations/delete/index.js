@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom"
 import { findLocation } from "../../../../adapters/locations"
 
 function useLocationDeletePageContext() {
-    const { state: { locationId }} = useLocation()
+    const { state: { id: locationId }} = useLocation()
     const [location, setLocation] = useState(null)
     const history = useHistory()
 

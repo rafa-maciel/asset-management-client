@@ -21,11 +21,11 @@ export default function LocationList() {
 
     return (
         <>
-            <Typography variant="h3" component="h1">
+            {/* <Typography variant="h3" component="h1">
                 Localizações de Ativos
             </Typography>
 
-            <LocationNav onShowFilterClick={() => { setShowTableFilter(true) }}/>
+            <LocationNav onShowFilterClick={() => { setShowTableFilter(true) }}/> */}
         
             <LocationTable 
                 showFilter={ showTableFilter }

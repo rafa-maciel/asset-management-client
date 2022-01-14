@@ -4,7 +4,7 @@ import { findLocation } from "../../../../adapters/locations";
 
 function useLocationUpdatePageContext() {
     const [ location, setLocation ] = useState(null)
-    const { state: {locationId} } = useLocation()
+    const { state: {id : locationId} } = useLocation()
     const history = useHistory()
 
     useEffect(() => {

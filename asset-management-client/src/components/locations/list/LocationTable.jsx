@@ -6,18 +6,41 @@ import { Link } from 'react-router-dom'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { LocationFilterForm } from '.';
+import TableSelection from '../../commons/tables/TableSelection';
+import { useState } from 'react';
 
-export default function LocationTable({ showFilter, onCloseFilter, onError }) {
-    const [ locations, page, changeFilterParams, changeRowsPerPage, changePage ] = useLocationTableContext(onError)
-
+export default function LocationTable({ onCloseFilter, onError }) {
+    const [ locations, changeFilterParams, pagination ] = useLocationTableContext(onError)
+    const [ showFilter, setShowFilter ] = useState(false)
+    
     const handleFilterForm = data => {
         changeFilterParams(data)
-        onCloseFilter()
+        setShowFilter(false)
+    }
+
+    const tableHeaders = [
+        { 'numeric': false, 'label' : 'Localização'},
+        { 'numeric': false, 'label' : 'Endereço '}
+    ]
+    
+    const actionPaths = {
+        delete: '/locations/delete', 
+        update: '/locations/update',
+        create: '/locations/create',
+        onFilterClick: e => setShowFilter(true)
     }
 
     return (
         <>
-            <Table aria-label="Locations Table" className="locations-table">
+            <TableSelection 
+                tableTitle="Localizações"
+                tableHeaders={ tableHeaders }
+                tableRows={ locations }
+                pagination={ pagination }
+                actionPaths={ actionPaths } >
+
+            </TableSelection>
+            {/* <Table aria-label="Locations Table" className="locations-table">
                 <LocationTableHeader />
 
                 <TableBody>
@@ -38,12 +61,12 @@ export default function LocationTable({ showFilter, onCloseFilter, onError }) {
                         </TableRow>
                     </TableFooter>
                 ) : null}
-            </Table>
+            </Table> */}
 
             <LocationFilterForm 
                 onFormSubmit={ handleFilterForm }
                 showFilter={ showFilter }
-                onCloseFilter={ onCloseFilter } />
+                onCloseFilter={ e => setShowFilter(false) } />
         </>
     )
 }

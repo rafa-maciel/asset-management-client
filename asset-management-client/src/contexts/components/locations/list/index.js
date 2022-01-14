@@ -34,7 +34,13 @@ function useLocationTableContext( onFilterError ) {
         setFilterParams(params)
     }
 
-    return [ locations, page, changeFilterParams, changeRowsPerPage, changePage ]
+    const pagination = {
+        page,
+        changePage,
+        changeRowsPerPage
+    }
+
+    return [ locations, changeFilterParams, pagination ]
 }
 
 export { useLocationTableContext }
