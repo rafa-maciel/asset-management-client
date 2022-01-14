@@ -7,7 +7,7 @@ function LocationTitleField({ title, onChange, onValidChange }) {
 
     return (
         <TextField
-            label="Titulo"
+            label="Localização"
             value={ title }
             onChange={ e => onChange(e.target.value) }
             error={ fieldInvalid }
@@ -23,7 +23,7 @@ function LocationNotesField({ notes, onChange, onValidChange }) {
 
     return (
         <TextField
-            label="Notas"
+            label="Endereço"
             value={ notes }
             onChange={ e => onChange(e.target.value) }
             error={ fieldInvalid }

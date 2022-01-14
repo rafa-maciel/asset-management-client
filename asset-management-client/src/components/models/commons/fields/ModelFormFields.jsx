@@ -7,7 +7,7 @@ function TitleField({ title, onChange, onValidChange }) {
 
     return (
         <TextField
-            label="Titulo"
+            label="Modelo"
             value={ title }
             onChange={ e => onChange(e.target.value) }
             error={ fieldInvalid }
