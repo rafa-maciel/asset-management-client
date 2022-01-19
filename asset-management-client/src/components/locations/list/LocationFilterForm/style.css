@@ -1,0 +1,21 @@
+.MuiPaper-root {
+    overflow: hidden !important;
+}
+
+.location-filter-form-dialog {
+    min-width: 400px;
+    min-height: 400px;
+    overflow: hidden !important;
+}
+
+.dialog-buttons {
+    bottom: 0;
+    position: absolute;
+    width: 100% !important;
+    padding: 10px !important;
+}
+
+.form-filter {
+    margin-top: 40px !important;
+
+}
