@@ -5,6 +5,8 @@ import { LocationNotesField, LocationTitleField } from './LocationFormFields';
 
 import SaveIcon from '@material-ui/icons/Save';
 
+import "./styles/locationFormStyle.css"
+
 export default function LocationForm({ onValidFormSubmit, title, onChangeTitle, notes, onChangeNotes }) {
     const [ checkInvalidField, invalidForm ] = useFormInvalidCheck()
 
@@ -32,9 +34,9 @@ export default function LocationForm({ onValidFormSubmit, title, onChangeTitle, 
 
                     </Grid>
                     
-                    <Grid item>
+                    <Grid item xs={12} alignContent="flex-end" alignItems="flex-end">
                         <Button type="submit"
-                            fullWidth
+                            className="location-save-btn"
                             size="medium"
                             disabled={ invalidForm }
                             variant="contained"
