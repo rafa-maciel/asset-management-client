@@ -31,12 +31,25 @@ const useUserSearch = ( onSearchError ) => {
         setPage(searchContent.page)
     }
 
-    const changeParams = newParams => {
+    const changeFilterParams = newParams => {
         changePage(0)
         setParams(newParams)
     }
 
-    return [ users, page, changeParams, changeRowsPerPage, changePage ]
+    const pagination = {
+        page,
+        changePage,
+        changeRowsPerPage
+    }
+
+    const tableHeaders = [
+        { 'numeric': false, 'label' : 'Nome'},
+        { 'numeric': false, 'label' : 'RE '},
+        { 'numeric': false, 'label' : 'Departamento '},
+        { 'numeric': false, 'label' : 'Status '}
+    ]
+
+    return [ users, changeFilterParams, pagination, tableHeaders ]
 
 }
 

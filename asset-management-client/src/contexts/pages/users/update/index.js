@@ -4,7 +4,7 @@ import { findUser } from "../../../../adapters/user";
 
 function useUserUpdatePage() {
     const [user, setUser] = useState(null)
-    const { state: {userId}} = useLocation()
+    const { state: {id: userId}} = useLocation()
     const history = useHistory()
 
     useEffect(() => {

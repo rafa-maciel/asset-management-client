@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { findUser } from "../../../../adapters/user";
 
 function useUserDeletePage() {
-    const { state: { userId }} = useLocation()
+    const { state: { id: userId }} = useLocation()
     const [user, setUser] = useState(null)
     const history = useHistory()
 
