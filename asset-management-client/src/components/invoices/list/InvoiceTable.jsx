@@ -23,7 +23,7 @@ export default function InvoiceTable({ onError }) {
     return (
         <>
             <TableSelection 
-                tableTitle="Localizações"
+                tableTitle="Notas Fiscais"
                 tableHeaders={ tableHeaders }
                 tableRows={ invoices }
                 pagination={ pagination }
