@@ -4,7 +4,7 @@ import { findInvoice } from "../../../../adapters/invoices";
 
 function useInvoiceUpdatePageContext() {
     const [ invoice, setInvoice ] = useState(null)
-    const { state: {invoiceId} } = useLocation()
+    const { state: {id: invoiceId} } = useLocation()
     const history = useHistory()
 
     useEffect(() => {

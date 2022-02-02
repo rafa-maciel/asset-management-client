@@ -34,7 +34,21 @@ function useInvoiceTableContext( onFilterError ) {
         setFilterParams(params)
     }
 
-    return [ invoice, page, changeFilterParams, changeRowsPerPage, changePage ]
+    const pagination = {
+        page,
+        changePage,
+        changeRowsPerPage
+    }
+
+    const tableHeaders = [
+        { 'numeric': false, 'label' : 'Número'},
+        { 'numeric': false, 'label' : 'Fornecedor '},
+        { 'numeric': false, 'label' : 'Fornecedor CNPJ '},
+        { 'numeric': false, 'label' : 'Começou em '},
+        { 'numeric': false, 'label' : 'Termina em '}
+    ]    
+
+    return [ invoice, changeFilterParams, pagination, tableHeaders ]
 }
 
 export { useInvoiceTableContext }

@@ -4,7 +4,7 @@ import { findInvoice } from "../../../../adapters/invoices"
 
 
 function useInvoiceDeletePageContext() {
-    const { state: { invoiceId }} = useLocation()
+    const { state: { id: invoiceId }} = useLocation()
     const [invoice, setInvoice] = useState(null)
     const history = useHistory()
 

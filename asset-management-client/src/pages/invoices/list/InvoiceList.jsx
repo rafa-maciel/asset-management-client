@@ -7,13 +7,7 @@ import { SnackbarPageMessage } from '../../../components/commons/nav/SnackBarMes
 import { InvoiceNav, InvoiceTable } from '../../../components/invoices/list'
 
 export default function InvoiceList() {
-    const [ showTableFilter, setShowTableFilter ] = useState(false)
     const [ message, addMessage, showMessage, hideMessage ] = usePageMessage()
-
-    const handleFilterClose = () => {
-        setShowTableFilter(false)
-        addMessage('success', 'Filtro Atualizado', 'Você está vendo uma pequisa filtrada')
-    }
 
     const handleTableError = error => {
         console.log(error)
@@ -21,16 +15,8 @@ export default function InvoiceList() {
     }
 
     return (
-        <>
-            <Typography variant="h3" component="h1">
-                Notas Fiscais
-            </Typography>
-
-            <InvoiceNav onShowFilterClick={() => { setShowTableFilter(true) }}/>
-        
+        <>        
             <InvoiceTable 
-                showFilter={ showTableFilter }
-                onCloseFilter={ handleFilterClose }
                 onError={ handleTableError }/>
 
             <SnackbarPageMessage
