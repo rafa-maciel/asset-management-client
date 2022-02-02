@@ -35,7 +35,19 @@ const useModelTableContext = onFilterError => {
         setFilterParams(params)
     }
 
-    return [ models, page, changeFilterParams, changeRowsPerPage, changePage ]
+    const pagination = {
+        page,
+        changePage,
+        changeRowsPerPage
+    }
+
+    const tableHeaders = [
+        { 'numeric': false, 'label' : 'Titulo'},
+        { 'numeric': false, 'label' : 'Marca '},
+        { 'numeric': false, 'label' : 'Tipo '},
+    ]
+
+    return [ models, changeFilterParams, pagination, tableHeaders ]
 }
 
 export { useModelTableContext }

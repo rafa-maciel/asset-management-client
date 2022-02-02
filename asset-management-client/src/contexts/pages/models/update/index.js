@@ -4,7 +4,7 @@ import { findModel } from "../../../../adapters/models";
 
 function useModelUpdatePageContext() {
     const [model, setModel] = useState(null)
-    const { state: {modelId} } = useLocation()
+    const { state: {id: modelId} } = useLocation()
     const history = useHistory()
 
     useEffect(() => {
