@@ -7,13 +7,7 @@ import { SnackbarPageMessage } from '../../../components/commons/nav/SnackBarMes
 import { ContractNav, ContractTable } from '../../../components/contracts/list'
 
 export default function ContractList() {
-    const [ showTableFilter, setShowTableFilter ] = useState(false)
     const [ message, addMessage, showMessage, hideMessage ] = usePageMessage()
-
-    const handleFilterClose = () => {
-        setShowTableFilter(false)
-        addMessage('success', 'Filtro Atualizado', 'Você está vendo uma pequisa filtrada')
-    }
 
     const handleTableError = error => {
         console.log(error)
@@ -21,16 +15,8 @@ export default function ContractList() {
     }
 
     return (
-        <>
-            <Typography variant="h3" component="h1">
-                Contratos
-            </Typography>
-
-            <ContractNav onShowFilterClick={() => { setShowTableFilter(true) }}/>
-        
+        <>        
             <ContractTable 
-                showFilter={ showTableFilter }
-                onCloseFilter={ handleFilterClose }
                 onError={ handleTableError }/>
 
             <SnackbarPageMessage

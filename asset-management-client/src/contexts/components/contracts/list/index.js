@@ -34,7 +34,21 @@ function useContractTableContext( onFilterError ) {
         setFilterParams(params)
     }
 
-    return [ contract, page, changeFilterParams, changeRowsPerPage, changePage ]
+    const tableHeaders = [
+        { 'numeric': false, 'label' : 'Número'},
+        { 'numeric': false, 'label' : 'Fornecedor '},
+        { 'numeric': false, 'label' : 'Fornecedor CNPJ '},
+        { 'numeric': false, 'label' : 'Começou em '},
+        { 'numeric': false, 'label' : 'Terminou em '},
+    ]
+
+    const pagination = {
+        page,
+        changePage,
+        changeRowsPerPage
+    }
+
+    return [ contract, changeFilterParams, pagination, tableHeaders ]
 }
 
 export { useContractTableContext }

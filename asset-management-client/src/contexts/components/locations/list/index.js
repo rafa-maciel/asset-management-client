@@ -40,7 +40,12 @@ function useLocationTableContext( onFilterError ) {
         changeRowsPerPage
     }
 
-    return [ locations, changeFilterParams, pagination ]
+    const tableHeaders = [
+        { 'numeric': false, 'label' : 'Localização'},
+        { 'numeric': false, 'label' : 'Endereço '}
+    ]
+
+    return [ locations, changeFilterParams, pagination, tableHeaders ]
 }
 
 export { useLocationTableContext }

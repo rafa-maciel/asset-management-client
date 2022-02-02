@@ -9,19 +9,14 @@ import { LocationFilterForm } from '.';
 import TableSelection from '../../commons/tables/TableSelection';
 import { useState } from 'react';
 
-export default function LocationTable({ onCloseFilter, onError }) {
-    const [ locations, changeFilterParams, pagination ] = useLocationTableContext(onError)
+export default function LocationTable({ onError }) {
+    const [ locations, changeFilterParams, pagination, tableHeaders ] = useLocationTableContext(onError)
     const [ showFilter, setShowFilter ] = useState(false)
     
     const handleFilterForm = data => {
         changeFilterParams(data)
         setShowFilter(false)
     }
-
-    const tableHeaders = [
-        { 'numeric': false, 'label' : 'Localização'},
-        { 'numeric': false, 'label' : 'Endereço '}
-    ]
     
     const actionPaths = {
         delete: '/locations/delete', 

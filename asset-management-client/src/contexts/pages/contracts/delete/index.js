@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom"
 import { findContract } from "../../../../adapters/contract"
 
 function useContractDeletePageContext() {
-    const { state: { contractId }} = useLocation()
+    const { state: { id: contractId }} = useLocation()
     const [contract, setContract] = useState(null)
     const history = useHistory()
 

@@ -5,7 +5,7 @@ import { findContract } from "../../../../adapters/contract";
 
 function useContractUpdatePageContext() {
     const [ contract, setContract ] = useState(null)
-    const { state: {contractId} } = useLocation()
+    const { state: {id: contractId} } = useLocation()
     const history = useHistory()
 
     useEffect(() => {
