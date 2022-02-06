@@ -1,18 +1,26 @@
 import { Dialog, DialogContent, Grid } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import { findFilesByAsset } from '../../../adapters/files'
+import { findFilesByAsset, findFilesByContract, findFilesByInvoice } from '../../../adapters/files'
 import { FileCreate, FileList, FileNav } from '../../../components/files/dashboard'
 
-export default function FileDashboard({ assetId }) {
+export default function FileDashboard({ assetId=null, contractId=null, invoiceId=null }) {
     const [files, setFiles] = useState([])
     const [showAddDialog, setShowAddDialog] = useState(false)
 
     useEffect(() => {
+        var fileList
         if (assetId) {
-            findFilesByAsset(assetId)
-                .then(filesList => setFiles(filesList))
+            fileList = findFilesByAsset(assetId)
+        } else if ( contractId ) {
+            fileList = findFilesByContract(contractId)
+        } else if ( invoiceId ) {
+            fileList = findFilesByInvoice(invoiceId)
         }
-    }, [ assetId ])
+
+        if (fileList)
+            fileList.then(filesList => setFiles(filesList))
+            
+    }, [ assetId, contractId, invoiceId ])
 
     const handleCreateFile = file => {
         var filesList = [...files]
@@ -30,7 +38,6 @@ export default function FileDashboard({ assetId }) {
         <>
             <FileNav onClickAddFile={ () => setShowAddDialog(true) }/>
             <FileList
-                assetId={ assetId }
                 files={files}
                 onDelete={ handleDeleteFile }/>
 
@@ -39,6 +46,8 @@ export default function FileDashboard({ assetId }) {
                     <Grid container spacing={3}>
                         <FileCreate 
                             assetId={ assetId }
+                            contractId={ contractId }
+                            invoiceId={ invoiceId }
                             onCreate={ handleCreateFile } />
                     </Grid>
                 </DialogContent>

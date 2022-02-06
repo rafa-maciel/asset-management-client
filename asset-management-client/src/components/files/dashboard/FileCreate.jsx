@@ -4,17 +4,21 @@ import React from 'react'
 import SaveIcon from '@material-ui/icons/Save';
 import { createNewFile } from '../../../adapters/files';
 
-export default function FileCreate({ assetId, onCreate }) {
+export default function FileCreate({ assetId=null, contractId=null, invoiceId=null, onCreate }) {
     const handleSubmit = event => {
         event.preventDefault()
         var data = new FormData(event.target)
-        createNewFile(assetId, data)
+        createNewFile(data)
             .then(fileSaved => onCreate(fileSaved))
     }
 
     return (
         <>
             <form onSubmit={handleSubmit}>
+                <input name='assetId' value={ assetId } type="hidden" />
+                <input name='contractId' value={ contractId } type="hidden" />
+                <input name='invoiceId' value={ invoiceId } type="hidden" />
+
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                         <TextField

@@ -4,11 +4,11 @@ import React from 'react'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { deleteFile } from '../../../adapters/files';
 
-export default function FileDelete({ file, assetId, showDialog, onCloseDialog, onDelete }) {
+export default function FileDelete({ file, showDialog, onCloseDialog, onDelete }) {
 
     const handleFormSubmit = event => {
         event.preventDefault()
-        deleteFile(assetId, file.id)
+        deleteFile(file.id)
         onDelete(file)
     }
 

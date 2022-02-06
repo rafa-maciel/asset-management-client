@@ -4,7 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { FileDelete } from '.';
 import { downloadFile } from '../../../adapters/files';
 
-export default function FileList({ files, onDelete, assetId }) {
+export default function FileList({ files, onDelete }) {
     const [fileSelected, setFileSelected] = useState(null)
     const [showDelDialog, setShowDelDialog] = useState(false)
 
@@ -19,7 +19,7 @@ export default function FileList({ files, onDelete, assetId }) {
     }
 
     const handleDownload = fileId => {
-        downloadFile(assetId, fileId)
+        downloadFile(fileId)
             .then(resp => {
                 const url = window.URL.createObjectURL(resp);
                 const link = document.createElement('a');
@@ -35,7 +35,7 @@ export default function FileList({ files, onDelete, assetId }) {
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Nome</TableCell>
+                        <TableCell>Titulo do Arquivo</TableCell>
                         <TableCell>Nota</TableCell>
                         <TableCell>Ações</TableCell>
                     </TableRow>
@@ -69,7 +69,6 @@ export default function FileList({ files, onDelete, assetId }) {
             </Table>
 
             <FileDelete
-                assetId={ assetId }
                 file={ fileSelected }
                 showDialog={ showDelDialog }
                 onCloseDialog={ () => setShowDelDialog(false) }
