@@ -53,7 +53,7 @@ export default function AssetTable({ showFilter, onCloseFilter, onError }) {
 function AssetTableHeader() {
     const headers = ['Identificação', 'Responsável', 
         'Localização', 'Modelo', 'Tipo', 'Chip ID', 
-        'Chip Linha', 'Status', 'Contrato', 'Fornecedor', 'Ações']
+        'Chip Linha', 'IMEI', 'Status', 'Contrato', 'Fornecedor', 'Ações']
     return (
         <TableHead>
             <TableRow>
@@ -73,6 +73,7 @@ function AssetTableRow({ asset }) {
             <TableCell>{ asset.model.type }</TableCell>
             <TableCell>{ asset.chipIdentification }</TableCell>
             <TableCell>{ asset.lineIdentification }</TableCell>
+            <TableCell>{ asset.imei }</TableCell>
             <TableCell>{ asset.status }</TableCell>
             <TableCell>{ asset.contract ? asset.contract.number : 'Sem contrato'}</TableCell>
             <TableCell>{ asset.contract ? asset.contract.vendor : 'Sem contrato'}</TableCell>

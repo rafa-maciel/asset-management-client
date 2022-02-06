@@ -216,6 +216,16 @@ function AssetTagField({ tag, onChange }) {
     )
 }
 
+function AssetImeiField({ imei, onChange }) {
+    return (
+        <TextField
+            label="IMEI"
+            value={ imei }
+            onChange={ e => onChange(e.target.value) }
+            fullWidth />
+    )
+}
+
 function AssetContractField({ contractId, onChange }) {
     const [contract, setContract] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
@@ -302,4 +312,4 @@ export { AssetOwnerField, AssetLocationField,
     AssetModelField, AssetCompanyIdentificationField, AssetStatusField,
     AssetChipIdentificationField, AssetLineIdentificationField, 
     AssetHostnameField, AssetSerialNumberField, AssetTagField,
-    AssetContractField, AssetInvoiceField }
+    AssetContractField, AssetInvoiceField, AssetImeiField }

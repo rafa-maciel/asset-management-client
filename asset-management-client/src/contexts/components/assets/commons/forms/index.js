@@ -16,6 +16,7 @@ function useAssetFormContext(initialData) {
     const [ hostname, setHostname ] = useState('')
     const [ serialNumber, setSerialNumber ] = useState('')
     const [ tag, setTag] = useState('')
+    const [ imei, setImei ] = useState('')
 
         
     const [ checkInvalidField, invalidForm ] = useFormInvalidCheck()
@@ -34,6 +35,7 @@ function useAssetFormContext(initialData) {
             setHostname(initialData.hostname)
             setSerialNumber(initialData.serialNumber)
             setTag(initialData.tag)
+            setImei(initialData.imei)
         }
     }, [ initialData ])
 
@@ -50,6 +52,7 @@ function useAssetFormContext(initialData) {
             <Fields.AssetSerialNumberField serialNumber={ serialNumber } onChange={ setSerialNumber } />,
             <Fields.AssetInvoiceField invoiceId={ invoiceId } onChange={ setInvoiceId } />,
             <Fields.AssetTagField tag={ tag } onChange={ setTag } />,
+            <Fields.AssetImeiField imei={ imei } onChange={ setImei } />,
             <Fields.AssetStatusField
             status={ status }
             onChange={ setStatus } />,
@@ -77,7 +80,8 @@ function useAssetFormContext(initialData) {
                 invoiceId,
                 hostname,
                 serialNumber,
-                tag
+                tag,
+                imei
             }
         }
         return null
