@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { AssetCreate, AssetDelete, AssetDetail, AssetImport, AssetList, AssetUpdate } from '../../../assets';
-import { ContractCreate, ContractDelete, ContractList, ContractUpdate } from '../../../contracts';
+import { ContractCreate, ContractDelete, ContractDetails, ContractList, ContractUpdate } from '../../../contracts';
 import { InvoiceCreate, InvoiceDelete, InvoiceList, InvoiceUpdate } from '../../../invoices';
 import { LocationCreate, LocationDelete, LocationList, LocationUpdate } from '../../../locations';
 import { ModelCreate, ModelDelete, ModelList, ModelUpdate } from '../../../models';
@@ -119,6 +119,9 @@ export default function HomePage() {
                             </Route>
                             <Route path="/contracts/create">
                                 <ContractCreate />
+                            </Route>
+                            <Route path="/contracts/details">
+                                <ContractDetails />
                             </Route>
                             <Route path="/contracts">
                                 <ContractList />

@@ -17,6 +17,7 @@ export default function ContractTable({ onError }) {
         delete: '/contracts/delete', 
         update: '/contracts/update',
         create: '/contracts/create',
+        details: '/contracts/details',
         onFilterClick: e => setShowFilter(true)
     }
 
