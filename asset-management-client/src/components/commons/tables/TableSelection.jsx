@@ -6,6 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import EditIcon from '@material-ui/icons/Edit';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
 import './style.css'
 
@@ -93,6 +94,27 @@ export default function TableSelection({ tableTitle, tableHeaders, tableRows, pa
 }
 
 const TableToolbar = ({ numSelected, tableTitle, actionPaths, selected }) => {
+    function hasDetailsOption(details) {
+        if (details) {
+            return (
+                <Tooltip title="details" >
+                    <IconButton aria-label="Detalhes" 
+                        disabled={numSelected > 1}
+                        component={ Link }
+                        to={{
+                            pathname: details,
+                            state: { 'id': selected }
+                        }}>
+                        <ListAltIcon />
+                    </IconButton>
+                </Tooltip>
+            )
+        }
+
+        return null
+    }
+    
+
     return (
         <Toolbar>   
             <Grid container spacing={2}>
@@ -133,6 +155,8 @@ const TableToolbar = ({ numSelected, tableTitle, actionPaths, selected }) => {
                                     <EditIcon />
                                 </IconButton>
                             </Tooltip>
+
+                            { hasDetailsOption(actionPaths.details) }
                         </>
                     ) : (
                         <>
