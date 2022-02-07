@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { AssetCreate, AssetDelete, AssetDetail, AssetImport, AssetList, AssetUpdate } from '../../../assets';
 import { ContractCreate, ContractDelete, ContractDetails, ContractList, ContractUpdate } from '../../../contracts';
-import { InvoiceCreate, InvoiceDelete, InvoiceList, InvoiceUpdate } from '../../../invoices';
+import { InvoiceCreate, InvoiceDelete, InvoiceDetail, InvoiceList, InvoiceUpdate } from '../../../invoices';
 import { LocationCreate, LocationDelete, LocationList, LocationUpdate } from '../../../locations';
 import { ModelCreate, ModelDelete, ModelList, ModelUpdate } from '../../../models';
 import { UserAccountCreate, UserAccountDelete, UserAccountList, UserAccountReset, UserAccountUpdate } from '../../../userAccounts';
@@ -134,6 +134,9 @@ export default function HomePage() {
                             </Route>
                             <Route path="/invoices/create">
                                 <InvoiceCreate />
+                            </Route>
+                            <Route path="/invoices/details">
+                                <InvoiceDetail />
                             </Route>
                             <Route path="/invoices">
                                 <InvoiceList />

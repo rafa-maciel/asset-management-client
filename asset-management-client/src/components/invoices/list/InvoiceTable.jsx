@@ -17,6 +17,7 @@ export default function InvoiceTable({ onError }) {
         delete: '/invoices/delete', 
         update: '/invoices/update',
         create: '/invoices/create',
+        details: '/invoices/details',
         onFilterClick: e => setShowFilter(true)
     }
 
