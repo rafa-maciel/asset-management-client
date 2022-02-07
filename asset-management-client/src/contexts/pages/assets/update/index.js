@@ -1,7 +1,7 @@
 import { useHistory, useLocation } from "react-router-dom";
 
 function useAssetUpdatePageContext() {
-    const { state: {assetId} } = useLocation()
+    const { state: {id: assetId} } = useLocation()
     const history = useHistory()
 
     const onAssetUpdated = asset => {

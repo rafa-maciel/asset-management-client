@@ -4,7 +4,7 @@ import { findAsset } from "../../../../adapters/assets";
 
 function useAssetDetailPageContext() {
     const [ asset, setAsset ] = useState(null)
-    const { state: {assetId} } = useLocation()
+    const { state: {id: assetId} } = useLocation()
     const [ tabIndex, setTabIndex ] = useState(0)
 
     useEffect(() => {

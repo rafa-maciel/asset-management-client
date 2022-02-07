@@ -25,7 +25,26 @@ function useAssetTableContext( onFilterError ) {
     }, [ filterParams, rowsPerPage, currentPage, onFilterError ])
 
     const onSearchSuccess = ( response ) => {
-        setAssets(response.content)
+        var list = response.content.map(asset => {
+            return {
+                'id': asset.id,
+                'hostname': asset.hostname,
+                'tag': asset.tag,
+                'serialNumber': asset.serialNumber,
+                'companyIdentification': asset.companyIdentification,
+                'imei': asset.imei,
+                'chipIdentification': asset.chipIdentification,
+                'lineIdentification': asset.lineIdentification,
+                'model': asset.model.title,
+                'owner': asset.owner.name,
+                'location': asset.location.title,
+                'invoice': asset.invoice ? asset.invoice.number : null,
+                'contract': asset.contract ? asset.contract.number : null,
+                'status': asset.status
+            }
+        })
+
+        setAssets(list)
         setPage(response.page)
     }
 
@@ -34,7 +53,29 @@ function useAssetTableContext( onFilterError ) {
         setFilterParams(params)
     }
 
-    return [ assets, page, changeFilterParams, changeRowsPerPage, changePage ]
+    const pagination = {
+        page,
+        changePage,
+        changeRowsPerPage
+    }
+
+    const tableHeaders = [
+        { 'numeric': false, 'label' : 'Hostname'},
+        { 'numeric': false, 'label' : 'TAG '},
+        { 'numeric': false, 'label' : 'SN '},
+        { 'numeric': false, 'label' : 'Ativo '},
+        { 'numeric': false, 'label' : 'IMEI '},
+        { 'numeric': false, 'label' : 'Chip '},
+        { 'numeric': false, 'label' : 'Linha'},
+        { 'numeric': false, 'label' : 'Modelo '},
+        { 'numeric': false, 'label' : 'Responsável '},
+        { 'numeric': false, 'label' : 'Localização '},
+        { 'numeric': false, 'label' : 'NF '},
+        { 'numeric': false, 'label' : 'Contrato '},
+        { 'numeric': false, 'label' : 'Status '},
+    ]
+
+    return [ assets, changeFilterParams, pagination, tableHeaders ]
 }
 
 export { useAssetTableContext }

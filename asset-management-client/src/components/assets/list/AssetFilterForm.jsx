@@ -54,7 +54,7 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
     }
 
     return (
-        <Dialog open={ showFilter } onClose={ onCloseFilter } fullScreen>
+        <Dialog open={ showFilter } onClose={ onCloseFilter }>
             <AppBar>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" onClick={ () => { onCloseFilter()}} aria-label="close">

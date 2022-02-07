@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom"
 import { findAsset } from "../../../../adapters/assets"
 
 function useAssetDeletePageContext() {
-    const { state: { assetId }} = useLocation()
+    const { state: { id: assetId }} = useLocation()
     const [asset, setAsset] = useState(null)
     const history = useHistory()
 
