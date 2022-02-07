@@ -4,6 +4,9 @@ import { useUserCreate, useValidUserDepartment, useValidUserName, useValidUserRe
 import SaveIcon from '@material-ui/icons/Save';
 import { useFormInvalidCheck } from '../../../contexts/commons/useFormsUtils';
 
+import RestoreIcon from '@material-ui/icons/Restore';
+import { Link } from 'react-router-dom';
+
 export default function UserCreateForm({ onSuccessfulyCreate }) {
     const [name, setName] = useState('')
     const [re, setRe] = useState('')
@@ -50,16 +53,40 @@ export default function UserCreateForm({ onSuccessfulyCreate }) {
                             onChange={ setStatus } />
                     </Grid>
 
-                    <Grid item>
-                        <Button type="submit"
-                            fullWidth
-                            size="medium"
-                            disabled={ invalidForm }
-                            variant="contained"
-                            color="primary"
-                            startIcon={ <SaveIcon /> }>
-                                Salvar
-                        </Button>
+                    <Grid item xs={12}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                <Button type="submit"
+                                    fullWidth
+                                    size="medium"
+                                    disabled={ invalidForm }
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={ <SaveIcon /> }>
+                                        Salvar
+                                </Button>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Button
+                                    component={ Link }
+                                    to={{
+                                        pathname: "/users",
+                                        status: {
+                                            'message' : {
+                                                'type': 'info',
+                                                'title': 'Criação Cancelada',
+                                                'message': 'A ação foi cancelada e o usuário não foi criado'
+                                            }
+                                        }
+                                        }}
+                                    fullWidth
+                                    variant="contained"
+                                    color="secondary"
+                                    startIcon={<RestoreIcon />}>
+                                        Cancelar
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </form>
