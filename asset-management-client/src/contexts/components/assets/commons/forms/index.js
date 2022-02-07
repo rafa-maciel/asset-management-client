@@ -41,28 +41,28 @@ function useAssetFormContext(initialData) {
 
     const assetFields = () => {
         return [
-            <Fields.AssetModelField modelId={modelId} onChange={ setModelId } />,
+            <Fields.AssetHostnameField hostname={hostname} onChange={ setHostname } />,
+            <Fields.AssetTagField tag={ tag } onChange={ setTag } />,
+            <Fields.AssetSerialNumberField serialNumber={ serialNumber } onChange={ setSerialNumber } />,
             <Fields.AssetCompanyIdentificationField
                 companyIdentification={ companyIdentification }
                 onChange={ setCompanyIdentification }
                 onValidChange={ v => checkInvalidField(v, 'companyIdentification') } />,
-            <Fields.AssetLocationField locationId={locationId} onChange={ setLocationId } />,
-            <Fields.AssetHostnameField hostname={hostname} onChange={ setHostname } />,
-            <Fields.AssetContractField contractId={contractId} onChange={ setContractId } />,
-            <Fields.AssetSerialNumberField serialNumber={ serialNumber } onChange={ setSerialNumber } />,
-            <Fields.AssetInvoiceField invoiceId={ invoiceId } onChange={ setInvoiceId } />,
-            <Fields.AssetTagField tag={ tag } onChange={ setTag } />,
             <Fields.AssetImeiField imei={ imei } onChange={ setImei } />,
-            <Fields.AssetStatusField
-            status={ status }
-            onChange={ setStatus } />,
             <Fields.AssetChipIdentificationField 
                 chipIdentification={ chipIdentification }
                 onChange={ setChipIdentification } />,
-            <Fields.AssetOwnerField ownerId={ownerId} onChange={setOwnerId} />,
             <Fields.AssetLineIdentificationField 
                 lineIdentification={ lineIdentification }
-                onChange={ setLineIdentification } />
+                onChange={ setLineIdentification } />,
+            <Fields.AssetModelField modelId={modelId} onChange={ setModelId } />,
+            <Fields.AssetOwnerField ownerId={ownerId} onChange={setOwnerId} />,
+            <Fields.AssetLocationField locationId={locationId} onChange={ setLocationId } />,
+            <Fields.AssetInvoiceField invoiceId={ invoiceId } onChange={ setInvoiceId } />,
+            <Fields.AssetContractField contractId={contractId} onChange={ setContractId } />,
+            <Fields.AssetStatusField
+                status={ status }
+                onChange={ setStatus } />,
         ]
     }
 
