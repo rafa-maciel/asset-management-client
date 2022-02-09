@@ -57,6 +57,10 @@ export default class AuthToken {
         return this._timeExp == null || this._timeExp < new Date()
     }
 
+    milesecondsToExpireToken() {
+        return this._timeExp - new Date()
+    }
+
     get token() {
         return this._type + ' ' + this._token
     }

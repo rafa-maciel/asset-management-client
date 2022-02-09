@@ -3,7 +3,7 @@ import { Alert, AlertTitle } from '@material-ui/lab'
 import React, { useState } from 'react'
 import { authenticate } from '../../../adapters/authentication'
 
-export default function AuthenticationForm({ onSuccessfullyAuthenticated }) {
+export default function AuthenticationForm({ onSuccessfullyAuthenticated, redirectedFromLogout }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -22,18 +22,31 @@ export default function AuthenticationForm({ onSuccessfullyAuthenticated }) {
             })
     }
 
+    const message = () => {
+        if (formError) {
+            return (
+                <Alert severity="error">
+                    <AlertTitle>Autenticação Falhou</AlertTitle>
+                    Não foi possivel conectar — <strong>verifique seu e-mail e senha e tente novamente!</strong>
+                </Alert>
+            )
+        }
+
+        if (redirectedFromLogout) {
+            return (
+                <Alert severity="info">
+                    <AlertTitle>Você foi deslogado</AlertTitle>
+                    O seu tempo de sessão terminou, favor logar novamente.
+                </Alert>
+            )
+        }
+    }
+
     return (
         <Container component="main" maxWidth="xs">
             <Typography variant="h4" component="h2">Asset MGMT</Typography>
             <form noValidate onSubmit={handleFormSubmit}>
-                { formError ? 
-                   <Alert severity="error">
-                        <AlertTitle>Autenticação Falhou</AlertTitle>
-                        Não foi possivel conectar — <strong>verifique seu e-mail e senha e tente novamente!</strong>
-                    </Alert>
-                   : 
-                   ""
-                }
+                { message() }
 
                 <TextField 
                     value={ email }
