@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Dialog, DialogContent, DialogTitle, Grid, Paper, TextField, Typography } from '@material-ui/core'
+import { Button, Dialog, DialogContent, Grid, TextField, Typography } from '@material-ui/core'
 
 import SearchIcon from '@material-ui/icons/Search';
 import LayersClearIcon from '@material-ui/icons/LayersClear';

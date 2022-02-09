@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { Typography } from '@material-ui/core'
+import React from 'react'
 
 import { usePageMessage } from '../../../contexts/components/utils/pageMessage'
 
 import { SnackbarPageMessage } from '../../../components/commons/nav/SnackBarMessage'
-import { ContractNav, ContractTable } from '../../../components/contracts/list'
+import { ContractTable } from '../../../components/contracts/list'
 
 export default function ContractList() {
     const [ message, addMessage, showMessage, hideMessage ] = usePageMessage()

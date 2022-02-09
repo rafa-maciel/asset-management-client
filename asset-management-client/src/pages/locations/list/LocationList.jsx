@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { usePageMessage } from '../../../contexts/components/utils/pageMessage'
 import { LocationTable } from '../../../components/locations/list'

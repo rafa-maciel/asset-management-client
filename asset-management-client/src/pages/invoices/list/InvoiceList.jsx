@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { Typography } from '@material-ui/core'
+import React from 'react'
 
 import { usePageMessage } from '../../../contexts/components/utils/pageMessage'
 
 import { SnackbarPageMessage } from '../../../components/commons/nav/SnackBarMessage'
-import { InvoiceNav, InvoiceTable } from '../../../components/invoices/list'
+import { InvoiceTable } from '../../../components/invoices/list'
 
 export default function InvoiceList() {
     const [ message, addMessage, showMessage, hideMessage ] = usePageMessage()
