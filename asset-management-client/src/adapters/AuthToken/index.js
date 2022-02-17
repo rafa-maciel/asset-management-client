@@ -46,7 +46,7 @@ export default class AuthToken {
 
     clear() {
         localStorage.clear()
-        document.location.reload()
+        document.location.href="/"
     }
 
     hasValidToken() {
