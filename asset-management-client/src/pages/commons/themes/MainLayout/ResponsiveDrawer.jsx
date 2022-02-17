@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 100,
     marginLeft: "auto",
     marginRight: "auto",
-    maxWidth:1200,
     
     flexGrow: 1,
     padding: theme.spacing(3),
