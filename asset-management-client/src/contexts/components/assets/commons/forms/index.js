@@ -23,15 +23,15 @@ function useAssetFormContext(initialData) {
 
     useEffect(() => {
         if ( initialData ) {
-            setOwnerId(initialData.owner.id)
+            setOwnerId(initialData.owner ? initialData.owner.id : null )
             setCompanyIdentification(initialData.companyIdentification)
-            setModelId(initialData.model.id)
-            setLocationId(initialData.location.id)
+            setModelId(initialData.model ? initialData.model.id : null)
+            setLocationId(initialData.location ? initialData.location.id : null)
             setStatus(initialData.status)
             setChipIdentification(initialData.chipIdentification)
             setLineIdentification(initialData.lineIdentification)
-            setContractId(initialData.contract.id)
-            setInvoiceId(initialData.invoice.id)
+            setContractId(initialData.contract ? initialData.contract.id : null)
+            setInvoiceId(initialData.invoice ? initialData.invoice.id : null)
             setHostname(initialData.hostname)
             setSerialNumber(initialData.serialNumber)
             setTag(initialData.tag)
