@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import * as Fields from "../../../../../components/assets/commons/AssetFormFields"
 import { useFormInvalidCheck } from "../../../../commons/useFormsUtils"
 
-function useAssetFormContext(initialData) {
-    const [ownerId, setOwnerId] = useState('')
+function useAssetFormContext(initialData, readOnly=false) {
+    const [ownerId, setOwnerId]=  useState('')
     const [companyIdentification, setCompanyIdentification] = useState('')
     const [modelId, setModelId] = useState('')
     const [locationId, setLocationId] = useState('')
@@ -41,28 +41,33 @@ function useAssetFormContext(initialData) {
 
     const assetFields = () => {
         return [
-            <Fields.AssetHostnameField hostname={hostname} onChange={ setHostname } />,
-            <Fields.AssetTagField tag={ tag } onChange={ setTag } />,
-            <Fields.AssetSerialNumberField serialNumber={ serialNumber } onChange={ setSerialNumber } />,
+            <Fields.AssetHostnameField hostname={hostname} onChange={ setHostname } readOnly={readOnly} />,
+            <Fields.AssetTagField tag={ tag } onChange={ setTag } readOnly={readOnly} />,
+            <Fields.AssetSerialNumberField serialNumber={ serialNumber } onChange={ setSerialNumber } readOnly={readOnly} />,
             <Fields.AssetCompanyIdentificationField
                 companyIdentification={ companyIdentification }
                 onChange={ setCompanyIdentification }
-                onValidChange={ v => checkInvalidField(v, 'companyIdentification') } />,
-            <Fields.AssetImeiField imei={ imei } onChange={ setImei } />,
+                onValidChange={ v => checkInvalidField(v, 'companyIdentification') }
+                readOnly={readOnly} />,
+            <Fields.AssetImeiField imei={ imei } onChange={ setImei } readOnly={readOnly} />,
             <Fields.AssetChipIdentificationField 
                 chipIdentification={ chipIdentification }
-                onChange={ setChipIdentification } />,
+                onChange={ setChipIdentification }
+                readOnly={readOnly} />,
             <Fields.AssetLineIdentificationField 
                 lineIdentification={ lineIdentification }
-                onChange={ setLineIdentification } />,
-            <Fields.AssetModelField modelId={modelId} onChange={ setModelId } />,
-            <Fields.AssetOwnerField ownerId={ownerId} onChange={setOwnerId} />,
-            <Fields.AssetLocationField locationId={locationId} onChange={ setLocationId } />,
-            <Fields.AssetInvoiceField invoiceId={ invoiceId } onChange={ setInvoiceId } />,
-            <Fields.AssetContractField contractId={contractId} onChange={ setContractId } />,
+                onChange={ setLineIdentification }
+                readOnly={readOnly} />,
+            <Fields.AssetModelField modelId={modelId} onChange={ setModelId }
+                readOnly={readOnly} />,
+            <Fields.AssetOwnerField ownerId={ownerId} onChange={setOwnerId} readOnly={readOnly} />,
+            <Fields.AssetLocationField locationId={locationId} onChange={ setLocationId } readOnly={readOnly} />,
+            <Fields.AssetInvoiceField invoiceId={ invoiceId } onChange={ setInvoiceId } readOnly={readOnly} />,
+            <Fields.AssetContractField contractId={contractId} onChange={ setContractId } readOnly={readOnly} />,
             <Fields.AssetStatusField
                 status={ status }
-                onChange={ setStatus } />,
+                onChange={ setStatus }
+                readOnly={readOnly} />,
         ]
     }
 

@@ -9,7 +9,7 @@ import { findModel } from '../../../adapters/models';
 import { findContract } from '../../../adapters/contract';
 import { findInvoice } from '../../../adapters/invoices';
 
-function AssetOwnerField({ ownerId, onChange }) {
+function AssetOwnerField({ ownerId, onChange, readOnly=false }) {
     const [owner, setOwner] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
     
@@ -23,21 +23,18 @@ function AssetOwnerField({ ownerId, onChange }) {
         }
     }, [ owner, ownerId, onChange ])
 
-    return (
-        <>
-            <Paper component="form">
-                <InputBase
-                    required
-                    value={ owner.name }
-                    readOnly={true}
-                    placeholder="Responsável"
-                    inputProps={{ 'aria-label': 'Responsável' }}
-                />
-                <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
-                    <SearchIcon />
-                </IconButton>
-            </Paper>
-
+    const nonReadOnlyIconButton = () => {
+        if (readOnly) return null;
+        return (
+            <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
+                <SearchIcon />
+            </IconButton>
+        )
+    }
+    
+    const nonReadOnlyFilterDialog = () => {
+        if (readOnly) return null;
+        return (
             <OwnerFilterDialog 
                 showDialog={ openSearch }
                 onCloseDialog={ () => setOpenSearch(false)}
@@ -45,11 +42,28 @@ function AssetOwnerField({ ownerId, onChange }) {
                     setOwner(selectedOwner)
                     setOpenSearch(false)
                 }} />
+        )
+    }
+
+    return (
+        <>
+            <Paper component="form">
+                <InputBase
+                    required
+                    value={ owner.name }
+                    disabled={true}
+                    placeholder="Responsável"
+                    inputProps={{ 'aria-label': 'Responsável' }}
+                />
+                { nonReadOnlyIconButton() }
+            </Paper>
+
+            { nonReadOnlyFilterDialog() }
         </>
     )
 }
 
-function AssetLocationField({ locationId, onChange }) {
+function AssetLocationField({ locationId, onChange, readOnly=false }) {
     const [location, setLocation] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
     
@@ -63,21 +77,18 @@ function AssetLocationField({ locationId, onChange }) {
         }
     }, [ location, locationId, onChange ])
 
-    return (
-        <>
-            <Paper component="form">
-                <InputBase
-                    required
-                    value={ location.title }
-                    readOnly={true}
-                    placeholder="Localização"
-                    inputProps={{ 'aria-label': 'Responsável' }}
-                />
-                <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
-                    <SearchIcon />
-                </IconButton>
-            </Paper>
+    const nonReadOnlyIconButton = () => {
+        if (readOnly) return null;
+        return (
+            <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
+                <SearchIcon />
+            </IconButton>
+        )
+    }
 
+    const nonReadOnlyFilterDialog = () => {
+        if (readOnly) return null;
+        return (
             <LocationFilterDialog 
                 showDialog={ openSearch }
                 onCloseDialog={ () => setOpenSearch(false)}
@@ -85,11 +96,28 @@ function AssetLocationField({ locationId, onChange }) {
                     setLocation(selectedLocation)
                     setOpenSearch(false)
                 }} />
+        )
+    }
+
+    return (
+        <>
+            <Paper component="form">
+                <InputBase
+                    required
+                    value={ location.title }
+                    disabled={true}
+                    placeholder="Localização"
+                    inputProps={{ 'aria-label': 'Responsável' }}
+                />
+                { nonReadOnlyIconButton() }
+            </Paper>
+
+            { nonReadOnlyFilterDialog() }
         </>
     )
 }
 
-function AssetModelField({ modelId, onChange }) {
+function AssetModelField({ modelId, onChange, readOnly=false }) {
     const [model, setModel] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
     
@@ -103,21 +131,18 @@ function AssetModelField({ modelId, onChange }) {
         }
     }, [ model, modelId, onChange ])
 
-    return (
-        <>
-            <Paper component="form">
-                <InputBase
-                    required
-                    value={ model.title }
-                    readOnly={true}
-                    placeholder="Modelo"
-                    inputProps={{ 'aria-label': 'Responsável' }}
-                />
-                <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
-                    <SearchIcon />
-                </IconButton>
-            </Paper>
+    const nonReadOnlyIconButton = () => {
+        if (readOnly) return null;
+        return (
+            <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
+                <SearchIcon />
+            </IconButton>
+        )
+    }
 
+    const nonReadOnlyFilterDialog = () => {
+        if (readOnly) return null;
+        return (
             <ModelFilterDialog 
                 showDialog={ openSearch }
                 onCloseDialog={ () => setOpenSearch(false)}
@@ -125,11 +150,28 @@ function AssetModelField({ modelId, onChange }) {
                     setModel(selectedModel)
                     setOpenSearch(false)
                 }} />
+        )
+    }
+
+    return (
+        <>
+            <Paper component="form">
+                <InputBase
+                    required
+                    value={ model.title }
+                    disabled={true}
+                    placeholder="Modelo"
+                    inputProps={{ 'aria-label': 'Responsável' }}
+                />
+                { nonReadOnlyIconButton() }
+            </Paper>
+
+            { nonReadOnlyFilterDialog() }
         </>
     )
 }
 
-function AssetCompanyIdentificationField({ companyIdentification, onChange, onValidChange }) {
+function AssetCompanyIdentificationField({ companyIdentification, onChange, onValidChange, readOnly=false  }) {
     const [invalidMessage, fieldInvalid, validate ] = useValidCompanyIdentification(onValidChange)
 
     return (
@@ -138,6 +180,7 @@ function AssetCompanyIdentificationField({ companyIdentification, onChange, onVa
             value={ companyIdentification }
             onChange={ e => onChange(e.target.value) }
             error={ fieldInvalid }
+            disabled={ readOnly }
             helperText={ fieldInvalid ? invalidMessage : ''}
             required
             onBlur={ e => validate(e.target.value) }
@@ -145,10 +188,10 @@ function AssetCompanyIdentificationField({ companyIdentification, onChange, onVa
     )
 }
 
-function AssetStatusField({ status, onChange }) {
+function AssetStatusField({ status, onChange, readOnly=false  }) {
     
     return (
-            <FormControl fullWidth>
+            <FormControl fullWidth disabled={readOnly}>
                 <InputLabel id="status-id">Status</InputLabel>
                 <Select
                     labelId="status-id"
@@ -166,67 +209,73 @@ function AssetStatusField({ status, onChange }) {
     )
 }
 
-function AssetChipIdentificationField({ chipIdentification, onChange }) {
+function AssetChipIdentificationField({ chipIdentification, onChange, readOnly=false  }) {
     return (
         <TextField
             label="Chip ID"
+            disabled={ readOnly }
             value={ chipIdentification }
             onChange={ e => onChange(e.target.value) }
             fullWidth />
     )
 }
 
-function AssetLineIdentificationField({ lineIdentification, onChange }) {
+function AssetLineIdentificationField({ lineIdentification, onChange, readOnly=false  }) {
     return (
         <TextField
             label="Linha"
+            disabled={ readOnly }
             value={ lineIdentification }
             onChange={ e => onChange(e.target.value) }
             fullWidth />
     )
 }
 
-function AssetHostnameField({ hostname, onChange }) {
+function AssetHostnameField({ hostname, onChange, readOnly=false  }) {
     return (
         <TextField
             label="Hostname"
             value={ hostname }
+            disabled={ readOnly }
             onChange={ e => onChange(e.target.value) }
             fullWidth />
     )
 }
 
-function AssetSerialNumberField({ serialNumber, onChange }) {
+function AssetSerialNumberField({ serialNumber, onChange, readOnly=false  }) {
     return (
         <TextField
             label="Número de Série"
             value={ serialNumber }
+            disabled={ readOnly }
             onChange={ e => onChange(e.target.value) }
             fullWidth />
     )
 }
 
-function AssetTagField({ tag, onChange }) {
+function AssetTagField({ tag, onChange, readOnly=false  }) {
     return (
         <TextField
             label="TAG"
             value={ tag }
+            disabled={ readOnly }
             onChange={ e => onChange(e.target.value) }
             fullWidth />
     )
 }
 
-function AssetImeiField({ imei, onChange }) {
+function AssetImeiField({ imei, onChange, readOnly=false  }) {
     return (
         <TextField
             label="IMEI"
             value={ imei }
+            disabled={ readOnly }
             onChange={ e => onChange(e.target.value) }
             fullWidth />
     )
 }
 
-function AssetContractField({ contractId, onChange }) {
+function AssetContractField({ contractId, onChange, readOnly=false }) {
     const [contract, setContract] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
     
@@ -240,21 +289,19 @@ function AssetContractField({ contractId, onChange }) {
         }
     }, [ contract, contractId, onChange ])
 
-    return (
-        <>
-            <Paper component="form">
-                <InputBase
-                    required
-                    value={ contract.number }
-                    readOnly={true}
-                    placeholder="Contrato"
-                    inputProps={{ 'aria-label': 'Contrato' }}
-                />
-                <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
-                    <SearchIcon />
-                </IconButton>
-            </Paper>
 
+    const nonReadOnlyIconButton = () => {
+        if (readOnly) return null;
+        return (
+            <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
+                <SearchIcon />
+            </IconButton>
+        )
+    }
+
+    const nonReadOnlyFilterDialog = () => {
+        if (readOnly) return null;
+        return (
             <ContractFilterDialog 
                 showDialog={ openSearch }
                 onCloseDialog={ () => setOpenSearch(false)}
@@ -262,11 +309,28 @@ function AssetContractField({ contractId, onChange }) {
                     setContract(selectedModel)
                     setOpenSearch(false)
                 }} />
+        )
+    }
+
+    return (
+        <>
+            <Paper component="form">
+                <InputBase
+                    required
+                    value={ contract.number }
+                    disabled={true}
+                    placeholder="Contrato"
+                    inputProps={{ 'aria-label': 'Contrato' }}
+                />
+                { nonReadOnlyIconButton() }
+            </Paper>
+
+            { nonReadOnlyFilterDialog() }
         </>
     )
 }
 
-function AssetInvoiceField({ invoiceId, onChange }) {
+function AssetInvoiceField({ invoiceId, onChange, readOnly=false }) {
     const [invoice, setInvoice] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
     
@@ -280,21 +344,18 @@ function AssetInvoiceField({ invoiceId, onChange }) {
         }
     }, [ invoice, invoiceId, onChange ])
 
-    return (
-        <>
-            <Paper component="form">
-                <InputBase
-                    required
-                    value={ invoice.number }
-                    readOnly={true}
-                    placeholder="Nota Fiscal"
-                    inputProps={{ 'aria-label': 'Nota Fiscal' }}
-                />
-                <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
-                    <SearchIcon />
-                </IconButton>
-            </Paper>
+    const nonReadOnlyIconButton = () => {
+        if (readOnly) return null;
+        return (
+            <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
+                <SearchIcon />
+            </IconButton>
+        )
+    }
 
+    const nonReadOnlyFilterDialog = () => {
+        if (readOnly) return null;
+        return (
             <InvoiceFilterDialog 
                 showDialog={ openSearch }
                 onCloseDialog={ () => setOpenSearch(false)}
@@ -302,6 +363,23 @@ function AssetInvoiceField({ invoiceId, onChange }) {
                     setInvoice(selectedModel)
                     setOpenSearch(false)
                 }} />
+        )
+    }
+
+    return (
+        <>
+            <Paper component="form">
+                <InputBase
+                    required
+                    value={ invoice.number }
+                    disabled={true}
+                    placeholder="Nota Fiscal"
+                    inputProps={{ 'aria-label': 'Nota Fiscal' }}
+                />
+                { nonReadOnlyIconButton() }
+            </Paper>
+
+            { nonReadOnlyFilterDialog() }
         </>
     )
 }

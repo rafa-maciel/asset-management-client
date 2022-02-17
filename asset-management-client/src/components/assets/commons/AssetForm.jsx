@@ -8,8 +8,8 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import { Link } from 'react-router-dom';
 
 
-export default function AssetForm({ onValidFormSubmit, initialData }) {
-    const [ fields, validData ] = useAssetFormContext(initialData)
+export default function AssetForm({ onValidFormSubmit, initialData, readOnly=false }) {
+    const [ fields, validData ] = useAssetFormContext(initialData, readOnly)
     
     const handleSubmit = e => {
         e.preventDefault()
@@ -18,47 +18,55 @@ export default function AssetForm({ onValidFormSubmit, initialData }) {
             onValidFormSubmit(data)
     }
 
+    const nonReadOnlyButtons = () => {
+        if (readOnly) return null;
+
+        return (
+            <Grid item sm={12}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                        <Button type="submit"
+                            fullWidth
+                            size="medium"
+                            variant="contained"
+                            color="primary"
+                            startIcon={ <SaveIcon /> }>
+                                Salvar
+                        </Button>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                        <Button
+                            component={ Link }
+                            to={{
+                                pathname: "/assets",
+                                status: {
+                                    'message' : {
+                                        'type': 'info',
+                                        'title': 'Criação Cancelada',
+                                        'message': 'A ação foi cancelada e o Ativo não foi criado'
+                                    }
+                                }
+                                }}
+                            fullWidth
+                            variant="contained"
+                            color="secondary"
+                            startIcon={<RestoreIcon />}>
+                                Cancelar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        )
+    }
+
     return (
         <>
             <form onSubmit={ handleSubmit }>
                 <Grid container spacing={3}>
                     { fields().map(field => <Grid item xs={12} sm={6}>{ field }</Grid>) }
 
-                    <Grid item sm={12}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} sm={6}>
-                                <Button type="submit"
-                                    fullWidth
-                                    size="medium"
-                                    variant="contained"
-                                    color="primary"
-                                    startIcon={ <SaveIcon /> }>
-                                        Salvar
-                                </Button>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6}>
-                                <Button
-                                    component={ Link }
-                                    to={{
-                                        pathname: "/assets",
-                                        status: {
-                                            'message' : {
-                                                'type': 'info',
-                                                'title': 'Criação Cancelada',
-                                                'message': 'A ação foi cancelada e o Ativo não foi criado'
-                                            }
-                                        }
-                                        }}
-                                    fullWidth
-                                    variant="contained"
-                                    color="secondary"
-                                    startIcon={<RestoreIcon />}>
-                                        Cancelar
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    { nonReadOnlyButtons() }
                 </Grid>
             </form>
         </>

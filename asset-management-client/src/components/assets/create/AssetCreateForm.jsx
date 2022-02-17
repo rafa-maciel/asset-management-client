@@ -12,6 +12,6 @@ export default function AssetCreateForm({ onCreate }) {
     }
 
     return (
-        <AssetForm onValidFormSubmit={ createAsset } />
+        <AssetForm onValidFormSubmit={ createAsset }/>
     )
 }
