@@ -1,8 +1,10 @@
 import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core'
 import React, { useState } from 'react'
-import DeleteIcon from '@material-ui/icons/Delete';
-import { FileDelete } from '.';
 import { downloadFile } from '../../../adapters/files';
+import { FileDelete } from '.';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import GetApp from '@material-ui/icons/GetApp';
 
 export default function FileList({ files, onDelete }) {
     const [fileSelected, setFileSelected] = useState(null)
@@ -57,9 +59,9 @@ export default function FileList({ files, onDelete }) {
                                 <Button
                                     size="small"
                                     variant="contained"
-                                    color="secondary"
+                                    color="primary"
                                     onClick={ () => handleDownload(file.id) }
-                                    startIcon={ <DeleteIcon /> }>
+                                    startIcon={ <GetApp /> }>
                                     Baixar
                                 </Button>
                             </TableCell>

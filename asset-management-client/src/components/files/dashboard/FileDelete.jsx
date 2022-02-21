@@ -2,6 +2,7 @@ import { Button, Dialog, DialogContent, Grid, Typography } from '@material-ui/co
 import { Alert } from '@material-ui/lab'
 import React from 'react'
 import DeleteIcon from '@material-ui/icons/Delete';
+import RestoreIcon from '@material-ui/icons/Restore';
 import { deleteFile } from '../../../adapters/files';
 
 export default function FileDelete({ file, showDialog, onCloseDialog, onDelete }) {
@@ -23,17 +24,32 @@ export default function FileDelete({ file, showDialog, onCloseDialog, onDelete }
                                 <Typography component="small" variant="caption">Esta ação não poderá ser desfeita.</Typography>                
                             </Alert>
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <form onSubmit={ handleFormSubmit }>
-                                <Button
-                                    fullWidth
-                                    type="submit"
-                                    variant="contained"
-                                    color="secondary"
-                                    startIcon={<DeleteIcon />}>
-                                    Deletar Arquivo
-                                </Button>
-                            </form>
+                        <Grid item xs={12}>
+                            <Grid container spacing={3}>
+                                <Grid item xs={12} md={6}>
+                                    <form onSubmit={ handleFormSubmit }>
+                                        <Button
+                                            fullWidth
+                                            type="submit"
+                                            variant="contained"
+                                            color="secondary"
+                                            startIcon={<DeleteIcon />}>
+                                            Deletar Arquivo
+                                        </Button>
+                                    </form>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Button
+                                        fullWidth
+                                        type="button"
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => onCloseDialog()}
+                                        startIcon={<RestoreIcon />}>
+                                        Cancelar
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </DialogContent>
