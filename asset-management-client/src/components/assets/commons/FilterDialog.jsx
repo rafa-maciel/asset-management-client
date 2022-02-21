@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Dialog, DialogContent, DialogTitle, List, ListItem, ListItemText, TextField, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogContent, DialogTitle, Grid, List, ListItem, ListItemText, TextField, Typography } from '@material-ui/core';
 import { searchUsers } from '../../../adapters/user';
 import { searchLocations } from '../../../adapters/locations';
 import { searchModels } from '../../../adapters/models';
 import { searchContracts } from '../../../adapters/contract';
 import { searchInvoices } from '../../../adapters/invoices';
+
+import SearchIcon from '@material-ui/icons/Search';
 
 function OwnerFilterDialog({ showDialog, onCloseDialog, onSelect }) {
     const [name, setName] = useState("")
@@ -86,11 +88,12 @@ function LocationFilterDialog({ showDialog, onCloseDialog, onSelect }) {
 
 function ModelFilterDialog({ showDialog, onCloseDialog, onSelect }) {
     const [title, setTitle] = useState("")
+    const [brand, setBrand] = useState("")
     const [models, setModels] = useState([])
 
     const filter = () => {
-        if (title && title.length > 0)
-            searchModels({title})
+        if ((title && title.length > 0) || (brand && brand.length > 0))
+            searchModels({title, brand})
                 .then(resp => resp.content)
                 .then(data => {
                     setModels(data)
@@ -101,12 +104,34 @@ function ModelFilterDialog({ showDialog, onCloseDialog, onSelect }) {
         <Dialog onClose={ onCloseDialog } open={ showDialog }>
             <DialogTitle>Filtrar Modelos</DialogTitle>
             <DialogContent>
-                <TextField
-                    label="Modelo"
-                    value={ title }
-                    onChange={ e => setTitle(e.target.value) }
-                    onKeyUp={ e => { if(e.key === "Enter") filter() }}
-                    />
+                <Grid container spacing={3}>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            label="Modelo"
+                            value={ title }
+                            onChange={ e => setTitle(e.target.value) }
+                            onKeyUp={ e => { if(e.key === "Enter") filter() }}
+                            />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            label="Marca"
+                            value={ brand }
+                            onChange={ e => setBrand(e.target.value) }
+                            onKeyUp={ e => { if(e.key === "Enter") filter() }}
+                            />
+                    </Grid>
+
+                    <Button 
+                        type="button"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => filter()}
+                        startIcon={ <SearchIcon /> }>
+                            Filtrar
+                    </Button>
+                </Grid>
+                
                 
                 <Typography component="p">Resultado da Busca</Typography>
                 <List>
