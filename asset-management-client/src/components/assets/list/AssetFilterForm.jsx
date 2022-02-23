@@ -10,6 +10,7 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
     const [ownerRe, setOwnerRe] = useState("")
     const [locationTitle, setLocationTitle] = useState("")
     const [modelTitle, setModelTitle] = useState("")
+    const [modelType, setModelType] = useState("")
     const [contractNumber, setContractNumber] = useState("")
     const [contractVendor, setContractVendor] = useState("")
     const [contractVendorCNPJ, setContractVendorCNPJ] = useState("")
@@ -27,6 +28,7 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
             ownerRe,
             locationTitle,
             modelTitle,
+            modelType,
             contractNumber,
             contractVendor,
             contractVendorCNPJ,
@@ -44,6 +46,7 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
         setOwnerRe("")
         setLocationTitle("")
         setModelTitle("")
+        setModelType("")
         setContractNumber("")
         setContractVendor("")
         setContractVendorCNPJ("")
@@ -87,27 +90,27 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
                     <Grid container spacing={3}>
                         <Grid item md={6}>
                             <TextField 
-                                label="Localização" 
-                                fullWidth
-                                value={ locationTitle }
-                                onChange={ e => { setLocationTitle(e.target.value) }}/>
-                        </Grid>
-                        <Grid item md={6}>
-                            <TextField 
                                 label="Modelo" 
                                 fullWidth
                                 value={ modelTitle }
                                 onChange={ e => { setModelTitle(e.target.value) }}/>
+                        </Grid>
+                        <Grid item md={6}>
+                            <TextField 
+                                label="Tipo" 
+                                fullWidth
+                                value={ modelType }
+                                onChange={ e => { setModelType(e.target.value) }}/>
                         </Grid>
                     </Grid>
 
                     <Grid container spacing={3}>
                         <Grid item md={6}>
                             <TextField 
-                                label="CNPJ Fornecedor" 
+                                label="Localização" 
                                 fullWidth
-                                value={ contractVendorCNPJ }
-                                onChange={ e => { setContractVendorCNPJ(e.target.value) }}/>
+                                value={ locationTitle }
+                                onChange={ e => { setLocationTitle(e.target.value) }}/>
                         </Grid>
                         <Grid item md={6}>
                             <TextField 
@@ -147,7 +150,7 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
                                     >
                                     <MenuItem value="ACTIVE">Ativos</MenuItem>
                                     <MenuItem value="DISABLE">Desabilitados</MenuItem>
-                                    <MenuItem value="DESTROYED">Destroidos</MenuItem>
+                                    <MenuItem value="DESTROYED">Destruidos</MenuItem>
                                     <MenuItem value="BROKEN">Quebrados</MenuItem>
                                     <MenuItem value="RETIRED">Retirados</MenuItem>
                                 </Select>
@@ -162,6 +165,13 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
                         </Grid>
                     </Grid>
                     <Grid container spacing={3}>
+                        <Grid item md={6}>
+                            <TextField 
+                                label="CNPJ Fornecedor" 
+                                fullWidth
+                                value={ contractVendorCNPJ }
+                                onChange={ e => { setContractVendorCNPJ(e.target.value) }}/>
+                        </Grid>
                         <Grid item md={6}>
                             <TextField 
                                 label="Linha" 
