@@ -1,13 +1,17 @@
 import Axios from 'axios'
 import AuthToken from '../AuthToken'
 
+function getBaseUrl() {
+    if (process.env.NODE_ENV === 'production') {
+        return process.env.REACT_APP_API_ADDRESS
+    }
+
+    return "http://localhost:8080"
+}
+
 function getAxiosInstance() {
     const tokenAuth = new AuthToken()
-    var baseURL = "http://localhost:8080"
-
-    if (process.env.NODE_ENV === 'production') {
-        baseURL = process.env.REACT_APP_API_ADDRESS
-    }
+    var baseURL = getBaseUrl()
 
     let apiSettings = {
         baseURL,
@@ -25,9 +29,10 @@ function getAxiosInstance() {
 
 function getAxiosInstanceBloob() {
     const tokenAuth = new AuthToken()
+    var baseURL = getBaseUrl()
      
     let apiSettings = {
-        baseURL: "http://localhost:8080",
+        baseURL,
         headers: {
             'Content-Type': 'application/json'
         },
@@ -43,9 +48,10 @@ function getAxiosInstanceBloob() {
 
 function getAxiosInstanceData() {
     const tokenAuth = new AuthToken()
-     
+    var baseURL = getBaseUrl()
+
     let apiSettings = {
-        baseURL: "http://localhost:8080",
+        baseURL,
         headers: {
             "Content-Type": "multipart/form-data"
         }
