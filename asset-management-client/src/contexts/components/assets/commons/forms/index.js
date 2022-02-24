@@ -17,6 +17,7 @@ function useAssetFormContext(initialData, readOnly=false) {
     const [ serialNumber, setSerialNumber ] = useState('')
     const [ tag, setTag] = useState('')
     const [ imei, setImei ] = useState('')
+    const [ endOfWarranty, setEndOfWarranty ] = useState('')
 
         
     const [ checkInvalidField, invalidForm ] = useFormInvalidCheck()
@@ -36,6 +37,7 @@ function useAssetFormContext(initialData, readOnly=false) {
             setSerialNumber(initialData.serialNumber)
             setTag(initialData.tag)
             setImei(initialData.imei)
+            setEndOfWarranty(initialData.endOfWarranty)
         }
     }, [ initialData ])
 
@@ -68,6 +70,10 @@ function useAssetFormContext(initialData, readOnly=false) {
                 status={ status }
                 onChange={ setStatus }
                 readOnly={readOnly} />,
+            <Fields.AssetEndOfWarrantyField
+                endOfWarranty={ endOfWarranty }
+                onChange={ setEndOfWarranty }
+                readOnly={readOnly} />,
         ]
     }
 
@@ -86,7 +92,8 @@ function useAssetFormContext(initialData, readOnly=false) {
                 hostname,
                 serialNumber,
                 tag,
-                imei
+                imei,
+                endOfWarranty
             }
         }
         return null

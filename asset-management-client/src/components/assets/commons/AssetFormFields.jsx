@@ -384,10 +384,22 @@ function AssetInvoiceField({ invoiceId, onChange, readOnly=false }) {
     )
 }
 
+function AssetEndOfWarrantyField({ endOfWarranty, onChange, readonly=false }) {
+    return (
+        <TextField
+            value={ endOfWarranty }
+            disabled={ readonly }
+            onChange={ e => onChange(e.target.value) }
+            type="date"
+            required
+            fullWidth />
+    )
+}
+
 
 
 export { AssetOwnerField, AssetLocationField, 
     AssetModelField, AssetCompanyIdentificationField, AssetStatusField,
     AssetChipIdentificationField, AssetLineIdentificationField, 
     AssetHostnameField, AssetSerialNumberField, AssetTagField,
-    AssetContractField, AssetInvoiceField, AssetImeiField }
+    AssetContractField, AssetInvoiceField, AssetImeiField, AssetEndOfWarrantyField }

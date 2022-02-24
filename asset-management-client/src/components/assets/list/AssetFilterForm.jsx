@@ -19,6 +19,10 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
     const [chipIdentification, setChipIdentification] = useState("")
     const [lineIdentification, setLineIdentification] = useState("")
 
+    const [endOfWarranty, setEndOfWarranty] = useState("") 
+    const [endOfWarrantyMax, setEndOfWarrantyMax] = useState("") 
+    const [modeSearchEndOfWarranty, setModeSearchEndOfWarranty] = useState("") 
+
 
     const handleFormSubmit = e => {
         e.preventDefault()
@@ -35,7 +39,10 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
             companyIdentification,
             status,
             chipIdentification,
-            lineIdentification
+            lineIdentification,
+            endOfWarranty,
+            endOfWarrantyMax,
+            modeSearchEndOfWarranty
         }
 
         onFormSubmit(data)
@@ -54,6 +61,9 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
         setStatus("")
         setChipIdentification("")
         setLineIdentification("")
+        setEndOfWarranty("")
+        setEndOfWarrantyMax("")
+        setModeSearchEndOfWarranty("")
     }
 
     return (
@@ -178,6 +188,43 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
                                 fullWidth
                                 value={ lineIdentification }
                                 onChange={ e => { setLineIdentification(e.target.value) }}/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={3}>
+                        <Grid item md={4}>
+                            <TextField 
+                                label="Final da Garantia" 
+                                type="date"
+                                fullWidth
+                                value={ endOfWarranty }
+                                onChange={ e => { setEndOfWarranty(e.target.value) }}/>
+                        </Grid>
+
+                        <Grid item md={4}>
+                            <TextField 
+                                label="Final da Garantia (Maximo)" 
+                                type="date"
+                                fullWidth
+                                disabled={ modeSearchEndOfWarranty !== 'BETWEEN' }
+                                value={ endOfWarrantyMax }
+                                onChange={ e => { setEndOfWarrantyMax(e.target.value) }}/>
+                        </Grid>
+
+                        <Grid item md={4}>
+                            <FormControl fullWidth>
+                                <InputLabel id="startsAt-type-id">Tipo de Pesquisa</InputLabel>
+                                <Select
+                                    labelId="startsAt-type-id"
+                                    value={ modeSearchEndOfWarranty }
+                                    fullWidth
+                                    onChange={ e => { setModeSearchEndOfWarranty(e.target.value) }}>
+                                        <MenuItem value="EQUAL">Igual</MenuItem>
+                                        <MenuItem value="GREATER_THAN">Maior que</MenuItem>
+                                        <MenuItem value="LESS_THAN">Menor Que</MenuItem>
+                                        <MenuItem value="BETWEEN">Entre</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Grid>
                     </Grid>
                     
