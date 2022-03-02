@@ -7,6 +7,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import EditIcon from '@material-ui/icons/Edit';
 import ListAltIcon from '@material-ui/icons/ListAlt';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 
 import './style.css'
 
@@ -113,6 +114,24 @@ const TableToolbar = ({ numSelected, tableTitle, actionPaths, selected }) => {
 
         return null
     }
+
+    function hasImportOption(importData) {
+        if (importData) {
+            return (
+                <Tooltip title="import" >
+                    <IconButton aria-label="Importar" 
+                        component={ Link }
+                        to={{
+                            pathname: importData
+                        }}>
+                        <CloudUploadIcon />
+                    </IconButton>
+                </Tooltip>
+            )
+        }
+
+        return null
+    }
     
 
     return (
@@ -170,6 +189,8 @@ const TableToolbar = ({ numSelected, tableTitle, actionPaths, selected }) => {
                                     <AddCircleIcon />
                                 </IconButton>
                             </Tooltip>
+
+                            { hasImportOption(actionPaths.import) }
                         </>
                     )}
                 </Grid>

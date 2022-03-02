@@ -15,20 +15,9 @@ export default function AssetImportForm() {
             <Grid container spacing={3} justifyContent="flex-end">
                 <Grid item xs={12}>
                     <Alert variant="filled" severity="info">
-                        Você está realizando a importação de ativos do Excel, você deverá utilizar uma planilha de acordo com o padrões abaixo<br />
-                        <ul>
-                            <li>A primeira linha (titulo) será ignorada</li>
-                            <li>A primeira coluna será o nome</li>
-                            <li>O campo nome deve conter entre 3 e 50 caracteres</li>
-                            <li>A segunda coluna será o RE</li>
-                            <li>O Campo RE não pode ser nulo e só deve conter números</li>
-                            <li>A terceira coluna será o Departamento</li>
-                            <li>O campo departamento deve conter entre 1 e 50 caracteres</li>
-                            <li>A quinta coluna será o status</li>
-                            <li>O campo status deve conter um dos seguintes status 'ACTIVE', 'INACTIVE', 'LICENSE'</li>
-
-                            <li><strong>As linhas em vermelho (com erro) não serão importadas</strong></li>
-                        </ul>               
+                        Você deverá seguir a planilha de exemplo para completar a importação com sucesso <br />
+                        Dica: para informações detalhadas de cada campo, olhar na aba "informações" da planilha de exemplo <br />
+                        <a href="/files/Importar_Ativos_exemplo.xlsx">Baixar planilha modelo</a>
                     </Alert>
                 </Grid>
                 <Grid item>
@@ -67,39 +56,39 @@ function AssetDataTable({ data, deleteLine }) {
             <Table size="small">
                 <TableHead>
                     <TableRow>
+                        <TableCell>Nº de Série</TableCell>
+                        <TableCell>Hostname</TableCell>
+                        <TableCell>TAG</TableCell>
+                        <TableCell>IMEI</TableCell>
+                        <TableCell>Final da Garantia</TableCell>
+                        <TableCell>Ativo</TableCell>
+                        <TableCell>Status</TableCell>
                         <TableCell>Responsável</TableCell>
                         <TableCell>Localização</TableCell>
                         <TableCell>Modelo</TableCell>
-                        <TableCell>Identificação</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Chip ID</TableCell>
+                        <TableCell>Chip</TableCell>
                         <TableCell>Linha</TableCell>
-                        <TableCell>Contrato Num</TableCell>
-                        <TableCell>Fornecedor</TableCell>
-                        <TableCell>Forn. CNPJ</TableCell>
-                        <TableCell>Contr. Começa em</TableCell>
-                        <TableCell>Contr. Termina em</TableCell>
+                        <TableCell>Contrato</TableCell>
+                        <TableCell>Nota Fiscal</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     { data ? data.map((row, index) => (
                         <TableRow key={index} style={row && row.errors && row.errors.length ? {background: '#FF7F7F'} : null}>
-                            <TableCell component="th" scope="row">
-                                {row.owner.name ? row.owner.name : row.owner.re}
-                            </TableCell>
-                            <TableCell align="right">{row.location.title}</TableCell>
-                            <TableCell align="right">{row.model.title}</TableCell>
-                            <TableCell align="right">{row.companyIdentification}</TableCell>
-                            <TableCell align="right">{row.status}</TableCell>
-                            <TableCell align="right">{row.chipIdentification}</TableCell>
-                            <TableCell align="right">{row.lineIdentification}</TableCell>
-                            <TableCell align="right">{row.contract.number}</TableCell>
-                            <TableCell align="right">{row.contract.vendor}</TableCell>
-                            <TableCell align="right">{row.contract.vendorCNPJ}</TableCell>
-                            <TableCell align="right">{row.contract.startsAt}</TableCell>
-                            <TableCell align="right">{row.contract.endsAt}</TableCell>
-
-
+                            <TableCell align="right" component="th">{row.serialNumber}</TableCell>
+                            <TableCell align="right" component="th">{row.hostname}</TableCell>
+                            <TableCell align="right" component="th">{row.tag}</TableCell>
+                            <TableCell align="right" component="th">{row.imei}</TableCell>
+                            <TableCell align="right" component="th">{row.endOfWarranty}</TableCell>
+                            <TableCell align="right" component="th">{row.companyIdentification}</TableCell>
+                            <TableCell align="right" component="th">{row.status}</TableCell>
+                            <TableCell align="right" component="th">{row.owner.name ? row.owner.name : row.owner.re}</TableCell>
+                            <TableCell align="right" component="th">{row.location.title }</TableCell>
+                            <TableCell align="right" component="th">{row.model.title }</TableCell>
+                            <TableCell align="right" component="th">{row.chipIdentification }</TableCell>
+                            <TableCell align="right" component="th">{row.lineIdentification }</TableCell>
+                            <TableCell align="right" component="th">{row.contract.vendor ? row.contract.vendor : row.contract.number}</TableCell>
+                            <TableCell align="right" component="th">{row.invoice.vendor ? row.invoice.vendor : row.invoice.number}</TableCell>
                             <TableCell align="right">
                                 <ul>
                                     {row.errors.map((item, index) => <li key={index}>{item}</li>)}

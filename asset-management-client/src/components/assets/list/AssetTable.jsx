@@ -18,6 +18,7 @@ export default function AssetTable({ onError }) {
         update: '/assets/update',
         create: '/assets/create',
         details: '/assets/detail',
+        import: '/assets/import',
         onFilterClick: e => setShowFilter(true)
     }
 
