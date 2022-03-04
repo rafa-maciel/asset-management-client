@@ -2,6 +2,11 @@ import { useEffect, useState } from "react"
 import * as Fields from "../../../../../components/assets/commons/AssetFormFields"
 import { useFormInvalidCheck } from "../../../../commons/useFormsUtils"
 
+const convertToDate = date => {
+    var dateArray = date.split("/")
+    return dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0]
+}
+
 function useAssetFormContext(initialData, readOnly=false) {
     const [ownerId, setOwnerId]=  useState('')
     const [companyIdentification, setCompanyIdentification] = useState('')
@@ -37,7 +42,7 @@ function useAssetFormContext(initialData, readOnly=false) {
             setSerialNumber(initialData.serialNumber)
             setTag(initialData.tag)
             setImei(initialData.imei)
-            setEndOfWarranty(initialData.endOfWarranty)
+            setEndOfWarranty(convertToDate(initialData.endOfWarranty))
         }
     }, [ initialData ])
 
