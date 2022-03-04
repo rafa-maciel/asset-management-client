@@ -3,7 +3,7 @@ import { searchInvoices } from "../../../../adapters/invoices"
 import { useTablePageable } from "../../../commons/useTablePageable"
 
 function useInvoiceTableContext( onFilterError ) {
-    const [ invoice, setInvoices ] = useState(null)
+    const [ invoices, setInvoices ] = useState(null)
     const [ filterParams, setFilterParams ] = useState(null)
     const [ page, setPage ] = useState(null)
 
@@ -44,11 +44,10 @@ function useInvoiceTableContext( onFilterError ) {
         { 'numeric': false, 'label' : 'Número'},
         { 'numeric': false, 'label' : 'Fornecedor '},
         { 'numeric': false, 'label' : 'Fornecedor CNPJ '},
-        { 'numeric': false, 'label' : 'Começou em '},
-        { 'numeric': false, 'label' : 'Termina em '}
+        { 'numeric': false, 'label' : 'Data de Emissão'},
     ]    
 
-    return [ invoice, changeFilterParams, pagination, tableHeaders ]
+    return [ invoices, changeFilterParams, pagination, tableHeaders ]
 }
 
 export { useInvoiceTableContext }

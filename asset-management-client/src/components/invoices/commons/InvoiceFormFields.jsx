@@ -37,9 +37,10 @@ function InvoiceVendorCNPJField({ field, onChangeField, readonly }) {
     )
 }
 
-function InvoiceStartsAtField({ field, onChangeField, readonly }) {
+function InvoiceDateField({ field, onChangeField, readonly }) {
     return (
         <TextField
+            label="Data de Emissão"
             value={ field }
             disabled={ readonly }
             onChange={ e => onChangeField(e.target.value) }
@@ -49,16 +50,4 @@ function InvoiceStartsAtField({ field, onChangeField, readonly }) {
     )
 }
 
-function InvoiceEndsAtField({ field, onChangeField, readonly }) {
-    return (
-        <TextField
-            value={ field }
-            disabled={ readonly }
-            onChange={ e => onChangeField(e.target.value) }
-            type="date"
-            required
-            fullWidth />
-    )
-}
-
-export { InvoiceNumberField, InvoiceVendorCNPJField, InvoiceVendorField, InvoiceStartsAtField, InvoiceEndsAtField}
+export { InvoiceNumberField, InvoiceVendorCNPJField, InvoiceVendorField, InvoiceDateField }

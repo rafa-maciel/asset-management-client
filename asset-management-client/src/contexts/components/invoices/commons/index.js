@@ -8,8 +8,7 @@ const converDateFormat = date => {
 
 
 function useInvoiceFormContext(readonly, initialData) {
-    const [ endsAt, setEndsAt ] = useState("")
-    const [ startsAt, setStartsAt ] = useState("")
+    const [ date, setDate ] = useState("")
     const [ number, setNumber ] = useState("")
     const [ vendor, setVendor ] = useState("")
     const [ vendorCNPJ, setVendorCNPJ ] = useState("")
@@ -20,8 +19,7 @@ function useInvoiceFormContext(readonly, initialData) {
             setVendor(initialData.vendor)
             setVendorCNPJ(initialData.vendorCNPJ)
 
-            setStartsAt(converDateFormat(initialData.startsAt))
-            setEndsAt(converDateFormat(initialData.endsAt))
+            setDate(converDateFormat(initialData.date))
         }
     }, [ initialData ])
 
@@ -30,8 +28,7 @@ function useInvoiceFormContext(readonly, initialData) {
             number,
             vendor,
             vendorCNPJ,
-            startsAt,
-            endsAt
+            date
         }
     }
 
@@ -39,8 +36,7 @@ function useInvoiceFormContext(readonly, initialData) {
         <Field.InvoiceNumberField field={ number } onChangeField={ setNumber } readonly={readonly} />,
         <Field.InvoiceVendorField field={ vendor } onChangeField={ setVendor } readonly={readonly}/>,
         <Field.InvoiceVendorCNPJField field={ vendorCNPJ } onChangeField={ setVendorCNPJ} readonly={readonly} />,
-        <Field.InvoiceStartsAtField field={ startsAt } onChangeField={ setStartsAt } readonly={readonly}/>,
-        <Field.InvoiceEndsAtField field={ endsAt } onChangeField={ setEndsAt } readonly={readonly}/>
+        <Field.InvoiceDateField field={ date } onChangeField={ setDate } readonly={readonly}/>,
     ]
 
     return [ dataFromForm, fields ]
