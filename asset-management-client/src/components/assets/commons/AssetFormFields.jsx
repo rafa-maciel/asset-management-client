@@ -176,7 +176,7 @@ function AssetCompanyIdentificationField({ companyIdentification, onChange, onVa
 
     return (
         <TextField
-            label="Identificação"
+            label="Ativo"
             value={ companyIdentification }
             onChange={ e => onChange(e.target.value) }
             error={ fieldInvalid }
