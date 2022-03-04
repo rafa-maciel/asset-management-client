@@ -12,6 +12,8 @@ function useAssetImportForm(onSuccessImport) {
     const [file, setFile] = useState(null)
     const [data, setData] = useState([])
     const [assets, setAssets] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const [sucessImported, setSuccessImported] = useState(false)
     const history = useHistory()
 
     const handleFiles = e => {
@@ -62,6 +64,7 @@ function useAssetImportForm(onSuccessImport) {
 
     useEffect(() => {
         if (file) {
+            setLoading(true)
             console.log('converting file')
             var reader = new FileReader()
             reader.onload = e => {
@@ -94,12 +97,15 @@ function useAssetImportForm(onSuccessImport) {
 
             Promise.all(assetList).then(values => {
                 setAssets(values)
+                setLoading(false)
+                if (values > 0)
+                    setSuccessImported(true)
             })
 
         }
     }, [ data ])
 
-    return [handleFiles, assets, removeAsset, importAssetToAPI]
+    return [handleFiles, assets, removeAsset, importAssetToAPI, loading, sucessImported]
 }
 
 const checkForAssetErrorsFields = async (asset) => {

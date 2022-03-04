@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
+import { Button, CircularProgress, Grid, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import React from 'react'
 
@@ -8,7 +8,39 @@ import './style.css'
 import { useAssetImportForm } from '../../../contexts/components/assets/import';
 
 export default function AssetImportForm() {
-    const [onChangeFile, assets, removeAsset, importAssetToApi] = useAssetImportForm()
+    const [onChangeFile, assets, removeAsset, importAssetToApi, loading, successImported] = useAssetImportForm()
+
+    const ActionImportButton = () => {
+        if (loading) {
+            return <CircularProgress />
+        } else if ( successImported ) {
+            return (
+                <Button 
+                    disabled={ assets && assets.length === 0 }
+                    variant="contained" 
+                    color="primary" 
+                    onClick={importAssetToApi}>
+                    Importar dados para o sistema
+                </Button>
+            )
+        } else {
+            return (
+                <>
+                    <input
+                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        id="contained-button-file"
+                        type="file" 
+                        onChange={onChangeFile} />
+                        
+                    <label htmlFor="contained-button-file">
+                        <Button variant="contained" color="secondary" component="span">
+                            Carregar Arquivo do Excel
+                        </Button>  
+                    </label>
+                </>
+            ) 
+        }         
+    }
 
     return (
         <>
@@ -21,28 +53,11 @@ export default function AssetImportForm() {
                     </Alert>
                 </Grid>
                 <Grid item>
-                    <input
-                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                        id="contained-button-file"
-                        type="file" 
-                        onChange={onChangeFile}/>
-                    <label htmlFor="contained-button-file">
-                        <Button variant="contained" color="secondary" component="span">
-                            Carregar Arquivo do Excel
-                        </Button>
-                    </label>
-                </Grid>
-                <Grid item>
-                    <Button 
-                        disabled={ assets && assets.length === 0 }
-                        variant="contained" 
-                        color="primary" 
-                        onClick={importAssetToApi}>
-                        Importar dados para o sistema
-                    </Button>
+                    <ActionImportButton />
                 </Grid>
                 <Grid item xs={12}>
                     <AssetDataTable data={ assets } deleteLine={ removeAsset }/>
+                    { loading && <CircularProgress /> }
                 </Grid>
             </Grid>
             
