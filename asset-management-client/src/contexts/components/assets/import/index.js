@@ -13,7 +13,6 @@ function useAssetImportForm(onSuccessImport) {
     const [data, setData] = useState([])
     const [assets, setAssets] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [sucessImported, setSuccessImported] = useState(false)
     const history = useHistory()
 
     const handleFiles = e => {
@@ -98,14 +97,12 @@ function useAssetImportForm(onSuccessImport) {
             Promise.all(assetList).then(values => {
                 setAssets(values)
                 setLoading(false)
-                if (values > 0)
-                    setSuccessImported(true)
             })
 
         }
     }, [ data ])
 
-    return [handleFiles, assets, removeAsset, importAssetToAPI, loading, sucessImported]
+    return [handleFiles, assets, removeAsset, importAssetToAPI, loading]
 }
 
 const checkForAssetErrorsFields = async (asset) => {

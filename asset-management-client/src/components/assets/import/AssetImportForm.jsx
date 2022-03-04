@@ -8,12 +8,12 @@ import './style.css'
 import { useAssetImportForm } from '../../../contexts/components/assets/import';
 
 export default function AssetImportForm() {
-    const [onChangeFile, assets, removeAsset, importAssetToApi, loading, successImported] = useAssetImportForm()
+    const [onChangeFile, assets, removeAsset, importAssetToApi, loading] = useAssetImportForm()
 
     const ActionImportButton = () => {
         if (loading) {
             return <CircularProgress />
-        } else if ( successImported ) {
+        } else if ( assets && assets.length > 0 ) {
             return (
                 <Button 
                     disabled={ assets && assets.length === 0 }
