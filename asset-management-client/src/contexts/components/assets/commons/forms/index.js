@@ -3,6 +3,8 @@ import * as Fields from "../../../../../components/assets/commons/AssetFormField
 import { useFormInvalidCheck } from "../../../../commons/useFormsUtils"
 
 const convertToDate = date => {
+    if (date == null) return null
+
     var dateArray = date.split("/")
     return dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0]
 }
