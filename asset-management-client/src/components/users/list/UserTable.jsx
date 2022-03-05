@@ -17,6 +17,7 @@ export default function UserTable( { onError } ) {
         delete: '/users/delete', 
         update: '/users/update',
         create: '/users/create',
+        import: '/users/import',
         onFilterClick: e => setShowFilter(true)
     }
 

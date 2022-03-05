@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
+import { Button, CircularProgress, Grid, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import React from 'react'
 import { useUserImportForm } from '../../../contexts/components/users/import'
@@ -8,30 +8,24 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import './style.css'
 
 export default function UserImportForm() {
-    const [onChangeFile, users, removeUser, importUsersToApi] = useUserImportForm()
+    const [onChangeFile, users, removeUser, importUsersToApi, loading] = useUserImportForm()
 
-    return (
-        <>
-            <Grid container spacing={3} justifyContent="flex-end">
-                <Grid item xs={12}>
-                    <Alert variant="filled" severity="info">
-                        Você está realizando a importação de usuários do Excel, você deverá utilizar uma planilha de acordo com o padrões abaixo<br />
-                        <ul>
-                            <li>A primeira linha (titulo) será ignorada</li>
-                            <li>A primeira coluna será o nome</li>
-                            <li>O campo nome deve conter entre 3 e 50 caracteres</li>
-                            <li>A segunda coluna será o RE</li>
-                            <li>O Campo RE não pode ser nulo e só deve conter números</li>
-                            <li>A terceira coluna será o Departamento</li>
-                            <li>O campo departamento deve conter entre 1 e 50 caracteres</li>
-                            <li>A quinta coluna será o status</li>
-                            <li>O campo status deve conter um dos seguintes status 'ACTIVE', 'INACTIVE', 'LICENSE'</li>
-
-                            <li><strong>As linhas em vermelho (com erro) não serão importadas</strong></li>
-                        </ul>               
-                    </Alert>
-                </Grid>
-                <Grid item>
+    const ActionImportButton = () => {
+        if (loading) {
+            return <CircularProgress />
+        } else if ( users && users.length > 0 ) {
+            return (
+                <Button 
+                    disabled={ users && users.length === 0 }
+                    variant="contained" 
+                    color="primary" 
+                    onClick={importUsersToApi}>
+                    Importar dados para o sistema
+                </Button>
+            )
+        } else {
+            return (
+                <>
                     <input
                         accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                         id="contained-button-file"
@@ -42,15 +36,23 @@ export default function UserImportForm() {
                             Carregar Arquivo do Excel
                         </Button>
                     </label>
+                </>
+            ) 
+        }         
+    }
+
+    return (
+        <>
+            <Grid container spacing={3} justifyContent="flex-end">
+                <Grid item xs={12}>
+                    <Alert variant="filled" severity="info">
+                        Você deverá seguir a planilha de exemplo para completar a importação com sucesso <br />
+                        Dica: para informações detalhadas de cada campo, olhar na aba "informações" da planilha de exemplo <br />
+                        <a href="/files/importar_usuarios_exemplo.xlsx">Baixar planilha modelo</a>
+                    </Alert>
                 </Grid>
                 <Grid item>
-                    <Button 
-                        disabled={ users && users.length === 0 }
-                        variant="contained" 
-                        color="primary" 
-                        onClick={importUsersToApi}>
-                        Importar dados para o sistema
-                    </Button>
+                    <ActionImportButton />
                 </Grid>
                 <Grid item xs={12}>
                     <UserDataTable data={ users } deleteLine={ removeUser }/>

@@ -7,6 +7,7 @@ function useUserImportForm(onSuccessImport) {
     const [file, setFile] = useState(null)
     const [data, setData] = useState([])
     const [users, setUsers] = useState(null)
+    const [loading, setLoading] = useState(false)
     const history = useHistory()
 
     const handleFiles = e => {
@@ -47,6 +48,7 @@ function useUserImportForm(onSuccessImport) {
 
     useEffect(() => {
         if (file) {
+            setLoading(true)
             console.log('converting file')
             var reader = new FileReader()
             reader.onload = e => {
@@ -80,7 +82,9 @@ function useUserImportForm(onSuccessImport) {
                     'status': value[3]
                 }
             }).map((user, index) => checkErrors(user));
+
             setUsers(userList)
+            setLoading(false)
 
         }
     }, [ data ])
@@ -106,7 +110,7 @@ function useUserImportForm(onSuccessImport) {
     }
 
 
-    return [handleFiles, users, removeUser, importUsersToAPI]
+    return [handleFiles, users, removeUser, importUsersToAPI, loading]
 }
 
 export {useUserImportForm}
