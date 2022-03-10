@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthToken from './adapters/AuthToken/index.js';
 import HomePage from './pages/commons/home/HomePage/HomePage.jsx';
 import AuthenticationPage from './pages/commons/security/AuthenticationPage/AuthenticationPage.jsx';
