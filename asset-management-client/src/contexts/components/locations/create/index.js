@@ -1,13 +1,8 @@
 import { createNewLocation } from "../../../../adapters/locations"
 
-function useLocationCreate(title, notes) {
+function useLocationCreate(values) {
     const createLocation = callback => {
-        var data = {
-            title,
-            notes
-        }
-
-        createNewLocation(data)
+        createNewLocation(values)
             .then(location => callback(location))
     }
 

@@ -1,39 +1,33 @@
-import { Button, Grid } from '@material-ui/core';
+
 import React from 'react'
-import { useFormInvalidCheck } from '../../../contexts/commons/useFormsUtils';
-import { LocationNotesField, LocationTitleField } from './LocationFormFields';
 import { Link } from 'react-router-dom'
 
+import { Button, Grid } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import RestoreIcon from '@material-ui/icons/Restore';
 
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { FormTextField } from '../../commons/forms/fields/FormFields';
+import { locationSchema } from './validation';
+
 import "./styles/locationFormStyle.css"
 
-export default function LocationForm({ onValidFormSubmit, title, onChangeTitle, notes, onChangeNotes }) {
-    const [ checkInvalidField, invalidForm ] = useFormInvalidCheck()
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        if (!invalidForm)
-            onValidFormSubmit()
-    }
+export default function LocationForm({ onSubmit, initialData={} }) {
+    const { handleSubmit, control } = useForm({
+        resolver: yupResolver(locationSchema)
+    });
 
     return (
         <>
-            <form onSubmit={ handleSubmit }>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
-                       <LocationTitleField
-                            onValidChange={ v => checkInvalidField(v, 'title') }
-                            title={ title }
-                            onChange={ onChangeTitle } />
+                        <FormTextField control={ control } name="title" label="Localização" defaultValue={ initialData.title }/>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <LocationNotesField 
-                            onValidChange={ v => checkInvalidField(v, 'notes') }
-                            notes={ notes }
-                            onChange={ onChangeNotes } />
-
+                        <FormTextField control={ control } name="address" label="Endereço" defaultValue={ initialData.address } />
                     </Grid>
                     
                     <Grid item xs={12}>
@@ -42,7 +36,6 @@ export default function LocationForm({ onValidFormSubmit, title, onChangeTitle, 
                                 <Button type="submit"
                                     className="location-save-btn"
                                     size="medium"
-                                    disabled={ invalidForm }
                                     variant="contained"
                                     color="primary"
                                     fullWidth

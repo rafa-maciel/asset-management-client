@@ -1,22 +1,26 @@
 import { useHistory } from "react-router-dom"
+import { createNewLocation } from "../../../../adapters/locations"
 
-function useLocationCreatePageContext() {
+function useLocationCreate(values) {
     const history = useHistory()
 
-    const onLocationCreate = location => {
-        var message = {
-            'type': 'success',
-            'title': 'Localização Criada',
-            'message': 'A localização [ ' + location.title + ' ] foi criada com sucesso'
-        }
+    const createLocation = values => {
+        createNewLocation(values)
+            .then(location => {
+                var message = {
+                    'type': 'success',
+                    'title': 'Localização Criada',
+                    'message': 'A localização [ ' + location.title + ' ] foi criada com sucesso'
+                }
 
-        history.push({
-            pathname: '/locations',
-            state: { message }
-        })
+                history.push({
+                    pathname: '/locations',
+                    state: { message }
+                })
+            })
     }
 
-    return [ onLocationCreate ]
+    return [ createLocation ]
 }
 
-export { useLocationCreatePageContext }
+export { useLocationCreate }
