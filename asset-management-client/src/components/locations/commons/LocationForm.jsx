@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Button, Grid } from '@material-ui/core';
@@ -15,19 +15,25 @@ import { locationSchema } from './validation';
 import "./styles/locationFormStyle.css"
 
 export default function LocationForm({ onSubmit, initialData={} }) {
-    const { handleSubmit, control } = useForm({
+    const { handleSubmit, control, setValue  } = useForm({
         resolver: yupResolver(locationSchema)
     });
+
+    useEffect(() => {
+        if (initialData) {
+            Object.entries(initialData).forEach(([key, value]) => { setValue(key, value) })
+        }
+    }, [ initialData ])
 
     return (
         <>
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
-                        <FormTextField control={ control } name="title" label="Localização" defaultValue={ initialData.title }/>
+                        <FormTextField control={ control } name="title" label="Localização" />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormTextField control={ control } name="address" label="Endereço" defaultValue={ initialData.address } />
+                        <FormTextField control={ control } name="address" label="Endereço" />
                     </Grid>
                     
                     <Grid item xs={12}>

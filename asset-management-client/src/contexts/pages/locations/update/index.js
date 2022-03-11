@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { findLocation } from "../../../../adapters/locations";
+import { findLocation, updateLocation } from "../../../../adapters/locations";
 
-function useLocationUpdatePageContext() {
+function useLocationUpdate() {
     const [ location, setLocation ] = useState(null)
     const { state: {id : locationId} } = useLocation()
     const history = useHistory()
@@ -14,7 +14,7 @@ function useLocationUpdatePageContext() {
         }
     }, [ locationId ])
 
-    const onLocationUpdated = location => {
+    const redirectToList = location => {
         var message = {
             'type': 'success',
             'title': 'Localização Atualizada!',
@@ -27,7 +27,13 @@ function useLocationUpdatePageContext() {
         })
     }
 
-    return [ location, locationId, onLocationUpdated ]
+    const onUpdateLocation = newLocationData => {
+        updateLocation(locationId, newLocationData)
+            .then(newLocation => redirectToList(newLocation))
+    }
+
+
+    return [ location, onUpdateLocation ]
 }
 
-export { useLocationUpdatePageContext }
+export { useLocationUpdate }

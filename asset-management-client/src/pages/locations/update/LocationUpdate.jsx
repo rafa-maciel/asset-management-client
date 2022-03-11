@@ -1,21 +1,18 @@
 import React from 'react'
 import { Paper, Typography } from '@material-ui/core'
-import { useLocationUpdatePageContext } from '../../../contexts/pages/locations/update'
-import { LocationUpdateForm } from '../../../components/locations/update'
+import { useLocationUpdate } from '../../../contexts/pages/locations/update'
 
 import './style.css'
+import { LocationForm } from '../../../components/locations/commons'
 
 export default function LocationUpdate() {
-    const [ location, locationId, onLocationUpdated ] = useLocationUpdatePageContext()
+    const [ location, updateLocation ] = useLocationUpdate()
 
     return (
         <>
             <Paper className="location-create-main">
                 <Typography variant="h4" component="h1">Atualizar Localização</Typography>
-                <LocationUpdateForm
-                    initialData={ location }
-                    onUpdate={ onLocationUpdated }
-                    locationId={ locationId } />
+                <LocationForm initialData={ location } onSubmit={ updateLocation } />
             </Paper>
         </>
     ) 
