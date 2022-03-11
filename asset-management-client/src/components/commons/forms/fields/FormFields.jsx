@@ -3,14 +3,14 @@ import { TextField } from '@material-ui/core'
 import { Controller } from 'react-hook-form'
 
 
-function FormTextField({ name, label, control, defaultValue="" }) {
+function FormTextField({ name, label, control}) {
     return (
         <Controller
             name={ name }
             control={ control }
-            defaultValue={ defaultValue }
             render={ ({ field: { onChange, value}, fieldState: { error } }) => (
                 <TextField
+                    InputLabelProps={{ shrink: true }}
                     label={ label }
                     value={ value }
                     onChange={onChange}
