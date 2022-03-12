@@ -1,8 +1,10 @@
+import { useState } from "react"
 import { useHistory } from "react-router-dom"
 import { createNewLocation } from "../../../../adapters/locations"
 
 function useLocationCreate(values) {
     const history = useHistory()
+    const [ apiErrors, setApiErrors ] = useState({})
 
     const createLocation = values => {
         createNewLocation(values)
@@ -17,10 +19,21 @@ function useLocationCreate(values) {
                     pathname: '/locations',
                     state: { message }
                 })
+            }).catch( error => {
+                if (error && error.response && error.response.data ) {
+                    var resp = error.response.data
+                    var newErrors = {}
+                    resp.errors.forEach(fieldErrorString => {
+                        let fieldError = fieldErrorString.split(": ");
+                        newErrors[fieldError[0]] = fieldError[1]
+                    });
+
+                    setApiErrors(newErrors)
+                }
             })
     }
 
-    return [ createLocation ]
+    return [ createLocation, apiErrors ]
 }
 
 export { useLocationCreate }

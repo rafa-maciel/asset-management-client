@@ -6,13 +6,13 @@ import { useLocationCreate } from '../../../contexts/pages/locations/create'
 import "./style.css"
 
 export default function LocationCreate() {
-    const [ createLocation ] = useLocationCreate()
+    const [ createLocation, apiErrors ] = useLocationCreate()
 
     return (
         <>
             <Paper className="location-create-main">
                 <Typography variant="h4" component="h1">Criar Localização</Typography>
-                <LocationForm onSubmit={ createLocation } />
+                <LocationForm onSubmit={ createLocation } updateErrors={ apiErrors } />
             </Paper>
         </>
     )
