@@ -14,8 +14,8 @@ import { locationSchema } from './validation';
 
 import "./styles/locationFormStyle.css"
 
-export default function LocationForm({ onSubmit, initialData={} }) {
-    const { handleSubmit, control, setValue  } = useForm({
+export default function LocationForm({ onSubmit, initialData={}, updateErrors }) {
+    const { handleSubmit, control, setValue, setError  } = useForm({
         resolver: yupResolver(locationSchema)
     });
 
@@ -24,6 +24,17 @@ export default function LocationForm({ onSubmit, initialData={} }) {
             Object.entries(initialData).forEach(([key, value]) => { setValue(key, value) })
         }
     }, [ initialData ])
+
+    useEffect(() => {
+        if (updateErrors) {
+            Object.entries(updateErrors).forEach(([key, value]) => { 
+                setError(key, {
+                    type: "manual",
+                    message: value,
+                })
+            })
+        }
+    }, [ updateErrors ])
 
     return (
         <>
