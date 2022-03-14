@@ -11,7 +11,7 @@ import { useCustomForm } from '../../commons/forms/useCustomForm';
 
 import "./styles/locationFormStyle.css"
 
-export default function LocationForm({ onSubmit, initialData={}, updateErrors }) {
+export default function LocationForm({ onSubmit, initialData={}, saveErrors }) {
     const [ handleSubmit, control ] = useCustomForm(locationSchema, initialData, saveErrors);
 
     return (

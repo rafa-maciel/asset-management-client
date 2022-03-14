@@ -12,7 +12,7 @@ export default function LocationCreate() {
         <>
             <Paper className="location-create-main">
                 <Typography variant="h4" component="h1">Criar Localização</Typography>
-                <LocationForm onSubmit={ createLocation } updateErrors={ apiErrors } />
+                <LocationForm onSubmit={ createLocation } saveErrors={ apiErrors } />
             </Paper>
         </>
     )
