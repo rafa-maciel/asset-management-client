@@ -1,40 +1,18 @@
-
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { Button, Grid } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import RestoreIcon from '@material-ui/icons/Restore';
 
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup';
-
 import { FormTextField } from '../../commons/forms/fields/FormFields';
 import { locationSchema } from './validation';
+import { useCustomForm } from '../../commons/forms/useCustomForm';
 
 import "./styles/locationFormStyle.css"
 
 export default function LocationForm({ onSubmit, initialData={}, updateErrors }) {
-    const { handleSubmit, control, setValue, setError  } = useForm({
-        resolver: yupResolver(locationSchema)
-    });
-
-    useEffect(() => {
-        if (initialData) {
-            Object.entries(initialData).forEach(([key, value]) => { setValue(key, value) })
-        }
-    }, [ initialData ])
-
-    useEffect(() => {
-        if (updateErrors) {
-            Object.entries(updateErrors).forEach(([key, value]) => { 
-                setError(key, {
-                    type: "manual",
-                    message: value,
-                })
-            })
-        }
-    }, [ updateErrors ])
+    const [ handleSubmit, control ] = useCustomForm(locationSchema, initialData, saveErrors);
 
     return (
         <>
