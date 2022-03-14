@@ -1,18 +1,15 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Paper, Typography } from '@material-ui/core'
 import { useModelUpdatePageContext } from '../../../contexts/pages/models/update'
-import { ModelUpdateForm } from '../../../components/models/update'
+import { ModelForm } from '../../../components/models/commons/forms'
 
 export default function ModelUpdate() {
-    const [ model, modelId, onModelUpdated ] = useModelUpdatePageContext()
+    const [ model, updateModel ] = useModelUpdatePageContext()
     
     return (
-        <>
+        <Paper>
             <Typography variant="h3" component="h1">Atualizar Modelos de Ativos</Typography>
-            <ModelUpdateForm
-                initialData={ model }
-                onUpdate={ onModelUpdated }
-                modelId={ modelId } />
-        </>
+            <ModelForm initialData={ model } onSubmit={ updateModel }/>
+        </Paper>
     ) 
 }

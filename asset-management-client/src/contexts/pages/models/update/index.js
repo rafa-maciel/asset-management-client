@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { findModel } from "../../../../adapters/models";
+import { findModel, updateModel } from "../../../../adapters/models";
 
 function useModelUpdatePageContext() {
     const [model, setModel] = useState(null)
@@ -13,7 +13,7 @@ function useModelUpdatePageContext() {
                 .then(modelData => setModel(modelData))
     }, [ modelId ])
 
-    const onModelUpdated = model => {
+    const onSuccessUpdate = model => {
         var message = {
             'type': 'success',
             'title': 'Modelo Atualizado!',
@@ -26,7 +26,12 @@ function useModelUpdatePageContext() {
         })
     }
 
-    return [ model, modelId, onModelUpdated]
+    const onUpdateModel = newModelData => {
+        updateModel(modelId, newModelData)
+            .then(model => onSuccessUpdate(model))
+    }
+
+    return [ model, onUpdateModel ]
 }
 
 export { useModelUpdatePageContext }

@@ -1,15 +1,15 @@
-import { Typography } from '@material-ui/core'
+import { Paper, Typography } from '@material-ui/core'
 import React from 'react'
-import { ModelCreateForm } from '../../../components/models/create'
+import { ModelForm } from '../../../components/models/commons/forms'
 import { useModelCreatePageContext } from '../../../contexts/pages/models/create'
 
 export default function ModelCreate() {
-    const [ onModelCreate ] = useModelCreatePageContext()
+    const [ createModel, apiErrors ] = useModelCreatePageContext()
 
     return (
-        <>
+        <Paper>
             <Typography variant="h3" component="h1">Criar Modelo de Ativo</Typography>
-            <ModelCreateForm onCreate={ onModelCreate }/>
-        </>
+            <ModelForm onSubmit={ createModel } saveErrors={ apiErrors } />
+        </Paper>
     )
 }
