@@ -43,7 +43,6 @@ function FormNumberField({ name, label, control}) {
 }
 
 function FormSelectField({ name, label, control, children }) {
-    
     return (
         <Controller
             name={ name }
@@ -56,7 +55,7 @@ function FormSelectField({ name, label, control, children }) {
                         value={ value }
                         onChange={ onChange }
                         fullWidth
-                        defaultValue=""
+                        defaultValue={ value ? value : ""}
                         error={ !!error }>
                         
                         { children }
