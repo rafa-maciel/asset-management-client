@@ -1,9 +1,13 @@
+import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { createNewUser } from '../../../../adapters/user'
+import { handleBadRequestError } from '../../../../adapters/util/handleApiErrors'
 
 function useUserCreatePage() {
     const history = useHistory()
+    const [ apiErrors, setApiErrors ] = useState({})
 
-    const onUserCreate = user => {
+    const onSuccessCreated = user => {
         var message = {
             'type': 'success',
             'title': 'Usuário Criado!',
@@ -16,7 +20,13 @@ function useUserCreatePage() {
         })
     }
 
-    return [ onUserCreate ]
+    const createUser = userData => {
+        createNewUser(userData)
+            .then( user => onSuccessCreated(user))
+            .catch( error => handleBadRequestError(error, setApiErrors))
+    }
+
+    return [ createUser, apiErrors ]
 }
 
 export { useUserCreatePage }
