@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
+import React from 'react'
+import { FormControl, FormHelperText, InputLabel, Select, TextField } from '@material-ui/core'
 import { Controller } from 'react-hook-form'
 
 
@@ -42,28 +42,36 @@ function FormNumberField({ name, label, control}) {
     )
 }
 
-function FormSelectField({ name, label, control, children }) {
+function FormSelectField({ name, label, control, children, defaultValue }) {
+    const labelId = `${label}-id`
+
     return (
-        <Controller
-            name={ name }
-            control={ control }
-            render={ ({ field: { onChange, value}, fieldState: { error } }) => (
-                <FormControl fullWidth >
-                    <InputLabel id={name + "-label"} shrink>{ label }</InputLabel>
-                    <Select
-                        labelId={name + "-label"}
-                        value={ value }
-                        onChange={ onChange }
-                        fullWidth
-                        defaultValue={ value ? value : ""}
-                        error={ !!error }>
-                        
-                        { children }
-                    </Select>
-                    <FormHelperText>{ error ? error.message : null }</FormHelperText>
-                </FormControl>
-            )}
+        <FormControl fullWidth >
+            <InputLabel id={ labelId } shrink>{ label }</InputLabel>
+            <Controller
+                name={ name }
+                control={ control }
+                defaultValue={ defaultValue }
+                render={ ({ field: { onChange, value}, fieldState: { error } }) => (
+                    <>
+                        <Select
+                            labelId={ labelId }
+                            value={ value }
+                            onChange={ onChange }
+                            fullWidth
+                            error={ !!error }>
+                            
+                            { children }
+                        </Select>
+                        <FormHelperText>{ error ? error.message : null }</FormHelperText>
+                    </>
+                )}
             />
+            
+            
+        </FormControl>
+
+       
     )
 }
 
