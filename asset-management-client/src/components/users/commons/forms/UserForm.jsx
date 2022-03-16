@@ -10,11 +10,6 @@ import RestoreIcon from '@material-ui/icons/Restore';
 
 export default function UserForm({ onSubmit, initialData={}, saveErrors }) {
     const [ handleSubmit, control ] = useCustomForm(userSchema, initialData, saveErrors)
-    const statusSelectOptions = {
-        'ACTIVE': 'Ativo',
-        'INACTIVE': 'Inativo',
-        'LICENSE': 'Licença / Afastado'
-    }
 
     return (
         <form onSubmit={ handleSubmit(onSubmit) }>
@@ -30,7 +25,7 @@ export default function UserForm({ onSubmit, initialData={}, saveErrors }) {
                     <FormTextField control={ control } label="Departamento" name="department" />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <FormSelectField control={ control } label="Status" name="status" options={ statusSelectOptions }>
+                    <FormSelectField control={ control } label="Status" name="status" defaultValue={ initialData ? initialData.status : '' }>
                         <MenuItem value="ACTIVE">Ativo</MenuItem>
                         <MenuItem value="INACTIVE">Inativo</MenuItem>
                         <MenuItem value="LICENSE">Licença</MenuItem>
