@@ -1,9 +1,13 @@
+import { useState } from "react"
 import { useHistory } from "react-router-dom"
+import { createNewInvoice } from "../../../../adapters/invoices"
+import { handleBadRequestError } from "../../../../adapters/util/handleApiErrors"
 
 function useInvoiceCreatePageContext() {
     const history = useHistory()
+    const [ apiErrors, setApiErrors ] = useState({})
 
-    const onInvoiceCreate = invoice => {
+    const onSuccessCreated = invoice => {
         var message = {
             'type': 'success',
             'title': 'Nota Fiscal Criada',
@@ -16,7 +20,14 @@ function useInvoiceCreatePageContext() {
         })
     }
 
-    return [ onInvoiceCreate ]
+    const createInvoice = invoiceData => {
+        console.log(invoiceData)
+        createNewInvoice(invoiceData)
+            .then(invoice => onSuccessCreated(invoice))
+            .catch(errors => handleBadRequestError(errors, setApiErrors))
+    }
+
+    return [ createInvoice, apiErrors ]
 }
 
 export { useInvoiceCreatePageContext }

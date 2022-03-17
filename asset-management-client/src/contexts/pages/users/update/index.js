@@ -12,10 +12,7 @@ function useUserUpdatePage() {
     useEffect(() => {
         if ( userId )
             findUser(userId)
-                .then(userData => {
-                    console.log(userData)
-                    setUser(userData)
-                })
+                .then(userData => setUser(userData))
 
     }, [ userId ])
 

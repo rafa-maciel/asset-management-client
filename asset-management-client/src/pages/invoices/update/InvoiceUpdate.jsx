@@ -1,19 +1,17 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Paper, Typography } from '@material-ui/core'
 
 import { useInvoiceUpdatePageContext } from '../../../contexts/pages/invoices/update'
 import { InvoiceUpdateForm } from '../../../components/invoices/update'
+import { InvoiceForm } from '../../../components/invoices/commons'
 
 export default function InvoiceUpdate() {
-    const [ invoice, invoiceId, onInvoiceUpdated ] = useInvoiceUpdatePageContext()
+    const [ invoice, updateInvoice, apiErrors] = useInvoiceUpdatePageContext()
 
     return (
-        <>
+        <Paper>
             <Typography variant="h3" component="h1">Atualizar Nota Fiscal</Typography>
-            <InvoiceUpdateForm
-                initialData={ invoice }
-                onUpdate={ onInvoiceUpdated }
-                invoiceId={ invoiceId } />
-        </>
+            <InvoiceForm onSubmit={ updateInvoice } initialData={ invoice } saveErrors={ apiErrors } />
+        </Paper>
     ) 
 }
