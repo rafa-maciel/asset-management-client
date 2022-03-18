@@ -1,7 +1,6 @@
 import { Paper, Typography } from '@material-ui/core'
 import React from 'react'
 import { ContractForm } from '../../../components/contracts/commons'
-import { ContractCreateForm } from '../../../components/contracts/create'
 import { useContractCreatePageContext } from '../../../contexts/pages/contracts/create'
 
 export default function ContractCreate() {

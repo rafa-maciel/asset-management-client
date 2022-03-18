@@ -11,7 +11,7 @@ const schema = yup.object().shape({
         .max(50, 'Este campo deve conter no máximo 50 caracteres'),
     vendorCNPJ: yup
         .string()
-        .matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/,"Este não é um formato valido de CNPJ")
+        .matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/,"Este não é um formato valido de CNPJ")
         .required('Este campo é obrigatório')
         .max(20, 'Este campo deve conter no máximo 20 caracteres'),
     date: yup
