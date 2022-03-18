@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { findInvoice, updateInvoice } from "../../../../adapters/invoices";
 import { handleBadRequestError } from "../../../../adapters/util/handleApiErrors";
+import { dateFormat } from "../../../../utils/conversors";
 
 function useInvoiceUpdatePageContext() {
     const [ invoice, setInvoice ] = useState(null)
@@ -9,17 +10,11 @@ function useInvoiceUpdatePageContext() {
     const { state: {id: invoiceId} } = useLocation()
     const history = useHistory()
 
-    const convertDate = date => {
-        var arrDate = date.split("/");
-        return `${arrDate[1]}/${arrDate[0]}/${arrDate[2]}`
-
-    }
-
     useEffect(() => {
         if ( invoiceId ) {
             findInvoice(invoiceId)
                 .then(data => {
-                    data.date = convertDate(data.date)
+                    data.date = dateFormat(data.date)
                     setInvoice(data)
                 })
         }
