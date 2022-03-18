@@ -1,9 +1,13 @@
+import { useState } from "react"
 import { useHistory } from "react-router-dom"
+import { createNewContract } from "../../../../adapters/contract"
+import { handleBadRequestError } from "../../../../adapters/util/handleApiErrors"
 
 function useContractCreatePageContext() {
     const history = useHistory()
+    const [ apiErrors, setApiErrors ] = useState({})
 
-    const onContractCreate = contract => {
+    const onSuccessCreated = contract => {
         var message = {
             'type': 'success',
             'title': 'Contrato Criado',
@@ -16,7 +20,13 @@ function useContractCreatePageContext() {
         })
     }
 
-    return [ onContractCreate ]
+    const createContract = contractData => {
+        createNewContract(contractData)
+            .then(contract => onSuccessCreated(contract))
+            .catch(error => handleBadRequestError(error, setApiErrors))
+    }
+
+    return [ createContract, apiErrors ]
 }
 
 export { useContractCreatePageContext }

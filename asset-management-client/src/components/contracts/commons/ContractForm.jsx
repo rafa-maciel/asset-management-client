@@ -6,62 +6,67 @@ import { useContractFormContext } from '../../../contexts/components/contract/co
 
 import { Link } from 'react-router-dom'
 import RestoreIcon from '@material-ui/icons/Restore';
+import { useCustomForm } from '../../commons/forms/useCustomForm';
+import { contractSchema } from './validations';
+import { FormCNPJMaskField, FormDateField, FormTextField } from '../../commons/forms/fields/FormFields';
 
-export default function ContractForm({ readonly, initialData, onSubmit }) {
-    const [ dataSubmitted, fields ] = useContractFormContext(readonly, initialData)
+export default function ContractForm({ onSubmit, initialData={}, saveErrors }) {
+    const [ handleSubmit, control ] = useCustomForm(contractSchema, initialData, saveErrors)
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        onSubmit( dataSubmitted() )
-    }
 
     return (
         <>
-            <form onSubmit={ handleSubmit }>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container spacing={3}>
-
-                    { fields.map((field, index) => (
-                        <Grid item xs={12} sm={6} key={index}>
-                            { field }
-                        </Grid>                    
-                    ))}
-
-                    { readonly ? null : 
-                        <Grid item xs={12}>
-                           <Grid container spacing={3}>
-                                <Grid item xs={12} sm={6}>
-                                    <Button type="submit"
-                                        fullWidth
-                                        size="medium"
-                                        variant="contained"
-                                        color="primary"
-                                        startIcon={ <SaveIcon /> }>
-                                            Salvar
-                                    </Button>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Button
-                                        component={ Link }
-                                        to={{
-                                            pathname: "/contracts",
-                                            status: {
-                                                'message' : {
-                                                    'type': 'info',
-                                                    'title': 'Criação Cancelada',
-                                                    'message': 'A ação foi cancelada e o contrato não foi criado'
-                                                }
+                    <Grid item xs={12} sm={6} key={index}>
+                        <FormTextField control={ control } label="Número" name="number" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} key={index}>
+                        <FormTextField control={ control } label="Fornecedor" name="vendor" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} key={index}>
+                        <FormCNPJMaskField control={control} label="CNPJ" name="vendorCNPJ" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} key={index}>
+                        <FormDateField control={ control } label="Começa Em" name="startsAt" />
+                    </Grid>
+                    <Grid item xs={12} sm={6} key={index}>
+                        <FormDateField control={ control } label="Termina Em" name="endsAt" />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                <Button type="submit"
+                                    fullWidth
+                                    size="medium"
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={ <SaveIcon /> }>
+                                        Salvar
+                                </Button>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Button
+                                    component={ Link }
+                                    to={{
+                                        pathname: "/contracts",
+                                        status: {
+                                            'message' : {
+                                                'type': 'info',
+                                                'title': 'Criação Cancelada',
+                                                'message': 'A ação foi cancelada e o contrato não foi criado'
                                             }
-                                            }}
-                                        fullWidth
-                                        variant="contained"
-                                        color="secondary"
-                                        startIcon={<RestoreIcon />}>
-                                            Cancelar
-                                    </Button>
-                                </Grid>
+                                        }
+                                        }}
+                                    fullWidth
+                                    variant="contained"
+                                    color="secondary"
+                                    startIcon={<RestoreIcon />}>
+                                        Cancelar
+                                </Button>
                             </Grid>
                         </Grid>
-                    }
+                    </Grid>
                 </Grid>
             </form>
         </>

@@ -1,15 +1,16 @@
-import { Typography } from '@material-ui/core'
+import { Paper, Typography } from '@material-ui/core'
 import React from 'react'
+import { ContractForm } from '../../../components/contracts/commons'
 import { ContractCreateForm } from '../../../components/contracts/create'
 import { useContractCreatePageContext } from '../../../contexts/pages/contracts/create'
 
 export default function ContractCreate() {
-    const [ onContractCreate ] = useContractCreatePageContext()
+    const [ createContract, apiErrors ] = useContractCreatePageContext()
 
     return (
-        <>
+        <Paper>
             <Typography variant="h3" component="h1">Criar Contrato</Typography>
-            <ContractCreateForm onCreate={ onContractCreate }/>
-        </>
+            <ContractForm onSubmit={ createContract } saveErrors={ apiErrors} />
+        </Paper>
     )
 }
