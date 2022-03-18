@@ -66,7 +66,7 @@ function FormNumberField({ name, label, control}) {
     )
 }
 
-function FormMaskField({ name, label, control, mask }) {
+function FormCNPJMaskField({ name, label, control }) {
     const labelId = `${label}-id`
 
     return (
@@ -82,7 +82,7 @@ function FormMaskField({ name, label, control, mask }) {
                         onChange={ onChange }
                         error={ !!error }
                         id={ labelId }
-                        inputComponent={TextMaskCustom} />
+                        inputComponent={CNPJMaskCustom} />
                     <FormHelperText>{ error ? error.message : null }</FormHelperText>
                     </>
                 )}
@@ -91,7 +91,7 @@ function FormMaskField({ name, label, control, mask }) {
     )
 }
 
-function TextMaskCustom(props) {
+function CNPJMaskCustom(props) {
     const { inputRef, ...other } = props;
   
     return (
@@ -140,4 +140,4 @@ function FormSelectField({ name, label, control, children, defaultValue }) {
     )
 }
 
-export { FormTextField, FormNumberField, FormSelectField, FormMaskField, FormDateField }
+export { FormTextField, FormNumberField, FormSelectField, FormCNPJMaskField, FormDateField }

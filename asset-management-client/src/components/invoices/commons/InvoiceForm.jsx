@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import SaveIcon from '@material-ui/icons/Save';
 import RestoreIcon from '@material-ui/icons/Restore';
 import { invoiceSchema } from './validation';
-import { FormDateField, FormMaskField, FormNumberField, FormTextField } from '../../commons/forms/fields/FormFields';
+import { FormCNPJMaskField, FormDateField, FormNumberField, FormTextField } from '../../commons/forms/fields/FormFields';
 import { useCustomForm } from '../../commons/forms/useCustomForm';
 
 
@@ -24,7 +24,7 @@ export default function InvoiceForm({ onSubmit, initialData={}, saveErrors }) {
                         <FormTextField control={ control } label="Fornecedor" name="vendor" />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormMaskField control={ control } label="CNPJ" name="vendorCNPJ" mask={/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/} />
+                        <FormCNPJMaskField control={ control } label="CNPJ" name="vendorCNPJ" />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <FormDateField control={ control } label="Data de Emissão" name="date"/>
