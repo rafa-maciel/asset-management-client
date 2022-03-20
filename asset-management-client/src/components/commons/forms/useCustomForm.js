@@ -13,7 +13,8 @@ function useCustomForm(schema, initialData, formArrErrors) {
                 if (key === "id") {
                     register(key, { value: value })
                 } else {
-                    setValue(key, value)
+                    if (value != null)
+                        setValue(key, value)
                 }
              })
         }

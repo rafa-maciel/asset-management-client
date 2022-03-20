@@ -5,6 +5,7 @@ import MaskedInput from 'react-text-mask';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'; 
 import ptBR from 'date-fns/locale/pt-BR';
+import { AssetContractField, AssetInvoiceField, AssetLocationField, AssetModelField, AssetOwnerField } from '../../../assets/commons/AssetFormFields';
 
 
 function FormTextField({ name, label, control}) {
@@ -140,4 +141,76 @@ function FormSelectField({ name, label, control, children, defaultValue }) {
     )
 }
 
-export { FormTextField, FormNumberField, FormSelectField, FormCNPJMaskField, FormDateField }
+function FormAssetModelField({ name, control }) {
+    return (
+        <Controller
+            name={ name }
+            control={ control }
+            render={ ({ field: { onChange, value}, fieldState: { error } }) => (
+                <FormControl fullWidth error={ !!error }>
+                    <AssetModelField modelId={value} onChange={onChange} />
+                    <FormHelperText>{ error ? error.message : null }</FormHelperText>
+                </FormControl>
+            )} />
+    )
+}
+
+function FormAssetOwnerField({ name, control }) {
+    return (
+        <Controller
+            name={ name }
+            control={ control }
+            render={ ({ field: { onChange, value}, fieldState: { error } }) => (
+                <FormControl fullWidth error={ !!error }>
+                    <AssetOwnerField ownerId={value} onChange={onChange} />
+                    <FormHelperText>{ error ? error.message : null }</FormHelperText>
+                </FormControl>
+            )} />
+    )
+}
+
+function FormAssetLocationField({ name, control }) {
+    return (
+        <Controller
+            name={ name }
+            control={ control }
+            render={ ({ field: { onChange, value}, fieldState: { error } }) => (
+                <FormControl fullWidth error={ !!error }>
+                    <AssetLocationField locationId={value} onChange={onChange} />
+                    <FormHelperText>{ error ? error.message : null }</FormHelperText>
+                </FormControl>
+            )} />
+    )
+}
+
+function FormAssetContractField({ name, control }) {
+    return (
+        <Controller
+            name={ name }
+            control={ control }
+            render={ ({ field: { onChange, value}, fieldState: { error } }) => (
+                <FormControl fullWidth error={ !!error }>
+                    <AssetContractField contractId={value} onChange={onChange} />
+                    <FormHelperText>{ error ? error.message : null }</FormHelperText>
+                </FormControl>
+            )} />
+    )
+}
+
+function FormAssetInvoiceField({ name, control }) {
+    return (
+        <Controller
+            name={ name }
+            control={ control }
+            render={ ({ field: { onChange, value}, fieldState: { error } }) => (
+                <FormControl fullWidth error={ !!error }>
+                    <AssetInvoiceField invoiceId={value} onChange={onChange} />
+                    <FormHelperText>{ error ? error.message : null }</FormHelperText>
+                </FormControl>
+            )} />
+    )
+}
+
+
+export { FormTextField, FormNumberField, FormSelectField, FormCNPJMaskField, FormDateField, 
+    FormAssetContractField, FormAssetInvoiceField, FormAssetLocationField, FormAssetModelField, FormAssetOwnerField }

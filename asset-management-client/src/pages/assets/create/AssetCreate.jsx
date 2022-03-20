@@ -1,15 +1,15 @@
-import { Typography } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import React from 'react'
-import { AssetCreateForm } from '../../../components/assets/create';
+import { AssetForm } from '../../../components/assets/commons';
 import { useAssetCreatePageContext } from '../../../contexts/pages/assets/create';
 
 export default function AssetCreate() {
-    const [ onAssetCreate ] = useAssetCreatePageContext();
+    const [ createAsset, apiErrors ] = useAssetCreatePageContext();
 
     return (
-        <>
+        <Paper>
             <Typography variant="h3" component="h1">Criar Ativo</Typography>
-            <AssetCreateForm onCreate={ onAssetCreate }/>
-        </>
+            <AssetForm onSubmit={ createAsset } saveErrors={ apiErrors } />
+        </Paper>
     )
 }
