@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { searchAssets } from "../../../../adapters/assets"
+import { formatAssetStatus } from "../../../../utils/asset/conversors"
 import { useTablePageable } from "../../../commons/useTablePageable"
 
 function useAssetTableContext( onFilterError ) {
@@ -42,7 +43,7 @@ function useAssetTableContext( onFilterError ) {
                 'location': asset.location.title,
                 'invoice': asset.invoice ? asset.invoice.number : null,
                 'contract': asset.contract ? asset.contract.number : null,
-                'status': asset.status
+                'status': formatAssetStatus(asset.status)
             }
         })
 
