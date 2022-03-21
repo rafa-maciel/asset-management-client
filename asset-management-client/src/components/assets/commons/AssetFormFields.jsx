@@ -1,8 +1,7 @@
-import { FormControl, IconButton, InputBase, InputLabel, MenuItem, Paper, Select, TextField } from '@material-ui/core'
+import { IconButton, InputBase, Paper } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '@material-ui/icons/Search';
 import { ContractFilterDialog, InvoiceFilterDialog, LocationFilterDialog, ModelFilterDialog, OwnerFilterDialog } from './FilterDialog';
-import { useValidCompanyIdentification } from '../../../contexts/components/assets/commons';
 import { findUser } from '../../../adapters/user';
 import { findLocation } from '../../../adapters/locations';
 import { findModel } from '../../../adapters/models';
@@ -171,110 +170,6 @@ function AssetModelField({ modelId, onChange, readOnly=false }) {
     )
 }
 
-function AssetCompanyIdentificationField({ companyIdentification, onChange, onValidChange, readOnly=false  }) {
-    const [invalidMessage, fieldInvalid, validate ] = useValidCompanyIdentification(onValidChange)
-
-    return (
-        <TextField
-            label="Ativo"
-            value={ companyIdentification }
-            onChange={ e => onChange(e.target.value) }
-            error={ fieldInvalid }
-            disabled={ readOnly }
-            helperText={ fieldInvalid ? invalidMessage : ''}
-            required
-            onBlur={ e => validate(e.target.value) }
-            fullWidth />
-    )
-}
-
-function AssetStatusField({ status, onChange, readOnly=false  }) {
-    
-    return (
-            <FormControl fullWidth disabled={readOnly}>
-                <InputLabel id="status-id">Status</InputLabel>
-                <Select
-                    labelId="status-id"
-                    value={status}
-                    fullWidth
-                    required
-                    onChange={ e => { onChange(e.target.value) }}>
-                        <MenuItem value="ACTIVE">Ativo</MenuItem>
-                        <MenuItem value="DISABLE">Desabilitado</MenuItem>
-                        <MenuItem value="DESTROYED">Destroido</MenuItem>
-                        <MenuItem value="BROKEN">Quebrado</MenuItem>
-                        <MenuItem value="RETIRED">Retirado</MenuItem>
-                </Select>
-            </FormControl>
-    )
-}
-
-function AssetChipIdentificationField({ chipIdentification, onChange, readOnly=false  }) {
-    return (
-        <TextField
-            label="Chip ID"
-            disabled={ readOnly }
-            value={ chipIdentification }
-            onChange={ e => onChange(e.target.value) }
-            fullWidth />
-    )
-}
-
-function AssetLineIdentificationField({ lineIdentification, onChange, readOnly=false  }) {
-    return (
-        <TextField
-            label="Linha"
-            disabled={ readOnly }
-            value={ lineIdentification }
-            onChange={ e => onChange(e.target.value) }
-            fullWidth />
-    )
-}
-
-function AssetHostnameField({ hostname, onChange, readOnly=false  }) {
-    return (
-        <TextField
-            label="Hostname"
-            value={ hostname }
-            disabled={ readOnly }
-            onChange={ e => onChange(e.target.value) }
-            fullWidth />
-    )
-}
-
-function AssetSerialNumberField({ serialNumber, onChange, readOnly=false  }) {
-    return (
-        <TextField
-            label="Número de Série"
-            value={ serialNumber }
-            disabled={ readOnly }
-            onChange={ e => onChange(e.target.value) }
-            fullWidth />
-    )
-}
-
-function AssetTagField({ tag, onChange, readOnly=false  }) {
-    return (
-        <TextField
-            label="TAG"
-            value={ tag }
-            disabled={ readOnly }
-            onChange={ e => onChange(e.target.value) }
-            fullWidth />
-    )
-}
-
-function AssetImeiField({ imei, onChange, readOnly=false  }) {
-    return (
-        <TextField
-            label="IMEI"
-            value={ imei }
-            disabled={ readOnly }
-            onChange={ e => onChange(e.target.value) }
-            fullWidth />
-    )
-}
-
 function AssetContractField({ contractId, onChange, readOnly=false }) {
     const [contract, setContract] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
@@ -384,22 +279,7 @@ function AssetInvoiceField({ invoiceId, onChange, readOnly=false }) {
     )
 }
 
-function AssetEndOfWarrantyField({ endOfWarranty, onChange, readonly=false }) {
-    return (
-        <TextField
-            value={ endOfWarranty }
-            disabled={ readonly }
-            onChange={ e => onChange(e.target.value) }
-            type="date"
-            required
-            fullWidth />
-    )
-}
-
 
 
 export { AssetOwnerField, AssetLocationField, 
-    AssetModelField, AssetCompanyIdentificationField, AssetStatusField,
-    AssetChipIdentificationField, AssetLineIdentificationField, 
-    AssetHostnameField, AssetSerialNumberField, AssetTagField,
-    AssetContractField, AssetInvoiceField, AssetImeiField, AssetEndOfWarrantyField }
+    AssetModelField, AssetContractField, AssetInvoiceField }

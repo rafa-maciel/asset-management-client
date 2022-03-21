@@ -1,7 +1,6 @@
 import { Paper, Typography } from '@material-ui/core'
 import React from 'react'
 import { AssetForm } from '../../../components/assets/commons'
-import { AssetUpdateForm } from '../../../components/assets/update'
 import { useAssetUpdatePageContext } from '../../../contexts/pages/assets/update'
 
 export default function AssetUpdate() {
