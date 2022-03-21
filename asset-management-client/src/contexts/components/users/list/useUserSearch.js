@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { searchUsers } from "../../../../adapters/user"
+import { formatUserStatus } from "../../../../utils/users/conversors"
 import { useTablePageable } from "../../../commons/useTablePageable"
 
 const useUserSearch = ( onSearchError ) => {
@@ -27,7 +28,12 @@ const useUserSearch = ( onSearchError ) => {
     }, [ params, rowsPerPage, currentPage, onSearchError ] )
 
     const updateContent = searchContent => {
-        setUsers(searchContent.content)
+        var usersData = searchContent.content.map(user => {
+            user.status = formatUserStatus(user.status)
+            return user
+        })
+        
+        setUsers(usersData)
         setPage(searchContent.page)
     }
 
