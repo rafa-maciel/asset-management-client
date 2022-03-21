@@ -4,6 +4,7 @@ import { useAssetDetailPageContext } from '../../../contexts/pages/assets/detail
 import { NoteDashboard } from '../../notes'
 import { FileDashboard } from '../../files'
 import { AssetForm } from '../../../components/assets/commons'
+import AssetInfo from '../../../components/assets/detail/AssetInfo'
 
 
 export default function AssetDetail() {
@@ -23,7 +24,7 @@ export default function AssetDetail() {
         <>
             <Typography variant="h3" component="h1">Detalhes do Ativo</Typography>
 
-            <AssetForm initialData={ asset } readOnly={ true } /> 
+            <AssetInfo asset={asset} />
 
             <AppBar position="static">
                 <Tabs value={ tabIndex } onChange={(e, index) => changeTabIndex(index)}>
