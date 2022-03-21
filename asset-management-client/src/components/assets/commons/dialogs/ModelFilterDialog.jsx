@@ -27,7 +27,7 @@ function ModelFilterDialog({ showDialog, onCloseDialog, onSelect }) {
 
     return (
         <Dialog onClose={ onCloseDialog } open={ showDialog }>
-            <DialogTitle>Filtrar Localizações</DialogTitle>
+            <DialogTitle>Filtrar Modelos de Ativos</DialogTitle>
             <DialogContent style={{"min-width": "500px"}}>
                 <>
                     <Grid container spacing={3}>
