@@ -1,13 +1,13 @@
 import { IconButton, InputBase, Paper } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '@material-ui/icons/Search';
-import { ContractFilterDialog, InvoiceFilterDialog } from './FilterDialog';
+import { ContractFilterDialog } from './FilterDialog';
 import { findUser } from '../../../adapters/user';
 import { findLocation } from '../../../adapters/locations';
 import { findModel } from '../../../adapters/models';
 import { findContract } from '../../../adapters/contract';
 import { findInvoice } from '../../../adapters/invoices';
-import { OwnerFilterDialog, LocationFilterDialog, ModelFilterDialog } from './dialogs';
+import { OwnerFilterDialog, LocationFilterDialog, ModelFilterDialog, InvoiceFilterDialog } from './dialogs';
 
 function AssetOwnerField({ ownerId, onChange }) {
     const [owner, setOwner] = useState('')
