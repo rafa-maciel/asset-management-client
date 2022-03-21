@@ -10,6 +10,19 @@ function useUserUpdatePage() {
     const history = useHistory()
 
     useEffect(() => {
+        console.log(apiErrors)
+        if (apiErrors && apiErrors.userUpdateForm) {
+            var statusMessage = apiErrors.userUpdateForm
+            var errors = {...apiErrors}
+            errors["status"] = statusMessage
+            delete errors["userUpdateForm"]
+            
+            setApiErrors(errors)
+        }
+
+    }, [apiErrors])
+
+    useEffect(() => {
         if ( userId )
             findUser(userId)
                 .then(userData => setUser(userData))
