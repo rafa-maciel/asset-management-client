@@ -3,7 +3,6 @@ import { AppBar, Tab, Tabs, Typography } from '@material-ui/core'
 import { useAssetDetailPageContext } from '../../../contexts/pages/assets/detail'
 import { NoteDashboard } from '../../notes'
 import { FileDashboard } from '../../files'
-import { AssetForm } from '../../../components/assets/commons'
 import AssetInfo from '../../../components/assets/detail/AssetInfo'
 
 
