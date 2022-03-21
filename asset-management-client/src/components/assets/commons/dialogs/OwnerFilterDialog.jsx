@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Dialog, DialogContent, DialogTitle, Grid, List, ListItem, ListItemText, TextField, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogContent, DialogTitle, Grid, List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import { searchUsers } from '../../../../adapters/user';
 
 
