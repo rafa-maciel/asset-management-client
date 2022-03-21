@@ -14,7 +14,11 @@ function OwnerFilterDialog({ showDialog, onCloseDialog, onSelect }) {
 
     const filter = () => {
         if (name && name.length > 0)
-            searchUsers({name})
+            var searchParams = {
+                name,
+                notStatus: "INACTIVE"
+            }
+            searchUsers(searchParams)
                 .then(resp => resp.content)
                 .then(data => {
                     setUsers(data)

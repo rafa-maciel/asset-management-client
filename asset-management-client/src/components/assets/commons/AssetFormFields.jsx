@@ -1,14 +1,15 @@
 import { IconButton, InputBase, Paper } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '@material-ui/icons/Search';
-import { ContractFilterDialog, InvoiceFilterDialog, LocationFilterDialog, ModelFilterDialog, OwnerFilterDialog } from './FilterDialog';
+import { ContractFilterDialog, InvoiceFilterDialog, LocationFilterDialog, ModelFilterDialog } from './FilterDialog';
 import { findUser } from '../../../adapters/user';
 import { findLocation } from '../../../adapters/locations';
 import { findModel } from '../../../adapters/models';
 import { findContract } from '../../../adapters/contract';
 import { findInvoice } from '../../../adapters/invoices';
+import { OwnerFilterDialog } from './dialogs';
 
-function AssetOwnerField({ ownerId, onChange, readOnly=false }) {
+function AssetOwnerField({ ownerId, onChange }) {
     const [owner, setOwner] = useState('')
     const [openSearch, setOpenSearch] = useState(false)
     
@@ -22,28 +23,6 @@ function AssetOwnerField({ ownerId, onChange, readOnly=false }) {
         }
     }, [ owner, ownerId, onChange ])
 
-    const nonReadOnlyIconButton = () => {
-        if (readOnly) return null;
-        return (
-            <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
-                <SearchIcon />
-            </IconButton>
-        )
-    }
-    
-    const nonReadOnlyFilterDialog = () => {
-        if (readOnly) return null;
-        return (
-            <OwnerFilterDialog 
-                showDialog={ openSearch }
-                onCloseDialog={ () => setOpenSearch(false)}
-                onSelect={ selectedOwner => {
-                    setOwner(selectedOwner)
-                    setOpenSearch(false)
-                }} />
-        )
-    }
-
     return (
         <>
             <Paper component="form">
@@ -52,12 +31,20 @@ function AssetOwnerField({ ownerId, onChange, readOnly=false }) {
                     value={ owner.name }
                     disabled={true}
                     placeholder="Responsável"
-                    inputProps={{ 'aria-label': 'Responsável' }}
-                />
-                { nonReadOnlyIconButton() }
+                    inputProps={{ 'aria-label': 'Responsável' }} />
+
+                <IconButton type="button" aria-label="search" onClick={() => setOpenSearch(true)}>
+                    <SearchIcon />
+                </IconButton>
             </Paper>
 
-            { nonReadOnlyFilterDialog() }
+            <OwnerFilterDialog 
+                showDialog={ openSearch }
+                onCloseDialog={ () => setOpenSearch(false)}
+                onSelect={ selectedOwner => {
+                    setOwner(selectedOwner)
+                    setOpenSearch(false)
+                }} />
         </>
     )
 }
