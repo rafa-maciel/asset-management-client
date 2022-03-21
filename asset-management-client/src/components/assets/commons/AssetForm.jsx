@@ -13,14 +13,9 @@ import { FormAssetContractField, FormAssetInvoiceField, FormAssetLocationField, 
 export default function AssetForm({ onSubmit, initialData={}, saveErrors  }) {
     const [ handleSubmit, control ] = useCustomForm(assetSchema, initialData, saveErrors)
 
-    const test = (data) => {
-        console.log(data) 
-        onSubmit(data)
-    };
-
     return (
         <>
-            <form onSubmit={ handleSubmit(test) }>
+            <form onSubmit={ handleSubmit(onSubmit) }>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                         <FormTextField control={ control } label="Hostname" name="hostname" />
