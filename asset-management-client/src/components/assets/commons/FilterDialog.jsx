@@ -8,45 +8,6 @@ import { searchInvoices } from '../../../adapters/invoices';
 
 import SearchIcon from '@material-ui/icons/Search';
 
-function LocationFilterDialog({ showDialog, onCloseDialog, onSelect }) {
-    const [title, setTitle] = useState("")
-    const [locations, setLocations] = useState([])
-
-    const filter = () => {
-        if (title && title.length > 0)
-            searchLocations({title})
-                .then(resp => resp.content)
-                .then(data => {
-                    setLocations(data)
-                })
-    }
-
-    return (
-        <Dialog onClose={ onCloseDialog } open={ showDialog }>
-            <DialogTitle>Filtrar Localizações</DialogTitle>
-            <DialogContent>
-                <TextField
-                    label="Localicação"
-                    value={ title }
-                    onChange={ e => setTitle(e.target.value) }
-                    onKeyUp={ e => { if(e.key === "Enter") filter() }}
-                    />
-                
-                <Typography component="p">Resultado da Busca</Typography>
-                <List>
-                    {locations.map((location) => (
-                    <ListItem button onClick={() => onSelect(location)} key={location.id}>
-                        <ListItemText 
-                            primary={location.title} 
-                            secondary={location.notes}/>
-                    </ListItem>
-                    ))}
-                </List>
-            </DialogContent>
-        </Dialog>
-      );
-}
-
 function ModelFilterDialog({ showDialog, onCloseDialog, onSelect }) {
     const [title, setTitle] = useState("")
     const [brand, setBrand] = useState("")
@@ -187,4 +148,4 @@ function InvoiceFilterDialog({ showDialog, onCloseDialog, onSelect }) {
       );
 }
 
-export { LocationFilterDialog, ModelFilterDialog, ContractFilterDialog, InvoiceFilterDialog }
+export { ModelFilterDialog, ContractFilterDialog, InvoiceFilterDialog }
