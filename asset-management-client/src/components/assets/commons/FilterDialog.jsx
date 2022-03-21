@@ -8,49 +8,6 @@ import { searchInvoices } from '../../../adapters/invoices';
 
 import SearchIcon from '@material-ui/icons/Search';
 
-function OwnerFilterDialog({ showDialog, onCloseDialog, onSelect }) {
-    const [name, setName] = useState("")
-    const [users, setUsers] = useState([])
-
-    const filter = () => {
-        if (name && name.length > 0)
-            var searchParams = {
-                name,
-                notStatus: "INACTIVE"
-            }
-            searchUsers(searchParams)
-                .then(resp => resp.content)
-                .then(data => {
-                    setUsers(data)
-                })
-    }
-
-    return (
-        <Dialog onClose={ onCloseDialog } open={ showDialog }>
-            <DialogTitle>Filtrar Responsáveis</DialogTitle>
-            <DialogContent>
-                <TextField
-                    label="Nome"
-                    value={ name }
-                    onChange={ e => setName(e.target.value) }
-                    onKeyUp={ e => { if(e.key === "Enter") filter() }}
-                    />
-                
-                <Typography component="p">Resultado da Busca</Typography>
-                <List>
-                    {users.map((user) => (
-                    <ListItem button onClick={() => onSelect(user)} key={user.id}>
-                        <ListItemText 
-                            primary={user.name} 
-                            secondary={user.department}/>
-                    </ListItem>
-                    ))}
-                </List>
-            </DialogContent>
-        </Dialog>
-      );
-}
-
 function LocationFilterDialog({ showDialog, onCloseDialog, onSelect }) {
     const [title, setTitle] = useState("")
     const [locations, setLocations] = useState([])
@@ -230,4 +187,4 @@ function InvoiceFilterDialog({ showDialog, onCloseDialog, onSelect }) {
       );
 }
 
-export { OwnerFilterDialog, LocationFilterDialog, ModelFilterDialog, ContractFilterDialog, InvoiceFilterDialog }
+export { LocationFilterDialog, ModelFilterDialog, ContractFilterDialog, InvoiceFilterDialog }
