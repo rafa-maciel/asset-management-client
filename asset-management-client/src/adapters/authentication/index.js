@@ -4,6 +4,7 @@ export function authenticate(email, password) {
     const baseUrl = "/auth"
     return post(baseUrl, {email, password})
         .then(response => {
+            console.log(response)
             if (response.status === 200) {
                 storeTokenData(response.data)
                 return true
