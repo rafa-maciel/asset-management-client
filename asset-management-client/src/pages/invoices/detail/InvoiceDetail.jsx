@@ -1,8 +1,8 @@
 import React from 'react'
 import { Divider, Paper, Typography } from '@material-ui/core'
 import { useInvoiceDetailPageContext } from '../../../contexts/pages/invoices/details'
-import { InvoiceForm } from '../../../components/invoices/commons'
 import { FileDashboard } from '../../files'
+import { InvoiceInfo } from '../../../components/invoices/details'
 
 export default function InvoiceDetail() {
    const [ invoice ] = useInvoiceDetailPageContext()
@@ -12,10 +12,7 @@ export default function InvoiceDetail() {
         <Paper>
             <Typography variant='h4' component="div">Detalhes da Nota Fiscal</Typography>
 
-            <InvoiceForm
-                initialData={ invoice }
-                readonly={ true }
-                onSubmit={ e => null} />
+            <InvoiceInfo invoice={ invoice } />
 
             <Divider variant="middle" />
             <Typography variant='h6' component="div">Uploads</Typography>
