@@ -1,6 +1,6 @@
 import { Divider, Paper, Typography } from '@material-ui/core'
 import React from 'react'
-import { ContractForm } from '../../../components/contracts/commons'
+import { ContractInfo } from '../../../components/contracts/details'
 import { useContractDetailsPageContext } from '../../../contexts/pages/contracts/details'
 import { FileDashboard } from '../../files'
 
@@ -12,10 +12,7 @@ export default function ContractDetail() {
             <Paper>
                 <Typography variant='h4' component="div">Detalhes do Contrato</Typography>
 
-                <ContractForm
-                    initialData={ contract }
-                    readonly={ true }
-                    onSubmit={ e => null} />
+                <ContractInfo contract={contract} />
 
                 <Divider variant="middle" />
                 <Typography variant='h6' component="div">Uploads</Typography>
