@@ -9,9 +9,7 @@ function useContractDetailsPageContext() {
     useEffect(() => {
         if ( contractId )
             findContract(contractId)
-                .then(data => {
-                    console.log(data)
-                    setContract(data)})
+                .then(data => setContract(data))
     
          
     }, [ contractId ])
