@@ -34,11 +34,11 @@ export default function AssetForm({ onSubmit, initialData={}, saveErrors  }) {
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                        <FormNumberField control={ control } label="IMEI" name="imei" />
+                        <FormTextField control={ control } label="IMEI" name="imei" />
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                        <FormNumberField control={ control } label="CHIP" name="chipIdentification" />
+                        <FormTextField control={ control } label="CHIP" name="chipIdentification" />
                     </Grid>
 
                     <Grid item xs={12} sm={6}>

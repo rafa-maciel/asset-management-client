@@ -27,8 +27,8 @@ const schema = yup.object().shape({
         .string()
         .max(10, 'Este campo deve conter no máximo 10 caracteres'),
     imei: yup
-        .number()
-        .max(999999999999999, 'Este campo deve conter exatamente 15 caracteres'),
+        .string()
+        .max(20, 'Este campo deve conter no máximo 20 caracteres'),
     companyIdentification: yup
         .number()
         .max(999999, 'O número maximo permitido para esté campo é 999999'),
@@ -36,8 +36,8 @@ const schema = yup.object().shape({
         .string()
         .required('Este campo é obrigatório'),
     chipIdentification: yup
-        .number()
-        .max(999999999999999, 'Este campo deve conter exatamente 999999999999999 caracteres'),
+        .string()
+        .max(30, 'Este campo deve conter no máximo 30 caracteres'),
     lineIdentification: yup
         .string()
         .max(18, 'Este campo deve conter no máximo 18 caracteres'),
