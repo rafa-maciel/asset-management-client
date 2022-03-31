@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import XLSX from 'xlsx'
-import { importAssets } from "../../../../adapters/assets";
+import { checkAssetsBeforeImport, importAssets } from "../../../../adapters/assets";
 import { searchContracts } from "../../../../adapters/contract";
 import { searchInvoices } from "../../../../adapters/invoices";
 import { searchLocations } from "../../../../adapters/locations";
@@ -89,15 +89,19 @@ function useAssetImportForm(onSuccessImport) {
             var assetList = data
                 .filter((v, i) => i > 0 && v.length > 0) // // Ignore fist row HEADER and empty lines
                 .map((value, i) => {
-                    console.log(value)
                     return sheetLineToAssetJSON(value)
                 })
-                .map((asset, i) => checkForAssetErrorsFields(asset));
+                // TODO - check for type field errors before call the API
+                //.map((asset, i) => checkForAssetErrorsFields(asset));
 
-            Promise.all(assetList).then(values => {
-                setAssets(values)
-                setLoading(false)
-            })
+            checkAssetsBeforeImport(assetList)
+                .then(data => console.log(data))
+
+                // TODO - Set fields errors and valid assets
+            // Promise.all(assetList).then(values => {
+            //     setAssets(values)
+            //     setLoading(false)
+            // })
 
         }
     }, [ data ])
@@ -203,23 +207,13 @@ const sheetLineToAssetJSON = value => {
         'endOfWarranty': value[4],
         'companyIdentification': value[5],
         'status': value[6],
-        'owner': {
-            're': value[7]
-        },
-        'location': {
-            'title': value[8]
-        },
-        'model': {
-            'title': value[9]
-        },
+        'ownerRe': value[7],
+        'locationTitle': value[8],
+        'modelTitle': value[9],
         'chipIdentification': value[10],
         'lineIdentification': value[11],
-        'contract': {
-            'number': value[12],
-        },
-        'invoice': {
-            'number': value[13],
-        }
+        'contractNumber': value[12],
+        'invoiceNumber': value[13]
     }
 }
 
