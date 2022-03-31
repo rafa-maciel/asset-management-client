@@ -66,3 +66,17 @@ export function importAssets(assets) {
             throw new Error('API endpoint error')
         })
 }
+
+
+export function checkAssetsBeforeImport(assets) {
+    var url = "/assets/import/validate"
+    return post(url, assets)
+        .then(resp => {
+            if (resp.status === 200) {
+                return resp.data
+            } 
+            console.log(resp)
+            throw new Error('API endpoint error')
+        })
+}
+
