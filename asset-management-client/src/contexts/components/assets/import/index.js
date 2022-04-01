@@ -7,10 +7,15 @@ import { searchInvoices } from "../../../../adapters/invoices";
 import { searchLocations } from "../../../../adapters/locations";
 import { searchModels } from "../../../../adapters/models";
 import { searchUsers } from "../../../../adapters/user";
+import { assetImportSchema as schema } from "../../../../components/assets/import/validation";
+import { format } from 'date-fns'
+
+
 
 function useAssetImportForm(onSuccessImport) {
     const [file, setFile] = useState(null)
     const [data, setData] = useState([])
+    const [dataErrors, setDataErrors] = useState([])
     const [assets, setAssets] = useState(null)
     const [loading, setLoading] = useState(false)
     const history = useHistory()
@@ -85,117 +90,65 @@ function useAssetImportForm(onSuccessImport) {
     }, [ file, onSuccessImport ])
 
     useEffect(() => {
-        if (data.length > 0) {
-            var assetList = data
-                .filter((v, i) => i > 0 && v.length > 0) // // Ignore fist row HEADER and empty lines
-                .map((value, i) => {
-                    return sheetLineToAssetJSON(value)
-                })
-                // TODO - check for type field errors before call the API
-                //.map((asset, i) => checkForAssetErrorsFields(asset));
+        if (!data || data.length < 1) return null
+        const [validData, invalidData] = validateSheetData(data)
+        setDataErrors(invalidData)
 
-            checkAssetsBeforeImport(assetList)
-                .then(data => console.log(data))
-
-                // TODO - Set fields errors and valid assets
-            // Promise.all(assetList).then(values => {
-            //     setAssets(values)
-            //     setLoading(false)
-            // })
-
-        }
+        checkAssetsBeforeImport(validData)
+            .then(resp => {
+                console.log([...invalidData, ...resp.invalidAssets])
+                console.log([...resp.validAssets])
+            })
     }, [ data ])
 
     return [handleFiles, assets, removeAsset, importAssetToAPI, loading]
 }
 
-const checkForAssetErrorsFields = async (asset) => {
-    console.log(asset)
-    const errors = []
-
-    const isValidDate = date => {
-        var dateStrArr = date.split("/")
-        var dateParsed = new Date(dateStrArr[1] + "/" + dateStrArr[0] + "/" + dateStrArr[2])
-        console.log(dateParsed)
-        return (dateParsed !== "Invalid Date") && !isNaN(dateParsed);
+const convertAssetAttr = (assetData) => {
+    const statusEnum = {
+        Ativo: 'ACTIVE',
+        'No Estoque': 'IN_STOCK',
+        Quebrado: 'BROKEN', 
+        Emprestado: 'LOANED',
+        Retirado: 'RETIRED'
     }
 
-    if (!asset.owner.re || asset.owner.re < 1) {
-        errors.push('O RE do responsável não é valido')
-    } else {
-        var userSearch = await searchUsers({ 're':asset.owner.re })
-        if (userSearch.content[0]) {
-            asset.owner = userSearch.content[0]
-            asset.ownerId = asset.owner.id
-        } else
-            errors.push('Não foi encontrado um responsável com este re')
-    }
+    assetData['status'] = statusEnum[assetData.statusLabel]
+    return assetData
+}
 
-    if (!asset.location.title || asset.location.title.length < 2 || asset.location.title.length > 30) {
-        errors.push('O Titulo da localização não é valido')
-    } else {
-        var locSearch = await searchLocations({ 'title':asset.location.title })
-        if (locSearch.content[0]) {
-            asset.location = locSearch.content[0]
-            asset.locationId = asset.location.id
-        } else
-            errors.push('Não foi encontrado uma localização com este titulo')
-    }
+const validateSheetData = (data) => {
+    var validData = []
+    var invalidData = []
 
-    if (!asset.model.title || asset.model.title.length < 2 || asset.model.title.length > 30) {
-        errors.push('O Titulo do modelo não é valido')
-    } else {
-        var modSearch = await searchModels({ 'title':asset.model.title })
-        if (modSearch.content[0] ) {
-            asset.model = modSearch.content[0]
-            asset.modelId = asset.model.id
-        } else
-            errors.push('Não foi encontrado um modelo com este titulo')
-    }
+    data
+        .filter((v, i) => i > 0 && v.length > 0) // // Ignore fist row HEADER and empty lines
+        .map((value, i) => sheetLineToAssetJSON(value)) // Format data to JSON
+        .map(assetData => { // check for valid or invalid fields
+            try {
+                return schema.validateSync(assetData, { abortEarly: false })
+            } catch ( errors ) {
+                const listErrors = []
 
-    if (asset.contract.number) {
-        var contractContent = await searchContracts({ 'number': asset.contract.number })
-        if (contractContent.content[0]) {
-            asset.contract = contractContent.content[0]
-            asset.contractId = asset.contract.id
-        } else {
-            errors.push('Não foi encontrado um contrato com este número')
-        }
-    }
+                errors.inner.forEach(({ errors, path, value}) => {
+                    listErrors.push({
+                        name: path,
+                        message: errors[0]
+                    })
+                })
 
-    if (asset.invoice.number) {
-        var invoiceContent = await searchInvoices({ 'number': asset.invoice.number })
-        if (invoiceContent.content[0]) {
-            asset.invoice = invoiceContent.content[0]
-            asset.invoiceId = asset.invoice.id
-        } else {
-            errors.push('Não foi encontrado uma nota fiscal com este número')
-        }
-    }
+                assetData.fieldErrors = listErrors
+                return assetData
+            }
+        }).forEach(assetData => {
+            if ("fieldErrors" in assetData)
+                invalidData = [...invalidData, assetData]
+            else 
+                validData = [...validData, assetData]
+        })
 
-    if (asset.companyIdentification.length > 60)
-        errors.push('A Identificação do ativo não é valido')
     
-    var validStatus = ['ACTIVE', 'DISABLE', 'DESTROYED', 'BROKEN', 'RETIRED']
-    if (!asset.status || !validStatus.includes(asset.status))
-        errors.push('O campo status não é valido | status validos ' + validStatus.toString())
-    
-    if (asset.chipIdentification && asset.chipIdentification.length > 60)
-        errors.push('A identificação do chip não é valida')
-    
-    if (asset.lineIdentification && asset.lineIdentification.length > 60)
-        errors.push('A Linha do chip não é valida')
-    
-    if (asset.endOfWarranty && !isValidDate(asset.endOfWarranty)) {
-        errors.push('A data de final de garantia não é valida')
-    }
-
-    console.log(asset.endOfWarranty)
-
-
-    asset.errors = errors
-
-    return asset
+    return [ validData, invalidData ]
 }
 
 const sheetLineToAssetJSON = value => {
