@@ -1,14 +1,35 @@
+import React, { useState } from 'react'
 import { Button, CircularProgress, Grid, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import React from 'react'
 
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import './style.css'
 import { useAssetImportForm } from '../../../contexts/components/assets/import';
+import { InvalidAssetsDataModal } from './';
 
 export default function AssetImportForm() {
-    const [onChangeFile, assets, removeAsset, importAssetToApi, loading] = useAssetImportForm()
+    const [onChangeFile, assets, removeAsset, importAssetToApi, loading, dataErrors] = useAssetImportForm()
+    const [ showDataErrors, setShowDataErrors ] = useState(false)
+
+    const AlertDataErrors = () => {
+        if (!loading && dataErrors && dataErrors.length > 0) {
+            return (
+                <Grid item xs={12}>
+                    <Alert variant="filled" severity="warning"
+                        action={
+                            <Button color="inherit" size="small" onClick={() => setShowDataErrors(true)}>
+                                Ver
+                            </Button>
+                        }>
+                        { dataErrors.length } ativos estão com dados incorretos e não foram importados                        
+                    </Alert>
+                </Grid>
+            )
+        }
+
+        return null;
+    }
 
     const ActionImportButton = () => {
         if (loading) {
@@ -51,6 +72,7 @@ export default function AssetImportForm() {
                         Dica: para informações detalhadas de cada campo, olhar na aba "informações" da planilha de exemplo <br />
                         <a href="/files/Importar_Ativos_exemplo.xlsx">Baixar planilha modelo</a>
                     </Alert>
+                    <AlertDataErrors />
                 </Grid>
                 <Grid item>
                     <ActionImportButton />
@@ -59,6 +81,8 @@ export default function AssetImportForm() {
                     <AssetDataTable data={ assets } deleteLine={ removeAsset }/>
                     { loading && <CircularProgress /> }
                 </Grid>
+
+                <InvalidAssetsDataModal showDialog={showDataErrors} onClose={() => setShowDataErrors(false)} data={ dataErrors }/>
             </Grid>
             
         </>
@@ -104,11 +128,6 @@ function AssetDataTable({ data, deleteLine }) {
                             <TableCell align="right" component="th">{row.lineIdentification }</TableCell>
                             <TableCell align="right" component="th">{row.contract.vendor ? row.contract.vendor : row.contract.number}</TableCell>
                             <TableCell align="right" component="th">{row.invoice.vendor ? row.invoice.vendor : row.invoice.number}</TableCell>
-                            <TableCell align="right">
-                                <ul>
-                                    {row.errors.map((item, index) => <li key={index}>{item}</li>)}
-                                </ul>
-                            </TableCell>
                             <TableCell align="right">
                                 <IconButton aria-label="delete" onClick={e => {deleteLine(index)}}>
                                     <DeleteIcon />

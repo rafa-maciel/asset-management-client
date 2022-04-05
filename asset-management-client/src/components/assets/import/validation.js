@@ -30,13 +30,13 @@ const schema = yup.object().shape({
         .number()
         .typeError("O RE do responsável dever ser númerico")
         .min(1, 'Este usuário não é valido')
-        .required('Este campo é obrigatório'),
+        .required('O RE é obrigatório'),
     locationTitle: yup
         .string()
-        .required('Este campo é obrigatório'),
+        .required('O titulo da localização é obrigatório'),
     modelTitle: yup
         .string()
-        .required('Este campo é obrigatório'),
+        .required('O titulo do modelo é obrigatório'),
     contractNumber: yup
         .string(),
     invoiceNumber: yup
@@ -44,31 +44,31 @@ const schema = yup.object().shape({
         .typeError("O número de nota fiscal dever ser númerico"),
     hostname: yup
         .string()
-        .max(30, 'Este campo deve conter no máximo 30 caracteres'),
+        .max(30, 'O hostname deve conter no máximo 30 caracteres'),
     serialNumber: yup
         .string()
-        .max(50, 'Este campo deve conter no máximo 50 caracteres'),
+        .max(50, 'O Número de Série deve conter no máximo 50 caracteres'),
     tag: yup
         .string()
-        .max(10, 'Este campo deve conter no máximo 10 caracteres'),
+        .max(10, 'A TAG deve conter no máximo 10 caracteres'),
     imei: yup
         .string()
-        .max(20, 'Este campo deve conter no máximo 20 caracteres'),
+        .max(20, 'O IMEI deve conter no máximo 20 caracteres'),
     companyIdentification: yup
         .number()
         .typeError("O Ativo dever ser númerico")
-        .max(999999, 'O número maximo permitido para esté campo é 999999'),
+        .max(999999, 'O número maximo permitido para o Ativo é 999999'),
     status: yup
         .string()
         .transform(convertStatusLabel)
         .oneOf(['ACTIVE', 'IN_STOCK', 'BROKEN', 'LOANED', 'RETIRED'], 'Opção de status não valida')
-        .required('Este campo é obrigatório'),
+        .required('O Status é obrigatório'),
     chipIdentification: yup
         .string()
-        .max(30, 'Este campo deve conter no máximo 30 caracteres'),
+        .max(30, 'O chip deve conter no máximo 30 caracteres'),
     lineIdentification: yup
         .string()
-        .max(18, 'Este campo deve conter no máximo 18 caracteres'),
+        .max(18, 'A linha deve conter no máximo 18 caracteres'),
     endOfWarranty: yup
         .string()
         .dateString("Formato de data invalido")

@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import XLSX from 'xlsx'
 import { checkAssetsBeforeImport, importAssets } from "../../../../adapters/assets";
-import { searchContracts } from "../../../../adapters/contract";
-import { searchInvoices } from "../../../../adapters/invoices";
-import { searchLocations } from "../../../../adapters/locations";
-import { searchModels } from "../../../../adapters/models";
-import { searchUsers } from "../../../../adapters/user";
 import { assetImportSchema as schema } from "../../../../components/assets/import/validation";
-import { format } from 'date-fns'
 
 
 
@@ -35,18 +29,7 @@ function useAssetImportForm(onSuccessImport) {
     }
 
     const importAssetToAPI = () => {
-        var assetsWithoutErrors = assets
-            .filter(asset => asset.errors.length === 0)
-            .map((asset, i) => {
-                var dateStrArr = asset.endOfWarranty.split("/")
-                var dateParsed = new Date(dateStrArr[1] + "/" + dateStrArr[0] + "/" + dateStrArr[2])
-                asset.endOfWarranty = dateParsed
-
-                return asset
-            })
-
-        console.log(assetsWithoutErrors)
-        importAssets(assetsWithoutErrors)
+        importAssets(assets)
             .then(resp => {
                 console.log(resp)
                 redirectToList()
@@ -92,29 +75,17 @@ function useAssetImportForm(onSuccessImport) {
     useEffect(() => {
         if (!data || data.length < 1) return null
         const [validData, invalidData] = validateSheetData(data)
-        setDataErrors(invalidData)
-
+        
         checkAssetsBeforeImport(validData)
             .then(resp => {
-                console.log([...invalidData, ...resp.invalidAssets])
-                console.log([...resp.validAssets])
+                setDataErrors([...invalidData, ...resp.invalidAssets])
+                setAssets([...resp.validAssets])
+                setLoading(false)
+                
             })
     }, [ data ])
 
-    return [handleFiles, assets, removeAsset, importAssetToAPI, loading]
-}
-
-const convertAssetAttr = (assetData) => {
-    const statusEnum = {
-        Ativo: 'ACTIVE',
-        'No Estoque': 'IN_STOCK',
-        Quebrado: 'BROKEN', 
-        Emprestado: 'LOANED',
-        Retirado: 'RETIRED'
-    }
-
-    assetData['status'] = statusEnum[assetData.statusLabel]
-    return assetData
+    return [handleFiles, assets, removeAsset, importAssetToAPI, loading, dataErrors]
 }
 
 const validateSheetData = (data) => {
