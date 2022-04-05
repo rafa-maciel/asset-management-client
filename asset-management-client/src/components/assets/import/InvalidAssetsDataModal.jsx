@@ -4,6 +4,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import CloseIcon from '@material-ui/icons/Close';
 
+import './css/invalidAssetsDataModal/style.css'
+
 export default function InvalidAssetsDataModal({ showDialog, onClose, data }) {
     useEffect(() => {console.log(data)}, [data])
 
@@ -28,7 +30,7 @@ export default function InvalidAssetsDataModal({ showDialog, onClose, data }) {
 
 function AssetDataTable({ data, deleteLine }) {
     return (
-        <TableContainer>
+        <TableContainer className="modal-content">
             <Table size="small">
                 <TableHead>
                     <TableRow>
@@ -46,11 +48,12 @@ function AssetDataTable({ data, deleteLine }) {
                         <TableCell>Linha</TableCell>
                         <TableCell>Contrato</TableCell>
                         <TableCell>Nota Fiscal</TableCell>
+                        <TableCell>Erros</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     { data ? data.map((row, index) => (
-                        <TableRow key={index} style={row && row.errors && row.errors.length ? {background: '#FF7F7F'} : null}>
+                        <TableRow key={index}>
                             <TableCell align="right" component="th">{row.serialNumber}</TableCell>
                             <TableCell align="right" component="th">{row.hostname}</TableCell>
                             <TableCell align="right" component="th">{row.tag}</TableCell>
@@ -65,7 +68,7 @@ function AssetDataTable({ data, deleteLine }) {
                             <TableCell align="right" component="th">{row.lineIdentification }</TableCell>
                             <TableCell align="right" component="th">{row.contract ? row.contract.vendor : row.contractNumber }</TableCell>
                             <TableCell align="right" component="th">{row.invoice ? row.invoice.vendor : row.invoiceNumber}</TableCell>
-                            <TableCell align="right" component="th">    
+                            <TableCell align="right" component="th" className='errors-message'>    
                                 { row && row.fieldErrors ? row.fieldErrors.map((error, index) => (
                                     <p>
                                         { error.message }

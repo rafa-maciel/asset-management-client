@@ -31,7 +31,6 @@ function useAssetImportForm(onSuccessImport) {
     const importAssetToAPI = () => {
         importAssets(assets)
             .then(resp => {
-                console.log(resp)
                 redirectToList()
             })
     }
@@ -75,7 +74,7 @@ function useAssetImportForm(onSuccessImport) {
     useEffect(() => {
         if (!data || data.length < 1) return null
         const [validData, invalidData] = validateSheetData(data)
-        
+
         checkAssetsBeforeImport(validData)
             .then(resp => {
                 setDataErrors([...invalidData, ...resp.invalidAssets])
