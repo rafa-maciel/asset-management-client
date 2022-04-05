@@ -13,6 +13,7 @@ function FormTextField({ name, label, control}) {
         <Controller
             name={ name }
             control={ control }
+            defaultValue=""
             render={ ({ field: { onChange, value}, fieldState: { error } }) => (
                 <TextField
                     InputLabelProps={{ shrink: true }}
@@ -32,6 +33,7 @@ function FormDateField({ name, label, control}) {
         <Controller
             name={ name }
             control={ control }
+            defaultValue=""
             render={ ({ field: { onChange, value }, fieldState: { error } }) => (
                 <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptBR}>
                     <DatePicker 
@@ -52,6 +54,7 @@ function FormNumberField({ name, label, control}) {
         <Controller
             name={ name }
             control={ control }
+            defaultValue=""
             render={ ({ field: { onChange, value}, fieldState: { error } }) => (
                 <TextField
                     InputLabelProps={{ shrink: true }}
@@ -74,6 +77,7 @@ function FormCNPJMaskField({ name, label, control }) {
         <FormControl fullWidth >
             <InputLabel id={ labelId } shrink>{ label }</InputLabel>
             <Controller
+                defaultValue=""
                 name={ name }
                 control={ control }
                 render={ ({ field: { onChange, value}, fieldState: { error } }) => (
