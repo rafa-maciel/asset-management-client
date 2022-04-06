@@ -7,11 +7,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useAssetFilterForm } from '../../../contexts/components/assets/list/filterForm';
 import { FormCNPJMaskField, FormDateField, FormNumberField, FormSelectField, FormTextField } from '../../commons/forms/fields/FormFields';
 
+import "./css/assetFilterForm/style.css"
+
 export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilter }) {
     const [ handleSubmit, control, reset ] = useAssetFilterForm()
 
     return (
-        <Dialog open={ showFilter } onClose={ onCloseFilter }>
+        <Dialog open={ showFilter } onClose={ onCloseFilter } fullScreen={true}>
             <AppBar>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" onClick={ () => { onCloseFilter()}} aria-label="close">
@@ -22,7 +24,7 @@ export default function AssetFilterForm({ onFormSubmit, showFilter, onCloseFilte
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <DialogContent>
+            <DialogContent className='dialog-content'>
                 <form onSubmit={ handleSubmit(onFormSubmit) }>
                     <Grid container spacing={3}>
                         <Grid item md={6}>
