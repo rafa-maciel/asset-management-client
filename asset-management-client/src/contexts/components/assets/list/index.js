@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { searchAssets } from "../../../../adapters/assets"
+import { fastSearchAssets, searchAssets } from "../../../../adapters/assets"
 import { formatAssetStatus } from "../../../../utils/asset/conversors"
 import { useTablePageable } from "../../../commons/useTablePageable"
 
@@ -7,6 +7,7 @@ function useAssetTableContext( onFilterError ) {
     const [ assets, setAssets ] = useState(null)
     const [ filterParams, setFilterParams ] = useState(null)
     const [ page, setPage ] = useState(null)
+    const [ fastSearch, setFastSearch ] = useState(false)
 
     const [rowsPerPage, currentPage, changeRowsPerPage, changePage] = useTablePageable()
 
@@ -16,7 +17,9 @@ function useAssetTableContext( onFilterError ) {
             filterParams['page'] = currentPage
         }
 
-        searchAssets(filterParams)
+        var query = fastSearch ? fastSearchAssets(filterParams) : searchAssets(filterParams)
+
+        query
             .then( searchContent => onSearchSuccess(searchContent))
             .catch( error => {
                 console.log(error)
@@ -53,7 +56,14 @@ function useAssetTableContext( onFilterError ) {
 
     const changeFilterParams = params => {
         changePage(0)
+        setFastSearch(false)
         setFilterParams(params)
+    }
+
+    const handleFastSearch = param => {
+        changePage(0)
+        setFastSearch(true)
+        setFilterParams({parameter: param})
     }
 
     const pagination = {
@@ -80,7 +90,7 @@ function useAssetTableContext( onFilterError ) {
         { 'numeric': false, 'label' : 'Status '},
     ]
 
-    return [ assets, changeFilterParams, pagination, tableHeaders ]
+    return [ assets, changeFilterParams, pagination, tableHeaders, handleFastSearch ]
 }
 
 export { useAssetTableContext }

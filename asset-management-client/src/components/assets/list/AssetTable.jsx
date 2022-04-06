@@ -5,7 +5,7 @@ import TableSelection from '../../commons/tables/TableSelection';
 
 
 export default function AssetTable({ onError }) {
-    const [ assets, changeFilterParams, pagination, tableHeaders ] = useAssetTableContext(onError)
+    const [ assets, changeFilterParams, pagination, tableHeaders, handleFastSearch ] = useAssetTableContext(onError)
     const [ showFilter, setShowFilter ] = useState(false)
 
     const handleFilterForm = data => {
@@ -19,7 +19,9 @@ export default function AssetTable({ onError }) {
         create: '/assets/create',
         details: '/assets/detail',
         import: '/assets/import',
-        onFilterClick: e => setShowFilter(true)
+        onFilterClick: e => setShowFilter(true),
+        fastSearch: true,
+        onFastSearchClick: parameter => handleFastSearch(parameter)
     }
 
 

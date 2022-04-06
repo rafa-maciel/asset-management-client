@@ -1,5 +1,5 @@
 import React, { useState }  from "react";
-import { Checkbox, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, Toolbar, Tooltip, Typography } from "@material-ui/core";
+import { Checkbox, Grid, IconButton, InputBase, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, Toolbar, Tooltip, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -8,11 +8,13 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import EditIcon from '@material-ui/icons/Edit';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import SearchIcon from '@material-ui/icons/Search';
 
 import './style.css'
 
 export default function TableSelection({ tableTitle, tableHeaders, tableRows, pagination, actionPaths }) {
     const [ selectedItems, setSelectedItems ] = useState([])
+    const [ fastParameter, setFastParameter ] = useState("")
 
     const isSelected = id => selectedItems.indexOf(id) !== -1
 
@@ -39,7 +41,13 @@ export default function TableSelection({ tableTitle, tableHeaders, tableRows, pa
     return (
         <>
             <Paper>
-                <TableToolbar numSelected={ selectedItems.length } tableTitle={ tableTitle } actionPaths={ actionPaths } selected={ selectedItems[0] }/>
+                <TableToolbar 
+                    numSelected={ selectedItems.length } 
+                    tableTitle={ tableTitle } 
+                    actionPaths={ actionPaths } 
+                    selected={ selectedItems[0] }
+                    fastParameter={fastParameter}
+                    setFastParameter={setFastParameter} />
                 <TableContainer>
                     <Table >
                         <TableHeader data={ tableHeaders } />
@@ -94,7 +102,7 @@ export default function TableSelection({ tableTitle, tableHeaders, tableRows, pa
     )
 }
 
-const TableToolbar = ({ numSelected, tableTitle, actionPaths, selected }) => {
+const TableToolbar = ({ numSelected, tableTitle, actionPaths, selected, fastParameter, setFastParameter }) => {
     function hasDetailsOption(details) {
         if (details) {
             return (
@@ -133,6 +141,21 @@ const TableToolbar = ({ numSelected, tableTitle, actionPaths, selected }) => {
         return null
     }
     
+    function hasFastSearchOption(fastSearch) {
+        if (fastSearch) {
+            return (
+                <Paper style={{display:"flex", width:"400px"}}>
+                    <InputBase style={{width:"400px", padding:"3px"}}
+                    value={fastParameter}
+                        placeholder="Pesquisa por Hostname, Responsável, SN, TAG"
+                        inputProps={{ 'aria-label': 'pesquisa rapida' }} onChange={ e => setFastParameter(e.target.value)}/>
+                    <IconButton type="button" aria-label="search" onClick={ () => actionPaths.onFastSearchClick(fastParameter) } style={{flex:"max-content"}}>
+                        <SearchIcon />
+                    </IconButton>
+                </Paper>
+            )
+        }
+    }
 
     return (
         <Toolbar>   
@@ -143,9 +166,12 @@ const TableToolbar = ({ numSelected, tableTitle, actionPaths, selected }) => {
                             { numSelected } items selecionados
                         </Typography>
                     ) : (
-                        <Typography variant="h4" component="div">
-                            { tableTitle }
-                        </Typography>
+                        <>
+                            <Typography variant="h4" component="div">
+                                { tableTitle }
+                            </Typography>
+                            { hasFastSearchOption( actionPaths.fastSearch )}
+                        </>
                     )}
                 </Grid>
                 <Grid item xs={2}>

@@ -7,6 +7,12 @@ export function searchAssets( params ) {
         .then(data => new SearchContent(data))
 }
 
+export function fastSearchAssets( params ) {
+    return search("/assets/fast-search", params)
+        .then(data => new SearchContent(data))
+}
+
+
 export function createNewAsset( asset ) {
     return post('/assets', asset)
         .then(resp => {
