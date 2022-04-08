@@ -126,8 +126,8 @@ function AssetDataTable({ data, deleteLine }) {
                             <TableCell align="right" component="th">{row.model.title }</TableCell>
                             <TableCell align="right" component="th">{row.chipIdentification }</TableCell>
                             <TableCell align="right" component="th">{row.lineIdentification }</TableCell>
-                            <TableCell align="right" component="th">{row.contract.vendor ? row.contract.vendor : row.contract.number}</TableCell>
-                            <TableCell align="right" component="th">{row.invoice.vendor ? row.invoice.vendor : row.invoice.number}</TableCell>
+                            <TableCell align="right" component="th">{row.contract ? row.contract.vendor : null }</TableCell>
+                            <TableCell align="right" component="th">{row.invoice ? row.invoice.vendor : null }</TableCell>
                             <TableCell align="right">
                                 <IconButton aria-label="delete" onClick={e => {deleteLine(index)}}>
                                     <DeleteIcon />
